@@ -16,7 +16,7 @@ public class Ship extends Entity {
     private final float height = 10f;
     private final float bounce = -0.8f; // 80% of original speed
 
-    float xSpeed, ySpeed, xVal, yVal, aVal;
+    float xSpeed, ySpeed, xVal, yVal, aVal = -90;
 
     static private Bitmap bitmap;
 
@@ -43,8 +43,8 @@ public class Ship extends Entity {
         }
 
         if (left && right) { // accelerate
-            xSpeed += acceleration * Math.sin(Math.toRadians(aVal));
-            ySpeed -= acceleration * Math.cos(Math.toRadians(aVal));
+            xSpeed += acceleration * Math.cos(Math.toRadians(aVal));
+            ySpeed += acceleration * Math.sin(Math.toRadians(aVal));
         }
         else if (left) {
             aVal -= rotationSpeed;
