@@ -9,7 +9,8 @@ import nl.saxion.playground.template.R;
 
 public class Rock extends Entity {
 
-    float xSpeed, ySpeed, aSpeed, xVal, yVal, aVal, size;
+    private float xSpeed, ySpeed, aSpeed, aVal;
+    float xVal, yVal, size;
 
     static private Bitmap bitmap;
 
@@ -45,7 +46,6 @@ public class Rock extends Entity {
             xVal = (float)Math.random() * game.getWidth();
             xSpeed = 0.2f * (float)Math.random() - 0.1f;
         }
-
     }
 
     @Override
@@ -55,8 +55,22 @@ public class Rock extends Entity {
         aVal += aSpeed;
 
         // Remove after exiting the screen
-        if (xSpeed < 0 ? xVal<-size : xVal>game.getWidth()+size) game.removeEntity(this);
-        else if (ySpeed < 0 ? yVal<-size : yVal>game.getHeight()+size) game.removeEntity(this);
+        if (outOfBounds()) game.removeEntity(this);
+    }
+
+    private boolean outOfBounds() {
+
+        if (xSpeed < 0) {
+            if (xVal < -size) return true;
+        } else {
+            if (xVal > game.getWidth() + size) return true;
+        }
+
+        if (ySpeed < 0) {
+            return yVal < -size;
+        } else {
+            return yVal > game.getHeight() + size;
+        }
     }
 
     @Override
