@@ -50,9 +50,6 @@ public class GameView extends View implements View.OnTouchListener {
     // When set to 0, the game is paused.
     private transient double lastTickTime = 0;
 
-    // `true` after `start()` has been called.
-    private boolean started = false;
-
 
     public GameView(Context context) {
         super(context);
@@ -240,8 +237,8 @@ public class GameView extends View implements View.OnTouchListener {
         if (viewMatrix == null) calculateMatrices();
 
         // Call `start()` once, before the first draw but after widths/heights have been calculated.
-        if (!started) {
-            started = true;
+        if (!gameModel.started) {
+            gameModel.started = true;
             gameModel.start();
         }
 

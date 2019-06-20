@@ -18,6 +18,10 @@ public class GameModel implements Serializable {
     // The ordered list of active game entities.
     SafeTreeSet<Entity> entities = new SafeTreeSet<>();
 
+    // `true` after `start()` has been called.
+    boolean started = false;
+
+
     /**
      * The list of current touches. For each update, `Entity.handleTouch` is called.
      * But `Entity.tick` (and others) are free to manually inspect (or even edit)
