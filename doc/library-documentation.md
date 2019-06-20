@@ -9,7 +9,6 @@ This document describes how to use this library.
 
 This document is written in Markdown using PlantUML for diagrams. To view and edit it from within Android Studio, install the 'Markdown Navigator' plugin.
 
-
 ### Features and scope
 
 The provided library and examples demonstrate how to:

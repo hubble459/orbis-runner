@@ -3,6 +3,7 @@ package nl.saxion.playground.template.lib;
 import android.view.MotionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class GameModel implements Serializable {
@@ -18,9 +19,11 @@ public class GameModel implements Serializable {
     // The ordered list of active game entities.
     SafeTreeSet<Entity> entities = new SafeTreeSet<>();
 
+    // A list of Entites per class type. Entities are also added to their superclasses (not including Entity itself).
+    private HashMap<Class,ArrayList<Entity>> entitiesByType = new HashMap<>();
+
     // `true` after `start()` has been called.
     boolean started = false;
-
 
     /**
      * The list of current touches. For each update, `Entity.handleTouch` is called.
@@ -64,12 +67,23 @@ public class GameModel implements Serializable {
      */
     public void start() {}
 
+
     /**
      * Add a game entity to the list.
      * @param entity The entity to be added.
      */
     public void addEntity(Entity entity) {
         entities.add(entity);
+        // For entity class and each super class up til but not including Entity,
+        // add the entity to the right entitiesByType array.
+        for(Class cls = entity.getClass(); cls != Entity.class; cls = cls.getSuperclass()) {
+            ArrayList<Entity> list = entitiesByType.get(entity.getClass());
+            if (list == null) {
+                list = new ArrayList<>();
+                entitiesByType.put(entity.getClass(), list);
+            }
+            list.add(entity);
+        }
     }
 
     /**
@@ -78,6 +92,11 @@ public class GameModel implements Serializable {
      */
     public void removeEntity(Entity entity) {
         entities.remove(entity);
+        // For entity class and each super class up til but not including Entity,
+        // remove the entity to the right entitiesByType array.
+        for(Class cls = entity.getClass(); cls != Entity.class; cls = cls.getSuperclass()) {
+            entitiesByType.get(cls).remove(entity);
+        }
     }
 
     /**
@@ -87,13 +106,9 @@ public class GameModel implements Serializable {
      * @return The list of entities of the specified class.
      */
     public <T extends Entity> ArrayList<T> getEntities(Class<T> type) {
-        ArrayList<T> results = new ArrayList<>();
-        for(Entity obj : entities) {
-            if (type.isInstance(obj)) {
-                results.add(type.cast(obj));
-            }
-        }
-        return results;
+        @SuppressWarnings("unchecked")
+        ArrayList<T> list = (ArrayList<T>)entitiesByType.get(type);
+        return list==null ? new ArrayList<T>() : list;
     }
 
     /**
@@ -102,12 +117,10 @@ public class GameModel implements Serializable {
      * @return A single entity (the first) of the specified type, or null (if none are found).
      */
     public <T extends Entity> T getEntity(Class<T> type) {
-        for(Entity obj : entities) {
-            if (type.isInstance(obj)) {
-                return type.cast(obj);
-            }
-        }
-        return null;
+        @SuppressWarnings("unchecked")
+        ArrayList<T> list = (ArrayList<T>)entitiesByType.get(type);
+        if (list.size()==0) return null;
+        return list.get(0);
     }
 
     // See if any game objects are interested in handling this click immediately.
