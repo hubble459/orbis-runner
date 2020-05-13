@@ -2,10 +2,10 @@ package nl.saxion.playground.template.spaceshooter;
 
 import android.graphics.Bitmap;
 
+import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.template.lib.Entity;
-import nl.saxion.playground.template.lib.GameView;
-import nl.saxion.playground.template.R;
 import nl.saxion.playground.template.lib.GameModel;
+import nl.saxion.playground.template.lib.GameView;
 
 public class Ship extends Entity {
 

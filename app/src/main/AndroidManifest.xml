@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="nl.saxion.playground.template">
+    package="nl.saxion.playground.orbisrunner">
 
     <application
         android:allowBackup="true"
@@ -9,17 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="nl.saxion.playground.template.MainActivity">
+        <activity android:name="nl.saxion.playground.TestingMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="nl.saxion.playground.template.spaceshooter.Activity">
-        </activity>
-        <activity android:name="nl.saxion.playground.template.platformer.Activity">
-        </activity>
+        <activity android:name="nl.saxion.playground.template.TemplateActivity" />
+        <activity android:name="nl.saxion.playground.template.spaceshooter.Activity" />
+        <activity android:name="nl.saxion.playground.template.platformer.Activity" />
     </application>
 
 </manifest>

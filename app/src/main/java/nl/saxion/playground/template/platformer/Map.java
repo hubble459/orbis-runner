@@ -2,9 +2,9 @@ package nl.saxion.playground.template.platformer;
 
 import android.graphics.Bitmap;
 
+import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.template.lib.Entity;
 import nl.saxion.playground.template.lib.GameView;
-import nl.saxion.playground.template.R;
 
 public class Map extends Entity {
 
@@ -81,7 +81,7 @@ public class Map extends Entity {
                     // Load/decode bitmaps before we first draw them.
                     spriteBitmaps[tile] = gv.getBitmapFromResource(spriteResourceIds[tile]);
                 }
-                gv.drawBitmap(spriteBitmaps[tile], (float) x - scrollX, (float) game.getHeight() - y - 1, 1, 1);
+                gv.drawBitmap(spriteBitmaps[tile], (float) x - scrollX, game.getHeight() - y - 1, 1, 1);
             }
         }
     }

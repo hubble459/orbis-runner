@@ -1,16 +1,17 @@
 package nl.saxion.playground.template;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import nl.saxion.playground.template.lib.GameView;
+import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.template.lib.GameModel;
-import nl.saxion.playground.template.spaceshooter.Game;
+import nl.saxion.playground.template.lib.GameView;
 import nl.saxion.playground.template.spaceshooter.Activity;
+import nl.saxion.playground.template.spaceshooter.Game;
 
-public class MainActivity extends AppCompatActivity {
+public class TemplateActivity extends AppCompatActivity {
 
     GameView spaceShooterCanvas, platformerCanvas;
     GameModel spaceShooter, platformer;
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.template_activity_main);
 
         spaceShooterCanvas = findViewById(R.id.spaceShooter);
         spaceShooter = new Game();
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.spaceShooterText).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Activity.class));
+                startActivity(new Intent(TemplateActivity.this, Activity.class));
             }
         });
 
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.platformerText).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, nl.saxion.playground.template.platformer.Activity.class));
+                startActivity(new Intent(TemplateActivity.this, nl.saxion.playground.template.platformer.Activity.class));
             }
         });
     }

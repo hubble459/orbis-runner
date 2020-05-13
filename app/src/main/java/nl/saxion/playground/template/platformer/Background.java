@@ -2,9 +2,9 @@ package nl.saxion.playground.template.platformer;
 
 import android.graphics.Bitmap;
 
+import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.template.lib.Entity;
 import nl.saxion.playground.template.lib.GameView;
-import nl.saxion.playground.template.R;
 
 public class Background extends Entity {
 
