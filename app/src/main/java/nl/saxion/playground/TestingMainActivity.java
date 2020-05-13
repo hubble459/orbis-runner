@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.saxion.playground.orbisrunner.R;
-import nl.saxion.playground.template.TemplateActivity;
+import nl.saxion.playground.orbisrunner.ui.StartScreenActivity;
 
 /**
  * Starting activity used for testing
@@ -35,7 +35,7 @@ public class TestingMainActivity extends AppCompatActivity {
      * so for TemplateActivity.class the name will be TemplateActivity
      */
     private void addActivities() {
-        activityClasses.add(TemplateActivity.class);
+        activityClasses.add(StartScreenActivity.class);
     }
 
     /**
