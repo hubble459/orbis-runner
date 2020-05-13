@@ -38,7 +38,7 @@ public class StartScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Start the game matching the corresponding level
-                toast("Start Clicked");
+                toast("Play Clicked");
             }
         });
 
