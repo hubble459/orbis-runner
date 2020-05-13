@@ -8,12 +8,15 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 public class Animation {
-    public static void walkInCircle(final View view, int duration) {
+    public static void walkInCircle(final View view, int duration, boolean inReverse) {
+        if (inReverse)
+            view.setScaleX(-1);
+
         ValueAnimator valueAnimator = new ValueAnimator();
         valueAnimator.setInterpolator(new LinearInterpolator());
         valueAnimator.setDuration(duration);
         valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
-        valueAnimator.setFloatValues(360f);
+        valueAnimator.setFloatValues(inReverse ? -360f : 360f);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {

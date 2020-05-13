@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.Animation;
 
@@ -23,10 +25,10 @@ public class StartScreenActivity extends AppCompatActivity {
     }
 
     private void init() {
-        // Animate Playing W A L K I N G
+        // Animate Player W A L K I N G
         ImageView player = findViewById(R.id.player);
         ((AnimationDrawable) player.getDrawable()).start();
-        Animation.walkInCircle(player, 4000);
+        Animation.walkInCircle(player, 4000, new Random().nextBoolean());
 
         // Set level title
         TextView lvl = findViewById(R.id.level);
