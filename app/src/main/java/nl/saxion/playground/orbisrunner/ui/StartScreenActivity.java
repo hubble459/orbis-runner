@@ -14,8 +14,16 @@ import java.util.Random;
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.Animation;
 
+/**
+ * Starting activity
+ */
 public class StartScreenActivity extends AppCompatActivity {
 
+    /**
+     * Call the init on create
+     *
+     * @param savedInstanceState unused
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +32,9 @@ public class StartScreenActivity extends AppCompatActivity {
         init();
     }
 
+    /**
+     * Set all values and start animations
+     */
     private void init() {
         // Animate Player W A L K I N G
         ImageView player = findViewById(R.id.player);
@@ -75,6 +86,10 @@ public class StartScreenActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * A toast is used for testing purposes
+     * @param msg the String to show
+     */
     private void toast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
