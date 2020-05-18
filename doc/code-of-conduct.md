@@ -1,4 +1,3 @@
-
 # Code of Conduct  
 - After missing one class without letting the rest of the group know, you will be spammed fashionably on WhatsApp and discord.  
 - After missing two classes, you will be send a formal notice by mail.  
