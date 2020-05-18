@@ -1,14 +1,25 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
+        <item name="android:fontFamily">@font/silkscreen</item>
+    </style>
+
+    <style name="Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">38sp</item>
+        <item name="fontFamily">@font/silkscreen_extended</item>
+        <item name="android:layout_marginTop">24dp</item>
+    </style>
+
+    <style name="Subtitle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">28sp</item>
+        <item name="fontFamily">@font/silkscreen_extended</item>
+        <item name="android:layout_marginTop">24dp</item>
     </style>
 
 </resources>
