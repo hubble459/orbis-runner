@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import nl.saxion.playground.orbisrunner.R;
 
+/**
+ * Starting activity
+ */
 public class DeathScreenActivity extends AppCompatActivity {
 
 
@@ -24,13 +27,13 @@ public class DeathScreenActivity extends AppCompatActivity {
 
     private void init(){
         // Display level player died on
-        TextView lvl = findViewById(R.id.died_on);
+        TextView lvl = findViewById(R.id.diedOn);
         lvl.setText("You Died On Level " /* get level player died on*/ );
 
 
         // Assign New Game Button
-        Button newGameButton = findViewById(R.id.new_game_button);
-        newGameButton.setOnClickListener(new View.OnClickListener() {
+        Button retryButton = findViewById(R.id.retryButton);
+        retryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Clear saved level progress and start game on level 0
@@ -39,13 +42,14 @@ public class DeathScreenActivity extends AppCompatActivity {
         });
 
         // Assign Main Menu Button
-        Button mainMenuButton = findViewById(R.id.main_menu_button);
+        Button mainMenuButton = findViewById(R.id.mainMenuButton);
         mainMenuButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 // Go to the starting screen
-                Intent intent = new Intent(DeathScreenActivity.this, StartScreenActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(DeathScreenActivity.this, StartScreenActivity.class);
+//                startActivity(intent);
+                finish();
                 Toast.makeText(DeathScreenActivity.this,"Main Menu Clicked",Toast.LENGTH_SHORT).show();
             }
         });

@@ -9,6 +9,6 @@
 
     <!-- Used in death screen -->
     <string name="main_menu">Main Menu</string>
-
+    <string name="retry">Retry</string>
 
 </resources>

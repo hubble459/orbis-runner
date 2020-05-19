@@ -5,46 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/retryButton"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/black_ring"
+        android:gravity="center"
+        android:text="@string/retry"
+        android:textColor="@color/colorAccent"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/mainMenuButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/diedOn" />
+
+
     <TextView
-        android:fontFamily="@font/silkscreen_bold"
-        android:id="@+id/died_on"
+        android:id="@+id/diedOn"
         style="@style/Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="72dp"
+        android:fontFamily="@font/silkscreen_bold"
         android:text="died on lvl 3"
-        app:layout_constraintBottom_toTopOf="@+id/main_menu_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.105" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/new_game_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:hint="@string/new_game"
-        android:text="@string/new_game"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_menu_button" />
-
-    <Button
-        android:id="@+id/main_menu_button"
+        android:id="@+id/mainMenuButton"
         android:layout_width="103dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="120dp"
         android:hint="@string/main_menu"
         android:text="@string/main_menu"
-        app:layout_constraintBottom_toTopOf="@+id/new_game_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/died_on" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

@@ -46,7 +46,7 @@ public class StartScreenActivity extends AppCompatActivity {
         lvl.setText("LVL 3" /* get level from save instance */);
 
         // Assign Play Button
-        Button playButton = findViewById(R.id.play_button);
+        Button playButton = findViewById(R.id.playButton);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,7 +66,7 @@ public class StartScreenActivity extends AppCompatActivity {
         });
 
         // Assign New Game Button
-        Button newGameButton = findViewById(R.id.new_game_button);
+        Button newGameButton = findViewById(R.id.newGameButton);
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +76,7 @@ public class StartScreenActivity extends AppCompatActivity {
         });
 
         // Assign Settings Button
-        Button settingsButton = findViewById(R.id.settings_button);
+        Button settingsButton = findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
