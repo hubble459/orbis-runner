@@ -6,10 +6,10 @@ We haven't decided on the sound track but that will surely make it's way into th
 ### Starting screen  
 ![Starting screen draft](start_screen.png)  
 From top to bottom  
-1. Game title  
+1. Game title
 2. Level  
 3. Play button: Starts the game and has your character running around on the circle  
-4. Customize button: You can change your character for coins here (color and head-ware(?))  
+4. Customize button: You can change your character for coins here (colour and head-ware(?))
 5. New Game: Reset your game  
 6. Settings: Disable sounds/music, change the color palette, and a cheat mode for developers  
   
