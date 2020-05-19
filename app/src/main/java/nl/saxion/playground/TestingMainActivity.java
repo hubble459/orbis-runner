@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.saxion.playground.orbisrunner.R;
+import nl.saxion.playground.orbisrunner.ui.DeathScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.StartScreenActivity;
 
 /**
@@ -36,7 +37,10 @@ public class TestingMainActivity extends AppCompatActivity {
      */
     private void addActivities() {
         activityClasses.add(StartScreenActivity.class);
+        activityClasses.add(DeathScreenActivity.class);
     }
+
+
 
     /**
      * Fills the testing list with all activities added in the addActivities() method
@@ -70,6 +74,7 @@ public class TestingMainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(TestingMainActivity.this, activityClasses.get(i));
                 startActivity(intent);
+
             }
         });
     }
