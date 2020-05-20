@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.saxion.playground.orbisrunner.R;
+import nl.saxion.playground.orbisrunner.ui.ControlTestingActivity;
 import nl.saxion.playground.orbisrunner.ui.DeathScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.StartScreenActivity;
 
@@ -38,9 +39,8 @@ public class TestingMainActivity extends AppCompatActivity {
     private void addActivities() {
         activityClasses.add(StartScreenActivity.class);
         activityClasses.add(DeathScreenActivity.class);
+        activityClasses.add(ControlTestingActivity.class);
     }
-
-
 
     /**
      * Fills the testing list with all activities added in the addActivities() method

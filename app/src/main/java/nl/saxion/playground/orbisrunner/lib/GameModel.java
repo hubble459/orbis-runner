@@ -105,6 +105,25 @@ public class GameModel implements Serializable {
     }
 
     /**
+     * Remove game entities from the list.
+     *
+     * @param entityList The entityList to be removed.
+     */
+    public void removeEntities(ArrayList<Entity> entityList) {
+        for (Entity entity : entityList) {
+            entities.remove(entity);
+
+        }
+        // For entityList class and each super class up til but not including Entity,
+        // remove the entityList to the right entitiesByType array.
+        for (Entity entity : entityList) {
+            for (Class cls = entity.getClass(); cls != Entity.class; cls = cls.getSuperclass()) {
+                entitiesByType.get(cls).remove(entity);
+            }
+        }
+    }
+
+    /**
      * Get an `ArrayList` of `Entity`s of the specified type. Eg:
      * `ArrayList<MyHero> heroes = game.getEntities(MyHero.class);`
      *

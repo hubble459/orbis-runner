@@ -65,5 +65,8 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         int prio = getLayer() - o.getLayer();
         return prio == 0 ? id - o.id : prio;
     }
+
+    public void onSwipe(int direction) {
+    }
 }
 
