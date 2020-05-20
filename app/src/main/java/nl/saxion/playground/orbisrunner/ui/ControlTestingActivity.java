@@ -203,22 +203,24 @@ public class ControlTestingActivity extends AppCompatActivity {
      */
     private static class CircleEntity extends Entity {
         private final float ACCELERATION = .8f;
+        private final float SLOWDOWN = .9987f;
+        private final float BOUNCE = .8f;
+        private final float TURN_FRICTION = .9f;
+
         private float width, height;
         private float xVal, yVal;
         private float speed;
-        private float SLOWDOWN = .9987f;
-        private float BOUNCE = .8f;
-        private float TURN_FRICTION = .9f;
-        private Bitmap bitmap;
-        private GameModel game;
-        private TextView tv2;
-        private ArrayList<Candy> candies;
 
         private int points;
         private int direction;
         private int lastDirection;
         private boolean swiped;
         private boolean agario;
+
+        private Bitmap bitmap;
+        private GameModel game;
+        private TextView tv2;
+        private ArrayList<Candy> candies;
 
         /**
          * Constructor
