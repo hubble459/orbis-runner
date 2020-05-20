@@ -1,22 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_weight="1"
     tools:context="nl.saxion.playground.orbisrunner.ui.ControlTestingActivity">
+
+    <nl.saxion.playground.orbisrunner.lib.GameView
+        android:id="@+id/gameView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:scrollbars="vertical"
+        android:textColor="@android:color/holo_red_light"
         android:textSize="32sp" />
 
-    <Button
-        android:id="@+id/clearButton"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/speedCounters"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Clear" />
-</LinearLayout>
+        android:paddingHorizontal="12dp"
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- No friction mode -->
+    <View
+        android:id="@+id/secretButton"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</android.support.constraint.ConstraintLayout>

@@ -42,8 +42,6 @@ public class TestingMainActivity extends AppCompatActivity {
         activityClasses.add(ControlTestingActivity.class);
     }
 
-
-
     /**
      * Fills the testing list with all activities added in the addActivities() method
      * Instead of the default silkscreen font, a default one is used to make it
