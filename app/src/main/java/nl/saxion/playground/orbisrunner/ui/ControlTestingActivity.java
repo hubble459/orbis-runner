@@ -143,6 +143,9 @@ public class ControlTestingActivity extends AppCompatActivity {
                 if (!moved) {
                     long time = System.currentTimeMillis() - start;
                     tv.append("TAP [" + time + " ms]\n");
+                    CircleEntity cE = game.getEntity(CircleEntity.class);
+                    cE.onSwipe(Direction.TAP);
+                    cE.tapDuration(time);
                     break;
                 }
 
@@ -198,6 +201,7 @@ public class ControlTestingActivity extends AppCompatActivity {
         static final int RIGHT = 1;
         static final int DOWN = 2;
         static final int LEFT = 3;
+        static final int TAP = 4;
     }
 
     /**
@@ -219,6 +223,7 @@ public class ControlTestingActivity extends AppCompatActivity {
         private int lastDirection;
         private boolean swiped;
         private boolean agario;
+        private long time;
 
         private Bitmap bitmap;
         private GameModel game;
@@ -273,14 +278,19 @@ public class ControlTestingActivity extends AppCompatActivity {
 
         /**
          * Every tick the circle will get slowed down (like friction)
-         * If you swiped, the speed will increase
-         * And the circle will go in the direction you swiped
+         * The circle will go in the direction you swiped
+         * If you swipe the same direction you're going, the speed will increase
+         * If swiped to turn, the speed will still increase, but you will also get slowed down a little
+         * <p>
+         * If the screen is tapped, speed will increase
+         * If you hold the screen for longer than 100 milliseconds you will get a super dash
+         * <p>
          * When a wall is hit, the circle will bounce back and lose some speed
          * <p>
          * Information will get printed to the tv2
          * <p>
-         * On every tick it checks if you're on a candy, and if you are the candy will be eaten.
-         * And it will change from position
+         * On every tick it checks if you're on a candy, and if you are, the candy will be eaten
+         * and it will change from position
          * For every candy one point is granted
          */
         @Override
@@ -293,8 +303,19 @@ public class ControlTestingActivity extends AppCompatActivity {
             right = (direction == Direction.RIGHT);
             left = (direction == Direction.LEFT);
 
+            if (direction == Direction.TAP) {
+                up = (lastDirection == Direction.UP);
+                down = (lastDirection == Direction.DOWN);
+                right = (lastDirection == Direction.RIGHT);
+                left = (lastDirection == Direction.LEFT);
+            }
+
             if (swiped) {
-                speed += ACCELERATION;
+                if (direction == Direction.TAP && time > 100) {
+                    speed += ACCELERATION * (time / 100.);
+                } else {
+                    speed += ACCELERATION;
+                }
 
                 if (lastDirection != direction) {
                     speed *= TURN_FRICTION;
@@ -363,13 +384,19 @@ public class ControlTestingActivity extends AppCompatActivity {
         /**
          * Gets called from the onTouchEvent()
          *
-         * @param direction the swiping direction
+         * @param direction the swiping direction (or tap)
          */
         @Override
         public void onSwipe(int direction) {
-            lastDirection = this.direction;
+            if (this.direction != Direction.TAP) {
+                lastDirection = this.direction;
+            }
             this.direction = direction;
             swiped = true;
+        }
+
+        void tapDuration(long time) {
+            this.time = time;
         }
 
         /**
