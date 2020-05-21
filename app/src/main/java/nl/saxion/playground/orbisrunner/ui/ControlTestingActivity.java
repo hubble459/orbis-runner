@@ -27,7 +27,7 @@ import nl.saxion.playground.orbisrunner.lib.GameView;
  * Tapping does nothing but can be seen in the action log nonetheless
  */
 public class ControlTestingActivity extends AppCompatActivity {
-    private TextView tv, tv2;
+    private TextView touchFeedback, gameInfo;
     private GameView gameView;
     private GameModel game;
 
@@ -47,8 +47,8 @@ public class ControlTestingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_testing);
 
-        tv = findViewById(R.id.textView);
-        tv2 = findViewById(R.id.speedCounters);
+        touchFeedback = findViewById(R.id.textView);
+        gameInfo = findViewById(R.id.speedCounters);
         gameView = findViewById(R.id.gameView);
 
         setupGame();
@@ -61,7 +61,7 @@ public class ControlTestingActivity extends AppCompatActivity {
             }
         });
 
-        tv.addTextChangedListener(new TextWatcher() {
+        touchFeedback.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -81,7 +81,7 @@ public class ControlTestingActivity extends AppCompatActivity {
                     for (int i = 1; i < lines; i++) {
                         newText.append(lineSplit[i]).append("\n");
                     }
-                    tv.setText(newText.toString());
+                    touchFeedback.setText(newText.toString());
                 }
             }
         });
@@ -103,7 +103,7 @@ public class ControlTestingActivity extends AppCompatActivity {
      */
     private void setupGame() {
         game = new GameModel();
-        game.addEntity(new CircleEntity(game, tv2));
+        game.addEntity(new CircleEntity(game, gameInfo));
         game.addEntity(new Candy(game));
         gameView.setGame(game);
     }
@@ -142,7 +142,7 @@ public class ControlTestingActivity extends AppCompatActivity {
                 // Check if it's a tap
                 if (!moved) {
                     long time = System.currentTimeMillis() - start;
-                    tv.append("TAP [" + time + " ms]\n");
+                    touchFeedback.append("TAP [" + time + " ms]\n");
                     CircleEntity cE = game.getEntity(CircleEntity.class);
                     cE.onSwipe(Direction.TAP);
                     cE.tapDuration(time);
@@ -164,22 +164,22 @@ public class ControlTestingActivity extends AppCompatActivity {
                     //Motion in Y direction.
                     if (oldY < newY) {
                         // Moved down
-                        tv.append("DOWN\n");
+                        touchFeedback.append("DOWN\n");
                         direction = Direction.DOWN;
                     } else {
                         // Moved up
-                        tv.append("UP\n");
+                        touchFeedback.append("UP\n");
                         direction = Direction.UP;
                     }
                 } else {
                     // Motion in X direction.
                     if (oldX < newX) {
                         // Moved right
-                        tv.append("RIGHT\n");
+                        touchFeedback.append("RIGHT\n");
                         direction = Direction.RIGHT;
                     } else {
                         // Moved left
-                        tv.append("LEFT\n");
+                        touchFeedback.append("LEFT\n");
                         direction = Direction.LEFT;
                     }
                 }
@@ -227,19 +227,19 @@ public class ControlTestingActivity extends AppCompatActivity {
 
         private Bitmap bitmap;
         private GameModel game;
-        private TextView tv2;
+        private TextView gameInfo;
         private ArrayList<Candy> candies;
 
         /**
          * Constructor
          *
          * @param game the game (GameModel)
-         * @param tv2  TextView to show information (like speed, etc)
+         * @param gameInfo  TextView to show information (like speed, etc)
          */
-        CircleEntity(GameModel game, TextView tv2) {
+        CircleEntity(GameModel game, TextView gameInfo) {
             super();
             this.game = game;
-            this.tv2 = tv2;
+            this.gameInfo = gameInfo;
             direction = -1;
         }
 
@@ -287,7 +287,7 @@ public class ControlTestingActivity extends AppCompatActivity {
          * <p>
          * When a wall is hit, the circle will bounce back and lose some speed
          * <p>
-         * Information will get printed to the tv2
+         * Information will get printed to the gameInfo TextView
          * <p>
          * On every tick it checks if you're on a candy, and if you are, the candy will be eaten
          * and it will change from position
@@ -298,16 +298,16 @@ public class ControlTestingActivity extends AppCompatActivity {
             speed *= SLOWDOWN;
 
             boolean up, right, down, left;
-            up = (direction == Direction.UP);
-            down = (direction == Direction.DOWN);
-            right = (direction == Direction.RIGHT);
-            left = (direction == Direction.LEFT);
-
             if (direction == Direction.TAP) {
                 up = (lastDirection == Direction.UP);
                 down = (lastDirection == Direction.DOWN);
                 right = (lastDirection == Direction.RIGHT);
                 left = (lastDirection == Direction.LEFT);
+            } else {
+                up = (direction == Direction.UP);
+                down = (direction == Direction.DOWN);
+                right = (direction == Direction.RIGHT);
+                left = (direction == Direction.LEFT);
             }
 
             if (swiped) {
@@ -357,7 +357,7 @@ public class ControlTestingActivity extends AppCompatActivity {
                             "Speed %.2f\n" +
                             "X-Val %.0f\n" +
                             "Y-Val %.0f", (agario ? width : points), speed, xVal, yVal);
-            tv2.setText(info);
+            gameInfo.setText(info);
 
             if (candies != null) {
                 for (Candy candy : candies) {
@@ -455,7 +455,6 @@ public class ControlTestingActivity extends AppCompatActivity {
     private static class Candy extends Entity {
         private float width, height;
         private float xVal, yVal;
-
         private int colour;
 
         private Bitmap bitmap;
