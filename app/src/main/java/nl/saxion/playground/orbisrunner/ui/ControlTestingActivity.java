@@ -1,6 +1,8 @@
 package nl.saxion.playground.orbisrunner.ui;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -87,7 +89,7 @@ public class ControlTestingActivity extends AppCompatActivity {
         findViewById(R.id.secretButton).setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                if (game.getEntity(CircleEntity.class).toggleAgario())
+                if (game.getEntity(CircleEntity.class).toggleAgario(ControlTestingActivity.this))
                     Toast.makeText(ControlTestingActivity.this, "Agar.io!", Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -203,11 +205,12 @@ public class ControlTestingActivity extends AppCompatActivity {
      */
     private static class CircleEntity extends Entity {
         private final float ACCELERATION = .8f;
-        private final float SLOWDOWN = .9987f;
+        private final float SLOWDOWN = .9999f;
         private final float BOUNCE = .8f;
         private final float TURN_FRICTION = .9f;
 
         private float width, height;
+        private float normalSize;
         private float xVal, yVal;
         private float speed;
 
@@ -248,6 +251,7 @@ public class ControlTestingActivity extends AppCompatActivity {
 
                 width = bitmap.getWidth();
                 height = bitmap.getHeight();
+                normalSize = width;
 
                 xVal = (float) (int) (Math.random() * (game.getWidth() - width));
                 yVal = (float) (int) (Math.random() * (game.getHeight() - width));
@@ -328,27 +332,27 @@ public class ControlTestingActivity extends AppCompatActivity {
             }
 
             String info = String.format(Locale.ENGLISH,
-                    (agario ? "Size" : "Points") + " %d\n" +
-                            (agario ? "Dia " + width + "\n" : "") +
+                    (agario ? "Size" : "Points") + " %.0f\n" +
                             "Speed %.2f\n" +
-                            "X-Val %.2f\n" +
-                            "Y-Val %.2f", points, speed, xVal, yVal);
+                            "X-Val %.0f\n" +
+                            "Y-Val %.0f", (agario ? width : points), speed, xVal, yVal);
             tv2.setText(info);
 
             if (candies != null) {
                 for (Candy candy : candies) {
                     float x = candy.getXVal();
                     float y = candy.getYVal();
-                    if (x <= xVal + width && x >= xVal - width) {
-                        if (y <= yVal + height && y >= yVal - height) {
+                    if (x + 10f >= xVal && x + 10f <= xVal + width) {
+                        if (y + 10f >= yVal && y <= yVal + height) {
                             candy.changePos();
-                            points++;
                             if (agario) {
-                                double scale = points / 100.0 + 1;
-                                if (width < game.getWidth() / 2) {
+                                if (width < 1000) {
+                                    double scale = (.5 / width) + 1;
                                     width *= scale;
                                     height *= scale;
                                 }
+                            } else {
+                                points++;
                             }
                         }
                     }
@@ -373,20 +377,48 @@ public class ControlTestingActivity extends AppCompatActivity {
          *
          * @return is toggled
          */
-        boolean toggleAgario() {
+        boolean toggleAgario(Context context) {
             agario = !agario;
 
             if (agario) {
                 for (int i = 0; i < 20; i++) {
-                    Candy c = new Candy(game);
+                    Candy c = new Candy(game, getRandomColour(context));
                     game.addEntity(c);
                 }
                 candies = game.getEntities(Candy.class);
             } else {
                 game.removeEntities(new ArrayList<Entity>(candies));
                 game.addEntity(new Candy(game));
+                width = normalSize;
+                height = normalSize;
             }
             return agario;
+        }
+
+        private int getRandomColour(Context context) {
+            int rand = (int) (Math.random() * 10);
+            switch (rand) {
+                case 0:
+                    return Color.BLUE;
+                case 1:
+                    return Color.GREEN;
+                case 2:
+                    return Color.RED;
+                case 3:
+                    return Color.CYAN;
+                case 4:
+                    return Color.MAGENTA;
+                case 5:
+                    return Color.YELLOW;
+                case 6:
+                    return Color.LTGRAY;
+                case 7:
+                    return context.getResources().getColor(R.color.colorAccent);
+                case 8:
+                    return context.getResources().getColor(android.R.color.holo_orange_light);
+                default:
+                    return context.getResources().getColor(android.R.color.holo_purple);
+            }
         }
     }
 
@@ -397,12 +429,19 @@ public class ControlTestingActivity extends AppCompatActivity {
         private float width, height;
         private float xVal, yVal;
 
+        private int colour;
+
         private Bitmap bitmap;
         private GameModel game;
 
         Candy(GameModel game) {
+            this(game, -1);
+        }
+
+        Candy(GameModel game, int colour) {
             super();
             this.game = game;
+            this.colour = colour;
         }
 
         /**
@@ -414,7 +453,7 @@ public class ControlTestingActivity extends AppCompatActivity {
         public void draw(GameView gv) {
             if (bitmap == null) {
                 changePos();
-                bitmap = gv.getBitmap(R.drawable.candy_shape);
+                bitmap = gv.getBitmap(R.drawable.candy_shape, colour);
 
                 width = bitmap.getWidth();
                 height = bitmap.getHeight();
