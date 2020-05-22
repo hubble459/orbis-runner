@@ -20,6 +20,7 @@ import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.ui.ControlTestingActivity;
 import nl.saxion.playground.orbisrunner.ui.DeathScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.StartScreenActivity;
+import nl.saxion.playground.orbisrunner.ui.demo.GameplayDemoActivity;
 
 /**
  * Starting activity used for testing
@@ -40,6 +41,7 @@ public class TestingMainActivity extends AppCompatActivity {
         activityClasses.add(StartScreenActivity.class);
         activityClasses.add(DeathScreenActivity.class);
         activityClasses.add(ControlTestingActivity.class);
+        activityClasses.add(GameplayDemoActivity.class);
     }
 
     /**

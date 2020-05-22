@@ -196,12 +196,12 @@ public class ControlTestingActivity extends AppCompatActivity {
     /**
      * A class for direction constants
      */
-    private static class Direction {
-        static final int UP = 0;
-        static final int RIGHT = 1;
-        static final int DOWN = 2;
-        static final int LEFT = 3;
-        static final int TAP = 4;
+    public static class Direction {
+        public static final int UP = 0;
+        public static final int RIGHT = 1;
+        public static final int DOWN = 2;
+        public static final int LEFT = 3;
+        public static final int TAP = 4;
     }
 
     /**
@@ -233,8 +233,8 @@ public class ControlTestingActivity extends AppCompatActivity {
         /**
          * Constructor
          *
-         * @param game the game (GameModel)
-         * @param gameInfo  TextView to show information (like speed, etc)
+         * @param game     the game (GameModel)
+         * @param gameInfo TextView to show information (like speed, etc)
          */
         CircleEntity(GameModel game, TextView gameInfo) {
             super();

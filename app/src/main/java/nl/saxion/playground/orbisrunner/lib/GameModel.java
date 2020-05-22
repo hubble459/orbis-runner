@@ -1,5 +1,6 @@
 package nl.saxion.playground.orbisrunner.lib;
 
+import android.graphics.Canvas;
 import android.view.MotionEvent;
 
 import java.io.Serializable;
@@ -66,8 +67,18 @@ public class GameModel implements Serializable {
     /**
      * Called just before the first `draw()`. At this point, canvas widths are known, so
      * this may be a good time to create initial `Entity`s.
+     * @param canvas canvas
      */
-    public void start() {
+    public void start(Canvas canvas) {
+    }
+
+    /**
+     * Called right after the first `draw()`. At this point, canvas widths are known, so
+     * this may be a good time to create initial `Entity`s.
+     *
+     * @param canvas canvas
+     */
+    public void started(Canvas canvas) {
     }
 
 
