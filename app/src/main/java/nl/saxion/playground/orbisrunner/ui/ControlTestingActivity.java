@@ -1,8 +1,8 @@
 package nl.saxion.playground.orbisrunner.ui;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -89,7 +89,7 @@ public class ControlTestingActivity extends AppCompatActivity {
         findViewById(R.id.secretButton).setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                if (game.getEntity(CircleEntity.class).toggleAgario(ControlTestingActivity.this))
+                if (game.getEntity(CircleEntity.class).toggleAgario())
                     Toast.makeText(ControlTestingActivity.this, "Agar.io!", Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -103,7 +103,7 @@ public class ControlTestingActivity extends AppCompatActivity {
      */
     private void setupGame() {
         game = new GameModel();
-        game.addEntity(new CircleEntity(game, gameInfo));
+        game.addEntity(new CircleEntity(this, game, gameInfo));
         game.addEntity(new Candy(game));
         gameView.setGame(game);
     }
@@ -213,10 +213,10 @@ public class ControlTestingActivity extends AppCompatActivity {
         private final float BOUNCE = .8f;
         private final float TURN_FRICTION = .9f;
 
-        private float width, height;
-        private float normalSize;
+        private float diameter, radius, size;
         private float xVal, yVal;
         private float speed;
+        private float scale = 1;
 
         private int points;
         private int direction;
@@ -225,21 +225,27 @@ public class ControlTestingActivity extends AppCompatActivity {
         private boolean agario;
         private long time;
 
-        private Bitmap bitmap;
+        private Paint paint;
         private GameModel game;
         private TextView gameInfo;
         private ArrayList<Candy> candies;
+        private Context context;
 
         /**
          * Constructor
          *
-         * @param game the game (GameModel)
-         * @param gameInfo  TextView to show information (like speed, etc)
+         * @param context  context
+         * @param game     the game (GameModel)
+         * @param gameInfo TextView to show information (like speed, etc)
          */
-        CircleEntity(GameModel game, TextView gameInfo) {
+        CircleEntity(Context context, GameModel game, TextView gameInfo) {
             super();
+            this.context = context;
             this.game = game;
             this.gameInfo = gameInfo;
+            this.radius = 40f;
+            this.diameter = radius * 2;
+            this.size = diameter;
             direction = -1;
         }
 
@@ -251,19 +257,16 @@ public class ControlTestingActivity extends AppCompatActivity {
          */
         @Override
         public void draw(GameView gv) {
-            if (bitmap == null) {
-                bitmap = gv.getBitmap(R.drawable.white_circle);
+            if (paint == null) {
+                paint = new Paint();
+                paint.setColor(Color.WHITE);
 
-                width = bitmap.getWidth();
-                height = bitmap.getHeight();
-                normalSize = width;
-
-                xVal = (float) (int) (Math.random() * (game.getWidth() - width));
-                yVal = (float) (int) (Math.random() * (game.getHeight() - width));
+                xVal = (float) (int) (Math.random() * (game.getWidth() - radius));
+                yVal = (float) (int) (Math.random() * (game.getHeight() - radius));
 
                 candies = game.getEntities(Candy.class);
             }
-            gv.drawBitmap(bitmap, xVal, yVal, width, height, 0);
+            gv.getCanvas().drawCircle(xVal, yVal, radius, paint);
         }
 
         /**
@@ -337,17 +340,17 @@ public class ControlTestingActivity extends AppCompatActivity {
             swiped = false;
 
             // Bounce
-            if (xVal < 0) {
+            if (xVal - radius < 0) {
                 speed *= BOUNCE;
                 direction = Direction.RIGHT;
-            } else if (xVal >= game.getWidth() - width) {
+            } else if (xVal + radius >= game.getWidth()) {
                 speed *= BOUNCE;
                 direction = Direction.LEFT;
             }
-            if (yVal < 0) {
+            if (yVal - radius < 0) {
                 speed *= BOUNCE;
                 direction = Direction.DOWN;
-            } else if (yVal >= game.getHeight() - width) {
+            } else if (yVal + radius >= game.getHeight()) {
                 speed *= BOUNCE;
                 direction = Direction.UP;
             }
@@ -356,28 +359,41 @@ public class ControlTestingActivity extends AppCompatActivity {
                     (agario ? "Size" : "Points") + " %.0f\n" +
                             "Speed %.2f\n" +
                             "X-Val %.0f\n" +
-                            "Y-Val %.0f", (agario ? width : points), speed, xVal, yVal);
+                            "Y-Val %.0f", (agario ? size : points), speed, xVal, yVal);
             gameInfo.setText(info);
 
             if (candies != null) {
                 for (Candy candy : candies) {
                     float x = candy.getXVal();
                     float y = candy.getYVal();
-                    if (x + 10f >= xVal && x + 10f <= xVal + width) {
-                        if (y + 10f >= yVal && y <= yVal + height) {
+                    float s = candy.getSize();
+                    if (x + s >= xVal - radius && x <= xVal + radius) {
+                        if (y + s >= yVal - radius && y <= yVal + radius) {
                             candy.changePos();
+                            candy.setColour(getRandomColour());
                             if (agario) {
-                                if (width < 1000) {
-                                    double scale = (.5 / width) + 1;
-                                    width *= scale;
-                                    height *= scale;
+                                if (diameter >= game.getWidth() * 0.75) {
+                                    scale *= 0.75;
+                                    diameter *= scale;
+                                    scaleCandies();
                                 }
+
+                                float scale = (float) ((.5 / radius) + 1);
+                                diameter *= scale;
+                                size *= scale;
+                                radius = diameter / 2;
                             } else {
                                 points++;
                             }
                         }
                     }
                 }
+            }
+        }
+
+        private void scaleCandies() {
+            for (Candy candy : candies) {
+                candy.setScale(scale);
             }
         }
 
@@ -404,25 +420,24 @@ public class ControlTestingActivity extends AppCompatActivity {
          *
          * @return is toggled
          */
-        boolean toggleAgario(Context context) {
+        boolean toggleAgario() {
             agario = !agario;
 
             if (agario) {
                 for (int i = 0; i < 20; i++) {
-                    Candy c = new Candy(game, getRandomColour(context));
+                    Candy c = new Candy(game, getRandomColour());
                     game.addEntity(c);
                 }
                 candies = game.getEntities(Candy.class);
             } else {
                 game.removeEntities(new ArrayList<Entity>(candies));
                 game.addEntity(new Candy(game));
-                width = normalSize;
-                height = normalSize;
+                radius = 40f;
             }
             return agario;
         }
 
-        private int getRandomColour(Context context) {
+        private int getRandomColour() {
             int rand = (int) (Math.random() * 10);
             switch (rand) {
                 case 0:
@@ -455,19 +470,23 @@ public class ControlTestingActivity extends AppCompatActivity {
     private static class Candy extends Entity {
         private float width, height;
         private float xVal, yVal;
+        private float scale = 1;
         private int colour;
 
-        private Bitmap bitmap;
+        private Paint paint;
         private GameModel game;
 
         Candy(GameModel game) {
-            this(game, -1);
+            this(game, Color.MAGENTA);
         }
 
         Candy(GameModel game, int colour) {
             super();
             this.game = game;
             this.colour = colour;
+            this.paint = new Paint();
+            this.width = 40f;
+            this.height = 40f;
         }
 
         /**
@@ -477,14 +496,11 @@ public class ControlTestingActivity extends AppCompatActivity {
          */
         @Override
         public void draw(GameView gv) {
-            if (bitmap == null) {
+            if (paint.getColor() != colour) {
+                paint.setColor(colour);
                 changePos();
-                bitmap = gv.getBitmap(R.drawable.candy_shape, colour);
-
-                width = bitmap.getWidth();
-                height = bitmap.getHeight();
             }
-            gv.drawBitmap(bitmap, xVal, yVal, width, height, 0);
+            gv.getCanvas().drawRect(xVal, yVal, xVal + width * scale, yVal + height * scale, paint);
         }
 
         /**
@@ -509,8 +525,20 @@ public class ControlTestingActivity extends AppCompatActivity {
          * Change from position
          */
         void changePos() {
-            yVal = (float) (int) (Math.random() * (game.getHeight() - height * 2));
-            xVal = (float) (int) (Math.random() * (game.getWidth() - width * 2));
+            xVal = (float) (int) (Math.random() * (game.getWidth() - width));
+            yVal = (float) (int) (Math.random() * (game.getHeight() - height));
+        }
+
+        void setScale(float scale) {
+            this.scale = scale;
+        }
+
+        void setColour(int colour) {
+            this.colour = colour;
+        }
+
+        float getSize() {
+            return this.width;
         }
     }
 }
