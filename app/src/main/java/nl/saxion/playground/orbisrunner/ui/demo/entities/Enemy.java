@@ -1,6 +1,7 @@
 package nl.saxion.playground.orbisrunner.ui.demo.entities;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.Entity;
@@ -21,7 +22,7 @@ public class Enemy extends Entity {
     @Override
     public void draw(GameView gv) {
         if (bitmap == null) {
-            bitmap = gv.getBitmap(R.drawable.demo_entity);
+            bitmap = gv.getBitmap(R.drawable.demo_entity, Color.RED);
             width = bitmap.getWidth();
             height = bitmap.getHeight();
         }

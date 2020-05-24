@@ -74,30 +74,14 @@ public class Player extends Entity {
             if (Math.abs(touch.deltaY) == Math.abs(touch.deltaX)) {
                 if (jumpingDown) break;
                 jump();
-            } else if (Math.abs(touch.deltaY) > Math.abs(touch.deltaX)) {
-                if (touch.startY < touch.y) {
-                    // Moved down
-                    // Roll
-                    //direction = DOWN;
-                    break;
-                } else {
-                    // Moved up
-                    // Do nothing
-                    break;
-                }
             } else {
-                // Motion in X direction.
-                if (touch.startX < touch.x) {
-                    // Moved right
-                    direction = RIGHT;
-                } else {
-                    // Moved left
-                    direction = LEFT;
-                }
+                direction = touch.getSwipeDirection();
             }
             move();
             moved = true;
+            game.speedometer.setText(String.format(Locale.ENGLISH, "Speed %.2f", speed));
         }
+
         if (!moved) {
             move();
             if (jump > 0) {

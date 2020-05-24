@@ -7,6 +7,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static nl.saxion.playground.orbisrunner.ui.ControlTestingActivity.Direction.DOWN;
+import static nl.saxion.playground.orbisrunner.ui.ControlTestingActivity.Direction.LEFT;
+import static nl.saxion.playground.orbisrunner.ui.ControlTestingActivity.Direction.RIGHT;
+import static nl.saxion.playground.orbisrunner.ui.ControlTestingActivity.Direction.UP;
+
 
 public class GameModel implements Serializable {
 
@@ -202,7 +207,7 @@ public class GameModel implements Serializable {
     /**
      * Helper class that contains information about an ongoing touch.
      */
-    public class Touch {
+    public static class Touch {
         public int pointerId;
         public float x, y;
         public float startX, startY;
@@ -227,6 +232,29 @@ public class GameModel implements Serializable {
             this.x = x;
             this.deltaY = y - this.y;
             this.y = y;
+        }
+
+        public int getSwipeDirection() {
+            if (Math.abs(deltaY) > Math.abs(deltaX)) {
+                if (startY < y) {
+                    // Moved down
+                    // Roll
+                    return DOWN;
+                } else {
+                    // Moved up
+                    // Do nothing
+                    return UP;
+                }
+            } else {
+                // Motion in X direction.
+                if (startX < x) {
+                    // Moved right
+                    return RIGHT;
+                } else {
+                    // Moved left
+                    return LEFT;
+                }
+            }
         }
     }
 }

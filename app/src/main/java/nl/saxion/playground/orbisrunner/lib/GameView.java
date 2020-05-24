@@ -226,6 +226,7 @@ public class GameView extends View implements View.OnTouchListener {
         emitTicks();
 
         // Translate actual coordinates to virtual coordinates:
+        if (touchMatrix == null) calculateMatrices();
         event.transform(touchMatrix);
 
         gameModel.handleTouch(event);

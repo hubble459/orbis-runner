@@ -35,12 +35,12 @@ public class OrbisGame extends GameModel {
 
     @Override
     public void started(Canvas canvas) {
-        // Set enemies from level data
-        setDummyEnemies();
-
         // Set player
         Player player = new Player(this, 0);
         addEntity(player);
+
+        // Set enemies from level data
+        setDummyEnemies();
     }
 
     private void setDummyEnemies() {
