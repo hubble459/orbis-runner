@@ -1,6 +1,8 @@
 package nl.saxion.playground.orbisrunner.ui;
 
-import android.graphics.Bitmap;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -25,7 +27,7 @@ import nl.saxion.playground.orbisrunner.lib.GameView;
  * Tapping does nothing but can be seen in the action log nonetheless
  */
 public class ControlTestingActivity extends AppCompatActivity {
-    private TextView tv, tv2;
+    private TextView touchFeedback, gameInfo;
     private GameView gameView;
     private GameModel game;
 
@@ -45,8 +47,8 @@ public class ControlTestingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_testing);
 
-        tv = findViewById(R.id.textView);
-        tv2 = findViewById(R.id.speedCounters);
+        touchFeedback = findViewById(R.id.textView);
+        gameInfo = findViewById(R.id.speedCounters);
         gameView = findViewById(R.id.gameView);
 
         setupGame();
@@ -59,7 +61,7 @@ public class ControlTestingActivity extends AppCompatActivity {
             }
         });
 
-        tv.addTextChangedListener(new TextWatcher() {
+        touchFeedback.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -79,7 +81,7 @@ public class ControlTestingActivity extends AppCompatActivity {
                     for (int i = 1; i < lines; i++) {
                         newText.append(lineSplit[i]).append("\n");
                     }
-                    tv.setText(newText.toString());
+                    touchFeedback.setText(newText.toString());
                 }
             }
         });
@@ -101,7 +103,7 @@ public class ControlTestingActivity extends AppCompatActivity {
      */
     private void setupGame() {
         game = new GameModel();
-        game.addEntity(new CircleEntity(game, tv2));
+        game.addEntity(new CircleEntity(this, game, gameInfo));
         game.addEntity(new Candy(game));
         gameView.setGame(game);
     }
@@ -140,7 +142,10 @@ public class ControlTestingActivity extends AppCompatActivity {
                 // Check if it's a tap
                 if (!moved) {
                     long time = System.currentTimeMillis() - start;
-                    tv.append("TAP [" + time + " ms]\n");
+                    touchFeedback.append("TAP [" + time + " ms]\n");
+                    CircleEntity cE = game.getEntity(CircleEntity.class);
+                    cE.onSwipe(Direction.TAP);
+                    cE.tapDuration(time);
                     break;
                 }
 
@@ -159,22 +164,22 @@ public class ControlTestingActivity extends AppCompatActivity {
                     //Motion in Y direction.
                     if (oldY < newY) {
                         // Moved down
-                        tv.append("DOWN\n");
+                        touchFeedback.append("DOWN\n");
                         direction = Direction.DOWN;
                     } else {
                         // Moved up
-                        tv.append("UP\n");
+                        touchFeedback.append("UP\n");
                         direction = Direction.UP;
                     }
                 } else {
                     // Motion in X direction.
                     if (oldX < newX) {
                         // Moved right
-                        tv.append("RIGHT\n");
+                        touchFeedback.append("RIGHT\n");
                         direction = Direction.RIGHT;
                     } else {
                         // Moved left
-                        tv.append("LEFT\n");
+                        touchFeedback.append("LEFT\n");
                         direction = Direction.LEFT;
                     }
                 }
@@ -196,6 +201,7 @@ public class ControlTestingActivity extends AppCompatActivity {
         static final int RIGHT = 1;
         static final int DOWN = 2;
         static final int LEFT = 3;
+        static final int TAP = 4;
     }
 
     /**
@@ -203,35 +209,43 @@ public class ControlTestingActivity extends AppCompatActivity {
      */
     private static class CircleEntity extends Entity {
         private final float ACCELERATION = .8f;
-        private final float SLOWDOWN = .9987f;
+        private final float SLOWDOWN = .9999f;
         private final float BOUNCE = .8f;
         private final float TURN_FRICTION = .9f;
 
-        private float width, height;
+        private float diameter, radius, size;
         private float xVal, yVal;
         private float speed;
+        private float scale = 1;
 
         private int points;
         private int direction;
         private int lastDirection;
         private boolean swiped;
         private boolean agario;
+        private long time;
 
-        private Bitmap bitmap;
+        private Paint paint;
         private GameModel game;
-        private TextView tv2;
+        private TextView gameInfo;
         private ArrayList<Candy> candies;
+        private Context context;
 
         /**
          * Constructor
          *
-         * @param game the game (GameModel)
-         * @param tv2  TextView to show information (like speed, etc)
+         * @param context  context
+         * @param game     the game (GameModel)
+         * @param gameInfo TextView to show information (like speed, etc)
          */
-        CircleEntity(GameModel game, TextView tv2) {
+        CircleEntity(Context context, GameModel game, TextView gameInfo) {
             super();
+            this.context = context;
             this.game = game;
-            this.tv2 = tv2;
+            this.gameInfo = gameInfo;
+            this.radius = 40f;
+            this.diameter = radius * 2;
+            this.size = diameter;
             direction = -1;
         }
 
@@ -243,18 +257,16 @@ public class ControlTestingActivity extends AppCompatActivity {
          */
         @Override
         public void draw(GameView gv) {
-            if (bitmap == null) {
-                bitmap = gv.getBitmap(R.drawable.white_circle);
+            if (paint == null) {
+                paint = new Paint();
+                paint.setColor(Color.WHITE);
 
-                width = bitmap.getWidth();
-                height = bitmap.getHeight();
-
-                xVal = (float) (int) (Math.random() * (game.getWidth() - width));
-                yVal = (float) (int) (Math.random() * (game.getHeight() - width));
+                xVal = (float) (int) (Math.random() * (game.getWidth() - radius));
+                yVal = (float) (int) (Math.random() * (game.getHeight() - radius));
 
                 candies = game.getEntities(Candy.class);
             }
-            gv.drawBitmap(bitmap, xVal, yVal, width, height, 0);
+            gv.getCanvas().drawCircle(xVal, yVal, radius, paint);
         }
 
         /**
@@ -269,14 +281,19 @@ public class ControlTestingActivity extends AppCompatActivity {
 
         /**
          * Every tick the circle will get slowed down (like friction)
-         * If you swiped, the speed will increase
-         * And the circle will go in the direction you swiped
+         * The circle will go in the direction you swiped
+         * If you swipe the same direction you're going, the speed will increase
+         * If swiped to turn, the speed will still increase, but you will also get slowed down a little
+         * <p>
+         * If the screen is tapped, speed will increase
+         * If you hold the screen for longer than 100 milliseconds you will get a super dash
+         * <p>
          * When a wall is hit, the circle will bounce back and lose some speed
          * <p>
-         * Information will get printed to the tv2
+         * Information will get printed to the gameInfo TextView
          * <p>
-         * On every tick it checks if you're on a candy, and if you are the candy will be eaten.
-         * And it will change from position
+         * On every tick it checks if you're on a candy, and if you are, the candy will be eaten
+         * and it will change from position
          * For every candy one point is granted
          */
         @Override
@@ -284,13 +301,24 @@ public class ControlTestingActivity extends AppCompatActivity {
             speed *= SLOWDOWN;
 
             boolean up, right, down, left;
-            up = (direction == Direction.UP);
-            down = (direction == Direction.DOWN);
-            right = (direction == Direction.RIGHT);
-            left = (direction == Direction.LEFT);
+            if (direction == Direction.TAP) {
+                up = (lastDirection == Direction.UP);
+                down = (lastDirection == Direction.DOWN);
+                right = (lastDirection == Direction.RIGHT);
+                left = (lastDirection == Direction.LEFT);
+            } else {
+                up = (direction == Direction.UP);
+                down = (direction == Direction.DOWN);
+                right = (direction == Direction.RIGHT);
+                left = (direction == Direction.LEFT);
+            }
 
             if (swiped) {
-                speed += ACCELERATION;
+                if (direction == Direction.TAP && time > 100) {
+                    speed += ACCELERATION * (time / 100.);
+                } else {
+                    speed += ACCELERATION;
+                }
 
                 if (lastDirection != direction) {
                     speed *= TURN_FRICTION;
@@ -312,43 +340,50 @@ public class ControlTestingActivity extends AppCompatActivity {
             swiped = false;
 
             // Bounce
-            if (xVal < 0) {
+            if (xVal - radius < 0) {
                 speed *= BOUNCE;
                 direction = Direction.RIGHT;
-            } else if (xVal >= game.getWidth() - width) {
+            } else if (xVal + radius >= game.getWidth()) {
                 speed *= BOUNCE;
                 direction = Direction.LEFT;
             }
-            if (yVal < 0) {
+            if (yVal - radius < 0) {
                 speed *= BOUNCE;
                 direction = Direction.DOWN;
-            } else if (yVal >= game.getHeight() - width) {
+            } else if (yVal + radius >= game.getHeight()) {
                 speed *= BOUNCE;
                 direction = Direction.UP;
             }
 
             String info = String.format(Locale.ENGLISH,
-                    (agario ? "Size" : "Points") + " %d\n" +
-                            (agario ? "Dia " + width + "\n" : "") +
+                    (agario ? "Size" : "Points") + " %.0f\n" +
                             "Speed %.2f\n" +
-                            "X-Val %.2f\n" +
-                            "Y-Val %.2f", points, speed, xVal, yVal);
-            tv2.setText(info);
+                            "X-Val %.0f\n" +
+                            "Y-Val %.0f", (agario ? size : points), speed, xVal, yVal);
+            gameInfo.setText(info);
 
             if (candies != null) {
                 for (Candy candy : candies) {
                     float x = candy.getXVal();
                     float y = candy.getYVal();
-                    if (x <= xVal + width && x >= xVal - width) {
-                        if (y <= yVal + height && y >= yVal - height) {
+                    float s = candy.getSize();
+                    if (x + s >= xVal - radius && x <= xVal + radius) {
+                        if (y + s >= yVal - radius && y <= yVal + radius) {
                             candy.changePos();
-                            points++;
+                            candy.setColour(getRandomColour());
                             if (agario) {
-                                double scale = points / 100.0 + 1;
-                                if (width < game.getWidth() / 2) {
-                                    width *= scale;
-                                    height *= scale;
+                                if (diameter >= game.getWidth() * 0.75) {
+                                    scale *= 0.75;
+                                    diameter *= scale;
+                                    scaleCandies();
                                 }
+
+                                float scale = (float) ((.5 / radius) + 1);
+                                diameter *= scale;
+                                size *= scale;
+                                radius = diameter / 2;
+                            } else {
+                                points++;
                             }
                         }
                     }
@@ -356,16 +391,28 @@ public class ControlTestingActivity extends AppCompatActivity {
             }
         }
 
+        private void scaleCandies() {
+            for (Candy candy : candies) {
+                candy.setScale(scale);
+            }
+        }
+
         /**
          * Gets called from the onTouchEvent()
          *
-         * @param direction the swiping direction
+         * @param direction the swiping direction (or tap)
          */
         @Override
         public void onSwipe(int direction) {
-            lastDirection = this.direction;
+            if (this.direction != Direction.TAP) {
+                lastDirection = this.direction;
+            }
             this.direction = direction;
             swiped = true;
+        }
+
+        void tapDuration(long time) {
+            this.time = time;
         }
 
         /**
@@ -378,15 +425,42 @@ public class ControlTestingActivity extends AppCompatActivity {
 
             if (agario) {
                 for (int i = 0; i < 20; i++) {
-                    Candy c = new Candy(game);
+                    Candy c = new Candy(game, getRandomColour());
                     game.addEntity(c);
                 }
                 candies = game.getEntities(Candy.class);
             } else {
                 game.removeEntities(new ArrayList<Entity>(candies));
                 game.addEntity(new Candy(game));
+                radius = 40f;
             }
             return agario;
+        }
+
+        private int getRandomColour() {
+            int rand = (int) (Math.random() * 10);
+            switch (rand) {
+                case 0:
+                    return Color.BLUE;
+                case 1:
+                    return Color.GREEN;
+                case 2:
+                    return Color.RED;
+                case 3:
+                    return Color.CYAN;
+                case 4:
+                    return Color.MAGENTA;
+                case 5:
+                    return Color.YELLOW;
+                case 6:
+                    return Color.LTGRAY;
+                case 7:
+                    return context.getResources().getColor(R.color.colorAccent);
+                case 8:
+                    return context.getResources().getColor(android.R.color.holo_orange_light);
+                default:
+                    return context.getResources().getColor(android.R.color.holo_purple);
+            }
         }
     }
 
@@ -396,13 +470,23 @@ public class ControlTestingActivity extends AppCompatActivity {
     private static class Candy extends Entity {
         private float width, height;
         private float xVal, yVal;
+        private float scale = 1;
+        private int colour;
 
-        private Bitmap bitmap;
+        private Paint paint;
         private GameModel game;
 
         Candy(GameModel game) {
+            this(game, Color.MAGENTA);
+        }
+
+        Candy(GameModel game, int colour) {
             super();
             this.game = game;
+            this.colour = colour;
+            this.paint = new Paint();
+            this.width = 40f;
+            this.height = 40f;
         }
 
         /**
@@ -412,14 +496,11 @@ public class ControlTestingActivity extends AppCompatActivity {
          */
         @Override
         public void draw(GameView gv) {
-            if (bitmap == null) {
+            if (paint.getColor() != colour) {
+                paint.setColor(colour);
                 changePos();
-                bitmap = gv.getBitmap(R.drawable.candy_shape);
-
-                width = bitmap.getWidth();
-                height = bitmap.getHeight();
             }
-            gv.drawBitmap(bitmap, xVal, yVal, width, height, 0);
+            gv.getCanvas().drawRect(xVal, yVal, xVal + width * scale, yVal + height * scale, paint);
         }
 
         /**
@@ -444,8 +525,20 @@ public class ControlTestingActivity extends AppCompatActivity {
          * Change from position
          */
         void changePos() {
-            yVal = (float) (int) (Math.random() * (game.getHeight() - height * 2));
-            xVal = (float) (int) (Math.random() * (game.getWidth() - width * 2));
+            xVal = (float) (int) (Math.random() * (game.getWidth() - width));
+            yVal = (float) (int) (Math.random() * (game.getHeight() - height));
+        }
+
+        void setScale(float scale) {
+            this.scale = scale;
+        }
+
+        void setColour(int colour) {
+            this.colour = colour;
+        }
+
+        float getSize() {
+            return this.width;
         }
     }
 }

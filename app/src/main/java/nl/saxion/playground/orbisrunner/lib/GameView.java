@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
@@ -288,13 +289,20 @@ public class GameView extends View implements View.OnTouchListener {
         }
     }
 
-    public Bitmap getBitmap(int drawableRes) {
+    public Bitmap getBitmap(int drawableRes, int colour) {
         Drawable drawable = getResources().getDrawable(drawableRes);
+        if (colour != -1) {
+            drawable.setColorFilter(colour, PorterDuff.Mode.ADD);
+        }
         Canvas canvas = new Canvas();
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         canvas.setBitmap(bitmap);
         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
         drawable.draw(canvas);
         return bitmap;
+    }
+
+    public Bitmap getBitmap(int drawableRes) {
+        return getBitmap(drawableRes, -1);
     }
 }
