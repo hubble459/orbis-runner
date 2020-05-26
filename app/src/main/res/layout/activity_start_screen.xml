@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:clickable="true"
-        android:drawableTop="@drawable/ic_color_lens_24px"
+        android:drawableTop="@drawable/ic_customize_24px"
         android:focusable="true"
         android:text="@string/customize"
         app:layout_constraintEnd_toEndOf="parent"
