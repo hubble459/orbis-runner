@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
@@ -227,6 +226,7 @@ public class GameView extends View implements View.OnTouchListener {
         emitTicks();
 
         // Translate actual coordinates to virtual coordinates:
+        if (touchMatrix == null) calculateMatrices();
         event.transform(touchMatrix);
 
         gameModel.handleTouch(event);
@@ -243,8 +243,7 @@ public class GameView extends View implements View.OnTouchListener {
 
         // Call `start()` once, before the first draw but after widths/heights have been calculated.
         if (!gameModel.started) {
-            gameModel.started = true;
-            gameModel.start();
+            gameModel.start(canvas);
         }
 
         // Paint the whole of the canvas (including black bars) black
@@ -266,6 +265,12 @@ public class GameView extends View implements View.OnTouchListener {
         // We'll iterate using first/higher, as it will allow the TreeSet
         // to be modified while iterating it.
         for (Entity go : gameModel.entities) go.draw(this);
+
+        // Call 'started' after first draw
+        if (!gameModel.started) {
+            gameModel.started = true;
+            gameModel.started(canvas);
+        }
 
         // After this, nobody should be drawing to the canvas anymore.
         this.canvas = null;
@@ -291,8 +296,8 @@ public class GameView extends View implements View.OnTouchListener {
 
     public Bitmap getBitmap(int drawableRes, int colour) {
         Drawable drawable = getResources().getDrawable(drawableRes);
-        if (colour != -1) {
-            drawable.setColorFilter(colour, PorterDuff.Mode.ADD);
+        if (colour != -69) {
+            drawable.setTint(colour);
         }
         Canvas canvas = new Canvas();
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
@@ -303,6 +308,11 @@ public class GameView extends View implements View.OnTouchListener {
     }
 
     public Bitmap getBitmap(int drawableRes) {
-        return getBitmap(drawableRes, -1);
+        return getBitmap(drawableRes, -69);
+    }
+
+    @Override
+    public void setBackgroundColor(int color) {
+        blackPaint.setColor(color);
     }
 }

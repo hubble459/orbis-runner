@@ -8,19 +8,22 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import nl.saxion.playground.orbisrunner.R;
+import nl.saxion.playground.orbisrunner.ui.demo.GameplayDemoActivity;
 
 /**
  * Starting activity
  */
 public class DeathScreenActivity extends AppCompatActivity {
-
+    public static final String LEVEL = "level_key";
+    private int level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_death_screen);
+
+        level = getIntent().getIntExtra(LEVEL, -1);
 
         init();
     }
@@ -28,16 +31,17 @@ public class DeathScreenActivity extends AppCompatActivity {
     private void init(){
         // Display level player died on
         TextView lvl = findViewById(R.id.diedOn);
-        lvl.setText("You Died On Level " /* get level player died on*/ );
+        lvl.setText("You Died On Level " + level);
 
-
-        // Assign New Game Button
+        // Assign Retry Button
         Button retryButton = findViewById(R.id.retryButton);
         retryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Clear saved level progress and start game on level 0
-                Toast.makeText(DeathScreenActivity.this, "New Game Clicked", Toast.LENGTH_SHORT).show();
+                // Retry Level
+                Intent intent = new Intent(DeathScreenActivity.this, GameplayDemoActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -47,8 +51,6 @@ public class DeathScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 // Go to the starting screen
-//                Intent intent = new Intent(DeathScreenActivity.this, StartScreenActivity.class);
-//                startActivity(intent);
                 finish();
                 Toast.makeText(DeathScreenActivity.this,"Main Menu Clicked",Toast.LENGTH_SHORT).show();
             }

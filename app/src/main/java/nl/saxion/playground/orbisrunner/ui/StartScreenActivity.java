@@ -1,5 +1,6 @@
 package nl.saxion.playground.orbisrunner.ui;
 
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import java.util.Random;
 
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.Animation;
+import nl.saxion.playground.orbisrunner.ui.demo.GameplayDemoActivity;
 
 /**
  * Starting activity
@@ -50,8 +52,9 @@ public class StartScreenActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Start the game matching the corresponding level
-                toast("Play Clicked");
+                // Start the game
+                Intent game = new Intent(StartScreenActivity.this, GameplayDemoActivity.class);
+                startActivity(game);
             }
         });
 
