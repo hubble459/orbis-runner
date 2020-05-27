@@ -19,9 +19,16 @@ Progress review
 
 ## Stand-up 25-05-2020 13:00
 Quick review on what we did
-Talked about open issues and wrapping things up for the due date [26-05-2020]
+Talked about open issues and wrapping things up for the due date (26-05-2020)
 
 ## Stand-up 26-05-2020 9:15
 Played scribble to decide the next Scrum Master
 Serwet is Scrum master
 Talked about progress
+
+## Stand-up 27-05-2020 11:00
+Distributed the issues
+Talked about progress
+Because of the Android Programming retakes we will give ourselves more leeway to complete our issues
+
+
