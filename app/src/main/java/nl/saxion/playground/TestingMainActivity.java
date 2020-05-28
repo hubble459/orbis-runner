@@ -15,8 +15,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import nl.saxion.playground.orbisrunner.R;
+import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 import nl.saxion.playground.orbisrunner.ui.ControlTestingActivity;
 import nl.saxion.playground.orbisrunner.ui.DeathScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.StartScreenActivity;
@@ -56,6 +58,9 @@ public class TestingMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_testing_main);
 
+        // Should be called in Splash Screen
+        GameProvider.getSave(this);
+
         addActivities();
 
         ListView list = findViewById(R.id.list);
@@ -65,9 +70,8 @@ public class TestingMainActivity extends AppCompatActivity {
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                Typeface typeface = Typeface.DEFAULT;
-                tv.setTypeface(typeface);
-                tv.setText(getItem(position).getSimpleName());
+                tv.setTypeface(Typeface.DEFAULT);
+                tv.setText(Objects.requireNonNull(getItem(position)).getSimpleName());
                 return view;
             }
         });
