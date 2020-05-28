@@ -18,6 +18,13 @@ import nl.saxion.playground.orbisrunner.game.entity.Player;
 
 import static android.content.Context.MODE_PRIVATE;
 
+/**
+ * Used for saving data and fetching it
+ * You can get and set coins, the player, the shop with its items, and the level
+ * More could be easily added (Like saving if sound and music should be on or off)
+ * <p>
+ * The getSave should be called as soon as possible (Splash Screen)
+ */
 public class GameProvider {
     private static final GameProvider instance = new GameProvider();
     private Shop shop;
@@ -25,11 +32,18 @@ public class GameProvider {
     private int coins;
     private int level;
 
+    /**
+     * Init the player and shop
+     */
     private GameProvider() {
         shop = new Shop();
         player = new Player();
     }
 
+    /**
+     * Get all saved variables from a json file named "savedData.json" in the files dir for this app
+     * @param context needed to get the files directory
+     */
     public static void getSave(Context context) {
         try {
             File file = new File(context.getFilesDir() + "/savedData.json");
@@ -56,6 +70,10 @@ public class GameProvider {
         }
     }
 
+    /**
+     * Save all variables to a json file named "savedData.json" in the files dir for this app
+     * @param context needed to get the files directory and for the output stream
+     */
     public static void saveData(Context context) {
         try {
             JSONObject savedDataJSON = new JSONObject();
