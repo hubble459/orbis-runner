@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.GameView;
+import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 import nl.saxion.playground.orbisrunner.ui.DeathScreenActivity;
 
 public class GameplayDemoActivity extends AppCompatActivity {
@@ -24,7 +25,7 @@ public class GameplayDemoActivity extends AppCompatActivity {
             @Override
             public void dead() {
                 Intent intent = new Intent(GameplayDemoActivity.this, DeathScreenActivity.class);
-                intent.putExtra(DeathScreenActivity.LEVEL, 1 /*get level from data*/);
+                intent.putExtra(DeathScreenActivity.LEVEL, GameProvider.getLevel() /*get level from data*/);
                 startActivity(intent);
                 finish();
             }
