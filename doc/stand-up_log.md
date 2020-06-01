@@ -1,6 +1,7 @@
 # Stand-up log
 
-## Stand-up 13-05-2020 11:00(Everyone present)
+## Stand-up 13-05-2020 11:00
+Everyone present
 All issues divided.
 Added a few new issues.
 
@@ -30,5 +31,10 @@ Talked about progress
 Distributed the issues
 Talked about progress
 Because of the Android Programming retakes we will give ourselves more leeway to complete our issues
+
+## Stand-up 01-06-2020 14:01
+Olaf absent with notice
+Talked about progress
+Because of the Android Programming retake progress was slow for most of the group members
 
 
