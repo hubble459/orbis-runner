@@ -37,4 +37,8 @@ Olaf absent with notice
 Talked about progress
 Because of the Android Programming retake progress was slow for most of the group members
 
+## Stand-up 02-06-2020 10:00
+Talked about progress
+Filled Olaf in about the stand-up yesterday
+Had a Q&A with the teacher
 
