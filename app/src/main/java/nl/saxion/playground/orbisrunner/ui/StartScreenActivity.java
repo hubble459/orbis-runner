@@ -46,11 +46,7 @@ public class StartScreenActivity extends AppCompatActivity {
 
         // Set level title
         TextView lvl = findViewById(R.id.level);
-<<<<<<< HEAD
         lvl.setText(GameProvider.getCurrentLevel().getNumber() + "" /* get level from save instance */);
-=======
-        lvl.setText(GameProvider.getLevel() + "" /* get level from save instance */);
->>>>>>> beba03b411e3fe2c14f9503531e8249142c12cce
 
         // Assign Play Button
         Button playButton = findViewById(R.id.playButton);

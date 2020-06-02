@@ -17,7 +17,8 @@ import static nl.saxion.playground.orbisrunner.ui.ControlTestingActivity.Directi
 public class Player extends Entity {
     private static final String TAG = "Player";
 
-    private int color;
+    private static final int LOOKING_RIGHT = 1;
+    private static final int LOOKING_LEFT = -1;
 
     private static final float BRAKE = .002f;
     private static final float MAX_SPEED = .4f;
@@ -31,16 +32,19 @@ public class Player extends Entity {
     private float angle;
     private float jump;
     private float degrees;
+    private int color;
     private int direction = -1;
     private int lastDirection = -1;
+    private int looking;
     private boolean jumpingUp;
     private boolean jumpingDown;
     private boolean dead;
     private OrbisRunnerModel game;
     private AnimationDrawable animationDrawable;
+    private Drawable drawable;
     private int frame;
     private int maxFrames;
-    private int top, left;
+    private long lastTime;
 
     public void setGame(OrbisRunnerModel game) {
         this.game = game;
@@ -50,21 +54,28 @@ public class Player extends Entity {
     public void draw(GameView gv) {
         if (animationDrawable == null) {
             setXY(degrees);
-            Drawable drawable = gv.getContext().getDrawable(R.drawable.walking);
-            if (drawable == null) return;
-            animationDrawable = (AnimationDrawable) drawable;
+            animationDrawable = (AnimationDrawable) gv.getContext().getDrawable(R.drawable.walking);
+            if (animationDrawable == null) return;
             maxFrames = animationDrawable.getNumberOfFrames();
 
-            width = drawable.getIntrinsicWidth();
-            height = drawable.getIntrinsicHeight();
-            left = (int) (xVal - width / 2);
-            top = (int) (yVal - height / 2);
+            width = animationDrawable.getIntrinsicWidth() * 4;
+            height = animationDrawable.getIntrinsicHeight() * 4;
         }
-        Drawable drawable = animationDrawable.getFrame(frame);
-        drawable.setBounds(left, top, left + (int) width, top + (int) height);
-        drawable.draw(gv.getCanvas());
-        frame = frame++;
-        if (frame > maxFrames) frame = 0;
+        if (frame >= maxFrames) frame = 0;
+        int left = (int) (xVal - width / 2);
+        int top = (int) (yVal - height / 2);
+        if (animationDrawable.getDuration(frame) < System.currentTimeMillis() - lastTime) {
+            drawable = animationDrawable.getFrame(frame++);
+            lastTime = System.currentTimeMillis();
+        }
+        if (drawable != null) {
+            gv.getCanvas().rotate(angle, left + width / 2, top + height / 2);
+            float cW = gv.getCanvas().getWidth();
+            float cH = gv.getCanvas().getHeight();
+            gv.getCanvas().scale(1, looking, left + width / 2, top + height / 2);
+            drawable.setBounds(left, top, left + (int) width, top + (int) height + 40);
+            drawable.draw(gv.getCanvas());
+        }
     }
 
     @Override
@@ -125,9 +136,11 @@ public class Player extends Entity {
             speed += ACC;
         }
         if (direction == LEFT) {
+            looking = LOOKING_LEFT;
             degrees += speed;
             setXY(degrees);
         } else if (direction == RIGHT) {
+            looking = LOOKING_RIGHT;
             degrees -= speed;
             setXY(degrees);
         } else if (direction == UP) {
@@ -153,7 +166,7 @@ public class Player extends Entity {
         float[] xy = game.getXYFromDegrees(degrees, jump);
         this.xVal = xy[0];
         this.yVal = xy[1];
-        this.angle = xy[2];
+        this.angle = xy[2] - 90;
     }
 
     @Override
