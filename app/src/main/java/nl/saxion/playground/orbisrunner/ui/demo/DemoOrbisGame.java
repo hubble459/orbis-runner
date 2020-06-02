@@ -7,7 +7,7 @@ import android.widget.TextView;
 import nl.saxion.playground.orbisrunner.lib.GameModel;
 import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoCircle;
 import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
-import nl.saxion.playground.orbisrunner.ui.demo.entities.Player;
+import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoPlayer;
 
 public class DemoOrbisGame extends GameModel {
     public TextView speedometer;
@@ -36,8 +36,8 @@ public class DemoOrbisGame extends GameModel {
     @Override
     public void started(Canvas canvas) {
         // Set player
-        Player player = new Player(this, 0);
-        addEntity(player);
+        DemoPlayer demoPlayer = new DemoPlayer(this, 0);
+        addEntity(demoPlayer);
 
         // Set enemies from level data
         setDummyEnemies();

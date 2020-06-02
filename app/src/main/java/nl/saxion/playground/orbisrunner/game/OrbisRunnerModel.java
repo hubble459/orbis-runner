@@ -17,12 +17,17 @@ public class OrbisRunnerModel extends GameModel {
     private Level level;
 
     public OrbisRunnerModel(Player player, Level level) {
-        this.player = player;
         this.level = level;
-        this.circle = new Circle(false);
+
+        this.circle = new Circle(true);
         this.circle.setMargin(STROKE_WIDTH - 2f);
-        this.bgCircle = new Circle(false);
+
+        this.bgCircle = new Circle(true);
         this.bgCircle.setSize(SIZE_DOUBLE);
+
+        this.player = player;
+        this.player.setGame(this);
+        this.player.setDegrees(level.getPlayerDegrees());
     }
 
     @Override
@@ -38,5 +43,13 @@ public class OrbisRunnerModel extends GameModel {
         for (Entity entity : level.getEntities()) {
             addEntity(entity);
         }
+    }
+
+    public void dead() {
+
+    }
+
+    public float[] getXYFromDegrees(float degrees, float margin) {
+        return circle.getXYFromDegrees(degrees, margin);
     }
 }

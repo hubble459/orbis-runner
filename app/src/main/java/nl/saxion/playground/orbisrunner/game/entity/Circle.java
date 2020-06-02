@@ -45,15 +45,24 @@ public class Circle extends Entity {
         gv.getCanvas().drawCircle(xMiddle, yMiddle, getRadiusOutside() + margin, paint);
     }
 
-    public float getRadiusOutside() {
+    private float getRadiusOutside() {
         return size / 2;
     }
 
-    public float getRadiusInside() {
+    private float getRadiusInside() {
         return (size + STROKE_WIDTH / 2) / 2 - STROKE_WIDTH;
     }
 
     public void setSize(float size) {
         this.size = size;
+    }
+
+    public float[] getXYFromDegrees(float degrees, float margin) {
+        double radians = Math.toRadians(degrees);
+        float[] xy = new float[3];
+        xy[0] = (float) ((getRadiusInside() - margin) * Math.cos(radians) + xMiddle);
+        xy[1] = (float) ((getRadiusInside() - margin) * Math.sin(radians) + yMiddle);
+        xy[2] = degrees;
+        return xy;
     }
 }

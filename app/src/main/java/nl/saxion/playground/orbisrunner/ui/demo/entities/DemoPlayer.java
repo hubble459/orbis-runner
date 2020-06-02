@@ -16,7 +16,7 @@ import static nl.saxion.playground.orbisrunner.ui.ControlTestingActivity.Directi
 import static nl.saxion.playground.orbisrunner.ui.ControlTestingActivity.Direction.RIGHT;
 import static nl.saxion.playground.orbisrunner.ui.ControlTestingActivity.Direction.UP;
 
-public class Player extends Entity {
+public class DemoPlayer extends Entity {
     private static final String TAG = "Player";
 
     private static final float BRAKE = .002f;
@@ -39,7 +39,7 @@ public class Player extends Entity {
     private Bitmap bitmap;
     private DemoOrbisGame game;
 
-    public Player(DemoOrbisGame game, float degrees) {
+    public DemoPlayer(DemoOrbisGame game, float degrees) {
         this.game = game;
         setXY(degrees);
     }

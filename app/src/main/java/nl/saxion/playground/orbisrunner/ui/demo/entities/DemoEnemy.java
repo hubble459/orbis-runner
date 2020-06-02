@@ -29,7 +29,7 @@ public class DemoEnemy extends Entity {
         gv.drawBitmap(bitmap, xVal - width / 2, yVal - height / 2, width, height, angle);
     }
 
-    boolean inHitbox(float x, float y, float width, float height) {
+    public boolean inHitbox(float x, float y, float width, float height) {
         float centerX = xVal + this.width / 2;
         float centerY = yVal + this.height / 2;
 

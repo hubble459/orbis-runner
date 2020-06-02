@@ -1,5 +1,6 @@
 package nl.saxion.playground.orbisrunner.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -21,7 +22,7 @@ public class GameActivity extends AppCompatActivity {
 
         GameView gv = findViewById(R.id.game);
         gv.setGame(or);
-
+        gv.setBackgroundColor(Color.WHITE);
 
     }
 }
