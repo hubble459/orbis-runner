@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="nl.saxion.playground.orbisrunner.ui.demo.GameplayDemoActivity">
+    tools:context="nl.saxion.playground.orbisrunner.ui.demo.DemoGameplayActivity">
 
     <nl.saxion.playground.orbisrunner.lib.GameView
         android:id="@+id/demoGame"

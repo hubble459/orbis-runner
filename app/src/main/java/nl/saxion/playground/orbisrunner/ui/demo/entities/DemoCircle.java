@@ -6,12 +6,12 @@ import android.graphics.Paint;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameView;
 
-public class Circle extends Entity {
+public class DemoCircle extends Entity {
     private static final float STROKE_WIDTH = 100f;
     private float size;
     private int colour;
 
-    public Circle(boolean black) {
+    public DemoCircle(boolean black) {
         this.colour = black ? Color.BLACK : Color.WHITE;
     }
 

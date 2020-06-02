@@ -7,13 +7,13 @@ import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameView;
 
-public class Enemy extends Entity {
+public class DemoEnemy extends Entity {
     private float xVal, yVal;
     private float width, height;
     private float angle;
     private Bitmap bitmap;
 
-    public Enemy(float[] xy) {
+    public DemoEnemy(float[] xy) {
         xVal = xy[0];
         yVal = xy[1];
         angle = xy[2];

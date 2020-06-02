@@ -10,8 +10,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import nl.saxion.playground.orbisrunner.game.Level;
 import nl.saxion.playground.orbisrunner.game.Shop;
 import nl.saxion.playground.orbisrunner.game.ShopItem;
 import nl.saxion.playground.orbisrunner.game.entity.Player;
@@ -30,7 +32,9 @@ public class GameProvider {
     private Shop shop;
     private Player player;
     private int coins;
-    private int level;
+    private int currentLevel;
+
+    private ArrayList<Level> levels;
 
     /**
      * Init the player and shop
@@ -38,6 +42,7 @@ public class GameProvider {
     private GameProvider() {
         shop = new Shop();
         player = new Player();
+        levels = new ArrayList<>();
     }
 
     /**
@@ -55,7 +60,7 @@ public class GameProvider {
             JSONObject data = new JSONObject(jsonString);
 
             instance.coins = data.optInt("coins");
-            instance.level = data.optInt("level");
+            instance.currentLevel = data.optInt("level");
             instance.player.setColor(data.optInt("color"));
             instance.shop.activate(data.optInt("active"));
 
@@ -79,7 +84,7 @@ public class GameProvider {
             JSONObject savedDataJSON = new JSONObject();
 
             savedDataJSON.put("coins", instance.coins);
-            savedDataJSON.put("level", instance.level);
+            savedDataJSON.put("level", instance.currentLevel);
             savedDataJSON.put("color", instance.player.getColor());
             savedDataJSON.put("active", instance.shop.getActive());
 
@@ -111,8 +116,8 @@ public class GameProvider {
         return instance.coins;
     }
 
-    public static int getLevel() {
-        return instance.level;
+    public static Level getCurrentLevel() {
+        return getLevels().get(instance.currentLevel);
     }
 
     public static Player getPlayer() {
@@ -121,5 +126,9 @@ public class GameProvider {
 
     public static Shop getShop() {
         return instance.shop;
+    }
+
+    public static ArrayList<Level> getLevels() {
+        return instance.levels;
     }
 }

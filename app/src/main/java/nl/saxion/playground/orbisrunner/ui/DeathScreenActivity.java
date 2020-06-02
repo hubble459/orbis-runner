@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import nl.saxion.playground.orbisrunner.R;
-import nl.saxion.playground.orbisrunner.ui.demo.GameplayDemoActivity;
+import nl.saxion.playground.orbisrunner.ui.demo.DemoGameplayActivity;
 
 /**
  * Starting activity
@@ -39,7 +39,7 @@ public class DeathScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Retry Level
-                Intent intent = new Intent(DeathScreenActivity.this, GameplayDemoActivity.class);
+                Intent intent = new Intent(DeathScreenActivity.this, DemoGameplayActivity.class);
                 startActivity(intent);
                 finish();
             }

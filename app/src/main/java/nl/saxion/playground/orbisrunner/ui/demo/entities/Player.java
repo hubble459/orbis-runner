@@ -10,7 +10,7 @@ import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameModel;
 import nl.saxion.playground.orbisrunner.lib.GameView;
-import nl.saxion.playground.orbisrunner.ui.demo.OrbisGame;
+import nl.saxion.playground.orbisrunner.ui.demo.DemoOrbisGame;
 
 import static nl.saxion.playground.orbisrunner.ui.ControlTestingActivity.Direction.LEFT;
 import static nl.saxion.playground.orbisrunner.ui.ControlTestingActivity.Direction.RIGHT;
@@ -37,9 +37,9 @@ public class Player extends Entity {
     private boolean jumpingDown;
     private boolean dead;
     private Bitmap bitmap;
-    private OrbisGame game;
+    private DemoOrbisGame game;
 
-    public Player(OrbisGame game, float degrees) {
+    public Player(DemoOrbisGame game, float degrees) {
         this.game = game;
         setXY(degrees);
     }
@@ -59,8 +59,8 @@ public class Player extends Entity {
     public void tick() {
         if (dead) return;
 
-        for (Enemy enemy : game.getEntities(Enemy.class)) {
-            if (enemy.inHitbox(xVal, yVal, width, height)) {
+        for (DemoEnemy demoEnemy : game.getEntities(DemoEnemy.class)) {
+            if (demoEnemy.inHitbox(xVal, yVal, width, height)) {
                 dead = true;
                 game.dead();
                 return;
