@@ -17,8 +17,8 @@ import static nl.saxion.playground.orbisrunner.ui.ControlTestingActivity.Directi
 public class Player extends Entity {
     private static final String TAG = "Player";
 
-    private static final int LOOKING_RIGHT = 1;
-    private static final int LOOKING_LEFT = -1;
+    private static final int LOOKING_RIGHT = -1;
+    private static final int LOOKING_LEFT = 1;
 
     private static final float BRAKE = .002f;
     private static final float MAX_SPEED = .4f;
@@ -48,6 +48,7 @@ public class Player extends Entity {
 
     public void setGame(OrbisRunnerModel game) {
         this.game = game;
+        this.maxJump = 3;
     }
 
     @Override
@@ -59,21 +60,22 @@ public class Player extends Entity {
             maxFrames = animationDrawable.getNumberOfFrames();
 
             width = animationDrawable.getIntrinsicWidth() * 4;
-            height = animationDrawable.getIntrinsicHeight() * 4;
+            height = animationDrawable.getIntrinsicHeight() * 4 + 40;
         }
+
+        if ((direction != LEFT && direction != RIGHT) || jumpingDown) frame = 0;
         if (frame >= maxFrames) frame = 0;
-        int left = (int) (xVal - width / 2);
-        int top = (int) (yVal - height / 2);
         if (animationDrawable.getDuration(frame) < System.currentTimeMillis() - lastTime) {
             drawable = animationDrawable.getFrame(frame++);
             lastTime = System.currentTimeMillis();
         }
+
         if (drawable != null) {
-            gv.getCanvas().rotate(angle, left + width / 2, top + height / 2);
-            float cW = gv.getCanvas().getWidth();
-            float cH = gv.getCanvas().getHeight();
-            gv.getCanvas().scale(1, looking, left + width / 2, top + height / 2);
-            drawable.setBounds(left, top, left + (int) width, top + (int) height + 40);
+            int right = (int) (xVal - width / 2);
+            int bottom = (int) (yVal - height / 2);
+            gv.getCanvas().rotate(angle, right + width / 2, bottom + height / 2);
+            gv.getCanvas().scale(looking, -1, right + width / 2, bottom + height / 2);
+            drawable.setBounds(right + (int) width, bottom + (int) height, right, bottom);
             drawable.draw(gv.getCanvas());
         }
     }
