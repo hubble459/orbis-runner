@@ -117,6 +117,8 @@ public class GameProvider {
     }
 
     public static Level getCurrentLevel() {
+        // TODO make some demo levels
+        if (getLevels() == null || getLevels().isEmpty()) return new Level();
         return getLevels().get(instance.currentLevel);
     }
 
@@ -128,7 +130,7 @@ public class GameProvider {
         return instance.shop;
     }
 
-    public static ArrayList<Level> getLevels() {
+    private static ArrayList<Level> getLevels() {
         return instance.levels;
     }
 }

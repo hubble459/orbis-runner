@@ -31,7 +31,7 @@ public class DemoGameplayActivity extends AppCompatActivity {
             }
         });
         og.setSpeedometer(speedometer);
-        og.setLevel(1 /*get level from data*/);
+        og.setLevel(GameProvider.getCurrentLevel().getNumber() /*get level from data*/);
         GameView gv = findViewById(R.id.demoGame);
         gv.setBackgroundColor(Color.WHITE);
         gv.setGame(og);
