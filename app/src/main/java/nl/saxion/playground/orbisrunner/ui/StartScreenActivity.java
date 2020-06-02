@@ -41,12 +41,12 @@ public class StartScreenActivity extends AppCompatActivity {
     private void init() {
         // Animate Player W A L K I N G
         ImageView player = findViewById(R.id.player);
-        ((AnimationDrawable) player.getDrawable()).start();
-        Animation.walkInCircle(player, 4000, new Random().nextBoolean());
+        ((AnimationDrawable) player.getBackground()).start();
+        Animation.walkInCircle(findViewById(R.id.rotateView), 7000, new Random().nextBoolean());
 
         // Set level title
         TextView lvl = findViewById(R.id.level);
-        lvl.setText(GameProvider.getLevel() /* get level from save instance */);
+        lvl.setText(GameProvider.getLevel() + "" /* get level from save instance */);
 
         // Assign Play Button
         Button playButton = findViewById(R.id.playButton);

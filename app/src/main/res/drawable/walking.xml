@@ -3,7 +3,7 @@
     android:oneshot="false">
     <item
         android:drawable="@drawable/pixil_frame_0"
-        android:duration="909" />
+        android:duration="90" />
     <item
         android:drawable="@drawable/pixil_frame_1"
         android:duration="90" />
