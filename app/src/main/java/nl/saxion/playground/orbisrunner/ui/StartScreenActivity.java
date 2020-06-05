@@ -85,6 +85,8 @@ public class StartScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Start settings activity
+                Intent settings = new Intent(StartScreenActivity.this, SettingScreenActivity.class);
+                startActivity(settings);
                 toast("Settings Clicked");
             }
         });
