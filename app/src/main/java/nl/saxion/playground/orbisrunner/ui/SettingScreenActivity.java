@@ -16,6 +16,7 @@ public class SettingScreenActivity extends AppCompatActivity {
     }
 
     public void init() {
+        //test
 
     }
 }
