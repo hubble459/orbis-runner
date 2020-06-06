@@ -49,7 +49,8 @@ public class DemoOrbisGame extends GameModel {
             while (rand >= 0 && rand < 10f) {
                 rand = (float) (Math.random() * 360);
             }
-            DemoEnemy e = new DemoEnemy(getXYFromDegrees(rand, 0));
+            DemoEnemy e = new DemoEnemy();
+            e.setXYValues(getXYFromDegrees(rand, 0));
             addEntity(e);
         }
     }

@@ -13,7 +13,7 @@ public class DemoEnemy extends Entity {
     private float angle;
     private Bitmap bitmap;
 
-    public DemoEnemy(float[] xy) {
+    public void setXYValues(float[] xy) {
         xVal = xy[0];
         yVal = xy[1];
         angle = xy[2];
@@ -37,5 +37,10 @@ public class DemoEnemy extends Entity {
             return centerX >= x && centerX <= x + width;
         }
         return false;
+    }
+
+    @Override
+    public int getImageResource() {
+        return R.drawable.demo_entity;
     }
 }

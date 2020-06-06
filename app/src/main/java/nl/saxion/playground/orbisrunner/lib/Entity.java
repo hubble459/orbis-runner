@@ -18,6 +18,8 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         id = ++count;
     }
 
+    private boolean selected;
+
     /**
      * Override this method to determine the rendering order for this
      * object. Higher numbers get drawn later, overdrawing.
@@ -67,6 +69,39 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
     }
 
     public void onSwipe(int direction) {
+    }
+
+    public String getName() {
+        String name = getClass().getSimpleName();
+        name = addSpaceForCamelCase(name);
+        return name;
+    }
+
+    private String addSpaceForCamelCase(String name) {
+        StringBuilder result = new StringBuilder();
+        for (char c : name.toCharArray()) {
+            if (isCap(c) && result.length() != 0) {
+                result.append(" ");
+            }
+            result.append(c);
+        }
+        return result.toString();
+    }
+
+    private boolean isCap(char c) {
+        return c >= 'A' && c <= 'Z';
+    }
+
+    public int getImageResource() {
+        return -1;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }
 

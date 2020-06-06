@@ -7,11 +7,7 @@ import nl.saxion.playground.orbisrunner.game.entity.Player;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameModel;
 
-import static nl.saxion.playground.orbisrunner.game.entity.Circle.SIZE_DOUBLE;
-import static nl.saxion.playground.orbisrunner.game.entity.Circle.STROKE_WIDTH;
-
 public class OrbisRunnerModel extends GameModel {
-    private Circle bgCircle;
     private Circle circle;
     private Player player;
     private Level level;
@@ -20,14 +16,11 @@ public class OrbisRunnerModel extends GameModel {
         this.level = level;
 
         this.circle = new Circle(true);
-        this.circle.setMargin(STROKE_WIDTH - 2f);
-
-        this.bgCircle = new Circle(true);
-        this.bgCircle.setSize(SIZE_DOUBLE);
+        this.circle.setSize(Circle.SIZE_DOUBLE);
+        this.circle.setMargin(Circle.STROKE_WIDTH);
 
         this.player = player;
         this.player.setGame(this);
-        this.player.setDegrees(level.getPlayerDegrees());
     }
 
     @Override
@@ -37,7 +30,6 @@ public class OrbisRunnerModel extends GameModel {
 
     private void addEntities() {
         addEntity(player);
-        addEntity(bgCircle);
         addEntity(circle);
 
         for (Entity entity : level.getEntities()) {
@@ -45,10 +37,12 @@ public class OrbisRunnerModel extends GameModel {
         }
     }
 
+    @Override
     public void dead() {
 
     }
 
+    @Override
     public float[] getXYFromDegrees(float degrees, float margin) {
         return circle.getXYFromDegrees(degrees, margin);
     }

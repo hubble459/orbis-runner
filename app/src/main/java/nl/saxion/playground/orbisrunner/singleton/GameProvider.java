@@ -43,10 +43,18 @@ public class GameProvider {
         shop = new Shop();
         player = new Player();
         levels = new ArrayList<>();
+        addDummyLevels();
+    }
+
+    public static Level getCurrentLevel() {
+        // TODO make some demo levels
+        if (getLevels() == null || getLevels().isEmpty()) return new Level(0);
+        return getLevels().get(instance.currentLevel);
     }
 
     /**
      * Get all saved variables from a json file named "savedData.json" in the files dir for this app
+     *
      * @param context needed to get the files directory
      */
     public static void getSave(Context context) {
@@ -116,10 +124,8 @@ public class GameProvider {
         return instance.coins;
     }
 
-    public static Level getCurrentLevel() {
-        // TODO make some demo levels
-        if (getLevels() == null || getLevels().isEmpty()) return new Level();
-        return getLevels().get(instance.currentLevel);
+    public static ArrayList<Level> getLevels() {
+        return instance.levels;
     }
 
     public static Player getPlayer() {
@@ -130,7 +136,9 @@ public class GameProvider {
         return instance.shop;
     }
 
-    private static ArrayList<Level> getLevels() {
-        return instance.levels;
+    private void addDummyLevels() {
+        for (int i = 0; i < 10; i++) {
+            levels.add(new Level(i));
+        }
     }
 }

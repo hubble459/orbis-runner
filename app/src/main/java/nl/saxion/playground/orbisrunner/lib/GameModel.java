@@ -203,6 +203,13 @@ public class GameModel implements Serializable {
         return touch;
     }
 
+    public void dead() {
+    }
+
+    public float[] getXYFromDegrees(float degrees, float jump) {
+        return null;
+    }
+
 
     /**
      * Helper class that contains information about an ongoing touch.

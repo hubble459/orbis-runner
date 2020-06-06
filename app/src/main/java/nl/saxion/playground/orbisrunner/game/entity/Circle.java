@@ -39,7 +39,7 @@ public class Circle extends Entity {
 
         if (xMiddle == 0) {
             xMiddle = gv.getWidth() / 2f;
-            yMiddle = gv.getHeight() / 2f;
+            yMiddle = gv.getHeight() / 2f - (size / 2 - STROKE_WIDTH - margin) / 2;
         }
 
         gv.getCanvas().drawCircle(xMiddle, yMiddle, getRadiusOutside() + margin, paint);
