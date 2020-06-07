@@ -1,7 +1,6 @@
 package nl.saxion.playground.orbisrunner.ui;
 
 import android.content.DialogInterface;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,12 +24,11 @@ import java.util.Objects;
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.adapter.EntityGridAdapter;
 import nl.saxion.playground.orbisrunner.game.Level;
-import nl.saxion.playground.orbisrunner.game.entity.Player;
+import nl.saxion.playground.orbisrunner.levelmaker.EntityItem;
+import nl.saxion.playground.orbisrunner.levelmaker.MakerModel;
 import nl.saxion.playground.orbisrunner.lib.Entity;
-import nl.saxion.playground.orbisrunner.lib.GameModel;
 import nl.saxion.playground.orbisrunner.lib.GameView;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
-import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoCircle;
 import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
 
 public class LevelMaker extends AppCompatActivity {
@@ -86,39 +84,39 @@ public class LevelMaker extends AppCompatActivity {
     }
 
     private void init() {
-        model = new MakerModel(GameProvider.getPlayer(), level);
+        model = new MakerModel(this, level);
         gameView.setGame(model);
         gameView.setBackgroundColor(Color.WHITE);
 
-        final ArrayList<Entity> allEntities = new ArrayList<>();
-        allEntities.add(new DemoEnemy());
+        final ArrayList<EntityItem> entityItems = new ArrayList<>();
+        entityItems.add(new EntityItem(EntityItem.DEMO_ENEMY));
 
-        EntityGridAdapter adapter = new EntityGridAdapter(this, allEntities);
+        EntityGridAdapter adapter = new EntityGridAdapter(this, entityItems);
+
         entityList.setAdapter(adapter);
         entityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Entity e = allEntities.get(position);
-                if (e instanceof DemoEnemy) {
-                    e = new DemoEnemy();
-                    ((DemoEnemy) e).setXYValues(model.getXYFromDegrees(0, 15));
+                try {
+                    Entity e = (Entity) entityItems.get(position).getEntity().newInstance();
+                    e.setLevelMaker(LevelMaker.this);
+                    e.setXYValues(model.getXYFromDegrees(0, 15, e));
+                    select(e);
+                    model.addEntity(e);
+                    level.addEntity(e);
+                } catch (InstantiationException | IllegalAccessException ex) {
+                    ex.printStackTrace();
                 }
-                model.deselectAll();
-                e.setSelected(true);
-                seekBar.setProgress(0);
-                model.addEntity(e);
-                level.addEntity(e);
             }
         });
 
-        seekBar.setMax(380);
+        seekBar.setMax(360);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Entity e = getSelected();
-                if (e instanceof DemoEnemy) {
-                    ((DemoEnemy) e).setXYValues(model.getXYFromDegrees(progress, 15));
-                }
+                if (e == null) return;
+                e.setXYValues(model.getXYFromDegrees(360 - progress, 15, e));
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -127,6 +125,13 @@ public class LevelMaker extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+    }
+
+    public void select(Entity e) {
+        deselectAll();
+        e.setSelected(true);
+        int angle = 360 - (int) e.getAngle();
+        seekBar.setProgress(angle);
     }
 
     private Entity getSelected() {
@@ -184,6 +189,7 @@ public class LevelMaker extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         GameProvider.getLevels().add(np.getValue() - 1, level);
+                        GameProvider.saveData(LevelMaker.this);
                         Toast.makeText(LevelMaker.this, "Saved!", Toast.LENGTH_SHORT).show();
                         finish();
                     }
@@ -192,45 +198,7 @@ public class LevelMaker extends AppCompatActivity {
                 .show();
     }
 
-    private static class MakerModel extends GameModel {
-        private DemoCircle circle;
-        private Player player;
-        private Level level;
-
-        public MakerModel(Player player, Level level) {
-            this.level = level;
-
-            this.circle = new DemoCircle(true);
-
-            this.player = player;
-            this.player.setGame(MakerModel.this);
-            this.player.setScale(1);
-            this.player.setMarginBottom(40);
-        }
-
-        @Override
-        public void start(Canvas canvas) {
-            addEntities();
-        }
-
-        private void addEntities() {
-            addEntity(player);
-            addEntity(circle);
-
-            for (Entity entity : level.getEntities()) {
-                addEntity(entity);
-            }
-        }
-
-        @Override
-        public float[] getXYFromDegrees(float degrees, float margin) {
-            return circle.getXYFromDegrees(degrees, margin);
-        }
-
-        public void deselectAll() {
-            for (Entity entity : getEntities(DemoEnemy.class)) {
-                entity.setSelected(false);
-            }
-        }
+    public void deselectAll() {
+        model.deselectAll();
     }
 }

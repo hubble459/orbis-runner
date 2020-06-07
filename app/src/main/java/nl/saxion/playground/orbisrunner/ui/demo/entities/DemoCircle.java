@@ -39,12 +39,19 @@ public class DemoCircle extends Entity {
         return (size + STROKE_WIDTH / 2) / 2 - STROKE_WIDTH;
     }
 
-    public float[] getXYFromDegrees(float degrees, float margin) {
+    public float[] getXYFromDegrees(float degrees, float margin, Entity e) {
+        float width = 0;
+        float height = 0;
+        if (e != null) {
+            width = e.getWidth();
+            height = e.getHeight();
+        }
+
         double radians = Math.toRadians(degrees);
         float[] xy = new float[3];
-        xy[0] = (float) ((getRadiusInside() - margin) * Math.cos(radians) + xMiddle);
-        xy[1] = (float) ((getRadiusInside() - margin) * Math.sin(radians) + yMiddle);
-        xy[2] = degrees;
+        xy[0] = (float) ((getRadiusInside() - margin) * Math.cos(radians) + xMiddle - width / 2);
+        xy[1] = (float) ((getRadiusInside() - margin) * Math.sin(radians) + yMiddle - height / 2);
+        xy[2] = degrees - 90;
         return xy;
     }
 }

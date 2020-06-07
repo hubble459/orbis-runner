@@ -1,12 +1,26 @@
 package nl.saxion.playground.orbisrunner.lib;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+
+import nl.saxion.playground.orbisrunner.game.entity.Circle;
+import nl.saxion.playground.orbisrunner.game.entity.Player;
+import nl.saxion.playground.orbisrunner.levelmaker.EntityItem;
+import nl.saxion.playground.orbisrunner.ui.LevelMaker;
+import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
 
 
 abstract public class Entity implements Comparable<Entity>, Serializable {
+    // Entity speed
+    private static final float SPEED = .3f;
 
     // Static variable that provides the next `id`.
     private static int count = 0;
@@ -18,7 +32,20 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         id = ++count;
     }
 
+    // All entities have an x, y and an angle.
+    protected float xVal, yVal, angle;
+    // All entities have dimensions.
+    protected float width, height;
+    // Jump height for player and jumping enemies
+    protected float jump;
+    // Used by LevelMaker to change this specific position.
     private boolean selected;
+    // Level Maker for selecting and deselecting entities.
+    private LevelMaker levelMaker;
+    // Level Model for getting the x and y positions with degrees from circle;
+    private GameModel game;
+    // Paint object for drawing outline when selected
+    private Paint paint;
 
     /**
      * Override this method to determine the rendering order for this
@@ -33,11 +60,35 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         return 0;
     }
 
+    public static Entity fromJSON(JSONObject entity) {
+        int type = entity.optInt("type");
+        Entity e = getFromType(type);
+        if (e != null) {
+            e.setAngle((float) entity.optDouble("angle"));
+        }
+        return e;
+    }
+
+    private static Entity getFromType(int type) {
+        switch (type) {
+            case EntityItem.DEMO_ENEMY:
+                return new DemoEnemy();
+        }
+        return null;
+    }
+
     /**
      * Called `GameModel::ticksPerSecond()` times per second.
      * The method is to update the game state accordingly.
      */
     public void tick() {
+        if (game != null &&
+                !(this instanceof Player) &&
+                !(this instanceof Circle)) {
+            angle += SPEED;
+            if (angle > 360) angle = 0;
+            setXYValues(game.getXYFromDegrees(angle, jump, this));
+        }
     }
 
     /**
@@ -49,15 +100,22 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
      * @param gv The `GameView` to draw to.
      */
     public void draw(GameView gv) {
+        if (levelMaker != null && selected) {
+            if (paint == null) {
+                paint = new Paint();
+                paint.setColor(Color.CYAN);
+                paint.setStyle(Paint.Style.STROKE);
+                paint.setStrokeWidth(10f);
+            }
+            drawOutline(gv.getCanvas());
+        }
     }
 
-    /**
-     * Can be overridden if the entity wants to act on touch events.
-     *
-     * @param touch Information about the touch this event is about.
-     * @param event ACTION_DOWN, ACTION_UP or ACTION_MOVE.
-     */
-    public void handleTouch(GameModel.Touch touch, MotionEvent event) {
+    private void drawOutline(Canvas canvas) {
+        canvas.save();
+        canvas.rotate(angle, xVal + width / 2, yVal + height / 2);
+        canvas.drawCircle(xVal + width / 2, yVal + height / 2, width, paint);
+        canvas.restore();
     }
 
     // Used by the TreeSet to order GameObjects.
@@ -71,37 +129,79 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
     public void onSwipe(int direction) {
     }
 
-    public String getName() {
-        String name = getClass().getSimpleName();
-        name = addSpaceForCamelCase(name);
-        return name;
-    }
-
-    private String addSpaceForCamelCase(String name) {
-        StringBuilder result = new StringBuilder();
-        for (char c : name.toCharArray()) {
-            if (isCap(c) && result.length() != 0) {
-                result.append(" ");
-            }
-            result.append(c);
-        }
-        return result.toString();
-    }
-
-    private boolean isCap(char c) {
-        return c >= 'A' && c <= 'Z';
-    }
-
-    public int getImageResource() {
-        return -1;
-    }
-
     public boolean isSelected() {
         return selected;
     }
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    /**
+     * Can be overridden if the entity wants to act on touch events.
+     *
+     * @param touch Information about the touch this event is about.
+     * @param event ACTION_DOWN, ACTION_UP or ACTION_MOVE.
+     */
+    public void handleTouch(GameModel.Touch touch, MotionEvent event) {
+        if (levelMaker != null && clickedOnEnemy(touch)) {
+            levelMaker.select(this);
+        }
+    }
+
+    private boolean clickedOnEnemy(GameModel.Touch touch) {
+        float x = touch.x;
+        float y = touch.y;
+
+        return x + width > xVal && x - width < xVal
+                && y + height > yVal && y - height < yVal;
+    }
+
+    public void setXYValues(float[] xy) {
+        xVal = xy[0];
+        yVal = xy[1];
+        angle = xy[2];
+    }
+
+    public void setLevelMaker(LevelMaker levelMaker) {
+        this.levelMaker = levelMaker;
+        this.game = null;
+    }
+
+    public float getAngle() {
+        return angle;
+    }
+
+    public void setAngle(float angle) {
+        this.angle = angle;
+    }
+
+    public void setGame(GameModel game) {
+        this.game = game;
+        this.levelMaker = null;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public JSONObject toJSON() throws JSONException {
+        JSONObject entity = new JSONObject();
+        entity.put("angle", angle);
+        entity.put("type", getType());
+        return entity;
+    }
+
+    private int getType() {
+        switch (getClass().getSimpleName().toLowerCase()) {
+            case "demoenemy":
+                return EntityItem.DEMO_ENEMY;
+        }
+        return 0;
     }
 }
 

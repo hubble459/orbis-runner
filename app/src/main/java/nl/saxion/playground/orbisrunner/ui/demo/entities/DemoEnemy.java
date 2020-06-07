@@ -1,46 +1,37 @@
 package nl.saxion.playground.orbisrunner.ui.demo.entities;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Paint;
 
-import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameView;
 
 public class DemoEnemy extends Entity {
-    private float xVal, yVal;
-    private float width, height;
-    private float angle;
-    private Bitmap bitmap;
+    private Paint paint;
 
-    public void setXYValues(float[] xy) {
-        xVal = xy[0];
-        yVal = xy[1];
-        angle = xy[2];
+    public DemoEnemy() {
+        paint = new Paint();
+        paint.setColor(Color.RED);
+        width = 50f;
+        height = 50f;
     }
 
     @Override
     public void draw(GameView gv) {
-        if (bitmap == null) {
-            bitmap = gv.getBitmap(R.drawable.demo_entity, Color.RED);
-            width = bitmap.getWidth();
-            height = bitmap.getHeight();
-        }
-        gv.drawBitmap(bitmap, xVal - width / 2, yVal - height / 2, width, height, angle);
+        super.draw(gv);
+        gv.getCanvas().save();
+        gv.getCanvas().rotate(angle, xVal + width / 2, yVal + height / 2);
+        gv.getCanvas().drawRect(xVal + width, yVal + height, xVal, yVal, paint);
+        gv.getCanvas().restore();
     }
 
     public boolean inHitbox(float x, float y, float width, float height) {
-        float centerX = xVal + this.width / 2;
-        float centerY = yVal + this.height / 2;
-
-        if (centerY >= y && centerY <= y + height) {
-            return centerX >= x && centerX <= x + width;
-        }
-        return false;
+        return x > xVal + this.width && x - width < xVal
+                && y > yVal + this.height && y - height < yVal;
     }
 
     @Override
-    public int getImageResource() {
-        return R.drawable.demo_entity;
+    public int getLayer() {
+        return 1;
     }
 }

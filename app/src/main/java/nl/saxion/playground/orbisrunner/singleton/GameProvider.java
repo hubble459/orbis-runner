@@ -17,6 +17,7 @@ import nl.saxion.playground.orbisrunner.game.Level;
 import nl.saxion.playground.orbisrunner.game.Shop;
 import nl.saxion.playground.orbisrunner.game.ShopItem;
 import nl.saxion.playground.orbisrunner.game.entity.Player;
+import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -43,12 +44,14 @@ public class GameProvider {
         shop = new Shop();
         player = new Player();
         levels = new ArrayList<>();
-        addDummyLevels();
+        Level l = new Level(1);
+        l.addEntity(new DemoEnemy());
+        levels.add(l);
     }
 
     public static Level getCurrentLevel() {
         // TODO make some demo levels
-        if (getLevels() == null || getLevels().isEmpty()) return new Level(0);
+        if (getLevels() == null || getLevels().isEmpty()) return new Level(1);
         return getLevels().get(instance.currentLevel);
     }
 
@@ -78,6 +81,16 @@ public class GameProvider {
                     instance.shop.unlock(unlocked.getInt(i));
                 }
             }
+
+            JSONArray levels = data.optJSONArray("levels");
+            if (levels != null) {
+                for (int i = 0; i < levels.length(); i++) {
+                    Level level = Level.fromJSON(levels.optJSONObject(i));
+                    if (level != null) {
+                        instance.levels.add(level);
+                    }
+                }
+            }
         } catch (FileNotFoundException | JSONException e) {
             e.printStackTrace();
         }
@@ -85,6 +98,7 @@ public class GameProvider {
 
     /**
      * Save all variables to a json file named "savedData.json" in the files dir for this app
+     *
      * @param context needed to get the files directory and for the output stream
      */
     public static void saveData(Context context) {
@@ -103,6 +117,12 @@ public class GameProvider {
                 }
             }
             savedDataJSON.put("unlocked", unlockedItems);
+
+            JSONArray levels = new JSONArray();
+            for (Level level : instance.levels) {
+                levels.put(level.toJSON());
+            }
+            savedDataJSON.put("levels", levels);
 
             String name = "savedData.json";
             File path = new File(context.getFilesDir(), name);
@@ -134,11 +154,5 @@ public class GameProvider {
 
     public static Shop getShop() {
         return instance.shop;
-    }
-
-    private void addDummyLevels() {
-        for (int i = 0; i < 10; i++) {
-            levels.add(new Level(i));
-        }
     }
 }
