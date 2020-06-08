@@ -27,6 +27,11 @@ public class SettingScreenActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 //toggle sound off or on
+                if (b) {
+                    Toast.makeText(SettingScreenActivity.this, "Sound Off", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SettingScreenActivity.this, "Sound On", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -36,6 +41,11 @@ public class SettingScreenActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 //toggle music off or on
+                if (b) {
+                    Toast.makeText(SettingScreenActivity.this, "Music Off", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SettingScreenActivity.this, "Music On", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -45,7 +55,7 @@ public class SettingScreenActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Go to the starting screen
                 finish();
-                Toast.makeText(SettingScreenActivity.this, "Main Menu Clicked", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
