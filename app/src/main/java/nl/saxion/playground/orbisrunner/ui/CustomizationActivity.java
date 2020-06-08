@@ -110,6 +110,9 @@ public class CustomizationActivity extends AppCompatActivity {
         return colors;
     }
 
+    public void mainMenu(View view) {
+        finish();
+    }
 
     private static class Color {
         private String name;

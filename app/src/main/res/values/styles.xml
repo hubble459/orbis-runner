@@ -28,6 +28,7 @@
 
     <style name="Button" parent="Widget.AppCompat.Button.Borderless.Colored">
         <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="WindowAnimationStyle">

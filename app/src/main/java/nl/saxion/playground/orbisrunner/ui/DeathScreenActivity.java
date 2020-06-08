@@ -27,6 +27,8 @@ public class DeathScreenActivity extends AppCompatActivity {
         level = getIntent().getIntExtra(LEVEL, -1);
 
         init();
+
+
     }
 
     private void init() {
