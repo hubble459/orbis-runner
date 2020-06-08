@@ -12,4 +12,13 @@
     <string name="retry">Retry</string>
     <string name="save">Save</string>
 
+    <!-- Used in splash screen -->
+    <string name="start">Start</string>
+    <string name="created">Created By Group 1</string>
+
+    <!-- Used in settings screen -->
+    <string name="music">Music</string>
+    <string name="sound">Sound</string>
+
+
 </resources>
