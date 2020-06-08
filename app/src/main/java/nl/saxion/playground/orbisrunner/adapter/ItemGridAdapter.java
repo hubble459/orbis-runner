@@ -13,14 +13,14 @@ import android.widget.TextView;
 import java.util.List;
 
 import nl.saxion.playground.orbisrunner.R;
-import nl.saxion.playground.orbisrunner.levelmaker.EntityItem;
+import nl.saxion.playground.orbisrunner.game.ShopItem;
 
-public class EntityGridAdapter extends ArrayAdapter<EntityItem> {
+public class ItemGridAdapter extends ArrayAdapter<ShopItem> {
     private LayoutInflater inflater;
 
-    public EntityGridAdapter(@NonNull Context context, @NonNull List<EntityItem> entities) {
-        super(context, 0, entities);
-        inflater = LayoutInflater.from(context);
+    public ItemGridAdapter(@NonNull Context context, @NonNull List<ShopItem> items) {
+        super(context, 0, items);
+        this.inflater = LayoutInflater.from(context);
     }
 
     @NonNull
@@ -30,16 +30,20 @@ public class EntityGridAdapter extends ArrayAdapter<EntityItem> {
             convertView = inflater.inflate(R.layout.adapter_entity_grid, parent, false);
         }
 
-        EntityItem e = getItem(position);
+        ShopItem e = getItem(position);
         if (e == null) return convertView;
+
+        if (e.isSelected()) {
+            convertView.findViewById(R.id.selected).setVisibility(View.VISIBLE);
+        } else {
+            convertView.findViewById(R.id.selected).setVisibility(View.GONE);
+        }
 
         TextView name = convertView.findViewById(R.id.name);
         ImageView image = convertView.findViewById(R.id.image);
 
         name.setText(e.getName());
-
-        int imageRes = e.getDrawableRes();
-        image.setImageResource(imageRes);
+        image.setImageResource(e.getResId());
 
         return convertView;
     }

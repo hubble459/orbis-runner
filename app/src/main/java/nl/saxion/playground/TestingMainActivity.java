@@ -20,6 +20,7 @@ import java.util.Objects;
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 import nl.saxion.playground.orbisrunner.ui.ControlTestingActivity;
+import nl.saxion.playground.orbisrunner.ui.CustomizationActivity;
 import nl.saxion.playground.orbisrunner.ui.DeathScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.GameActivity;
 import nl.saxion.playground.orbisrunner.ui.LevelMaker;
@@ -52,6 +53,7 @@ public class TestingMainActivity extends AppCompatActivity {
         activityClasses.add(LevelMaker.class);
         activityClasses.add(SettingScreenActivity.class);
         activityClasses.add(SplashScreenActivity.class);
+        activityClasses.add(CustomizationActivity.class);
     }
 
     /**
