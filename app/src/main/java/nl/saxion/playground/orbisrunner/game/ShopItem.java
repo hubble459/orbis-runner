@@ -1,9 +1,13 @@
 package nl.saxion.playground.orbisrunner.game;
 
+import android.support.annotation.DrawableRes;
+
 public class ShopItem {
     private static int idCount;
 
+    private String name;
     private int id;
+    private int resId;
     private boolean unlocked;
     private boolean active;
 
@@ -15,10 +19,6 @@ public class ShopItem {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public boolean isUnlocked() {
         return unlocked;
     }
@@ -27,11 +27,27 @@ public class ShopItem {
         this.unlocked = unlocked;
     }
 
-    public boolean isActive() {
+    public boolean isSelected() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setSelected(boolean active) {
         this.active = active;
+    }
+
+    public int getResId() {
+        return resId;
+    }
+
+    public void setResId(@DrawableRes int resId) {
+        this.resId = resId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

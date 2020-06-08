@@ -72,6 +72,7 @@ public class Player extends Entity {
             height = animationDrawable.getIntrinsicHeight() * scale;
 
             drawable = animationDrawable.getFrame(0);
+            drawable.setTint(color);
 
             setXY();
         }
@@ -83,6 +84,7 @@ public class Player extends Entity {
 
         if (animationDrawable.getDuration(frame) < System.currentTimeMillis() - lastTime) {
             drawable = animationDrawable.getFrame(frame++);
+            drawable.setTint(color);
             lastTime = System.currentTimeMillis();
         }
 

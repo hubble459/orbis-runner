@@ -60,12 +60,23 @@ public class StartScreenActivity extends AppCompatActivity {
         });
 
         // Assign Customize Button
-        TextView customizeButton = findViewById(R.id.customize_button);
+        TextView customizeButton = findViewById(R.id.customizeButton);
         customizeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Start the customization intent
-                toast("Customize Clicked");
+                Intent intent = new Intent(StartScreenActivity.this, CustomizationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Assign Customize Button
+        TextView shopButton = findViewById(R.id.shopButton);
+        shopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Start the customization intent
+                toast("Shop Clicked");
             }
         });
 
@@ -87,7 +98,6 @@ public class StartScreenActivity extends AppCompatActivity {
                 // Start settings activity
                 Intent settings = new Intent(StartScreenActivity.this, SettingScreenActivity.class);
                 startActivity(settings);
-                toast("Settings Clicked");
             }
         });
     }
