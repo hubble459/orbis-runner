@@ -10,6 +10,7 @@
     <!-- Used in death screen -->
     <string name="main_menu">Main Menu</string>
     <string name="retry">Retry</string>
+    <string name="save">Save</string>
 
     <!-- Used in splash screen -->
     <string name="start">Start</string>

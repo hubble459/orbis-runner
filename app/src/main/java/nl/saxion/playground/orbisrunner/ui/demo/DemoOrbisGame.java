@@ -5,19 +5,19 @@ import android.graphics.Canvas;
 import android.widget.TextView;
 
 import nl.saxion.playground.orbisrunner.lib.GameModel;
-import nl.saxion.playground.orbisrunner.ui.demo.entities.Circle;
-import nl.saxion.playground.orbisrunner.ui.demo.entities.Enemy;
-import nl.saxion.playground.orbisrunner.ui.demo.entities.Player;
+import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoCircle;
+import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
+import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoPlayer;
 
-public class OrbisGame extends GameModel {
+public class DemoOrbisGame extends GameModel {
     public TextView speedometer;
     private float[] centerXY;
     private int level;
-    private Circle circle;
+    private DemoCircle demoCircle;
     private Context context;
     private OnDeathListener listener;
 
-    OrbisGame(Context context, OnDeathListener listener) {
+    DemoOrbisGame(Context context, OnDeathListener listener) {
         this.context = context;
         this.listener = listener;
     }
@@ -29,15 +29,15 @@ public class OrbisGame extends GameModel {
     @Override
     public void start(Canvas canvas) {
         centerXY = new float[]{canvas.getWidth() / 2f, canvas.getHeight() / 2f};
-        circle = new Circle(true);
-        addEntity(circle);
+        demoCircle = new DemoCircle(true);
+        addEntity(demoCircle);
     }
 
     @Override
     public void started(Canvas canvas) {
         // Set player
-        Player player = new Player(this, 0);
-        addEntity(player);
+        DemoPlayer demoPlayer = new DemoPlayer(this, 0);
+        addEntity(demoPlayer);
 
         // Set enemies from level data
         setDummyEnemies();
@@ -49,7 +49,8 @@ public class OrbisGame extends GameModel {
             while (rand >= 0 && rand < 10f) {
                 rand = (float) (Math.random() * 360);
             }
-            Enemy e = new Enemy(getXYFromDegrees(rand, 0));
+            DemoEnemy e = new DemoEnemy();
+            e.setXYValues(getXYFromDegrees(rand, 0));
             addEntity(e);
         }
     }
@@ -58,7 +59,7 @@ public class OrbisGame extends GameModel {
         double radians = Math.toRadians(degrees);
 
         float[] xy = new float[3];
-        float radius = circle.getRadiusInside() - margin;
+        float radius = demoCircle.getRadiusInside() - margin;
 
         xy[0] = (float) (radius * Math.cos(radians) + centerXY[0]);
         xy[1] = (float) (radius * Math.sin(radians) + centerXY[1]);

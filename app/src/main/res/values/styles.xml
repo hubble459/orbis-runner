@@ -14,7 +14,9 @@
     <style name="Title" parent="TextAppearance.AppCompat.Title">
         <item name="android:textSize">38sp</item>
         <item name="fontFamily">@font/silkscreen_extended</item>
+        <item name="android:textAlignment">center</item>
         <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginBottom">24dp</item>
     </style>
 
     <style name="Subtitle" parent="TextAppearance.AppCompat.Title">

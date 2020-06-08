@@ -1,6 +1,7 @@
 package nl.saxion.playground.orbisrunner.singleton;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,8 +11,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
+import nl.saxion.playground.orbisrunner.game.Level;
 import nl.saxion.playground.orbisrunner.game.Shop;
 import nl.saxion.playground.orbisrunner.game.ShopItem;
 import nl.saxion.playground.orbisrunner.game.entity.Player;
@@ -30,7 +35,9 @@ public class GameProvider {
     private Shop shop;
     private Player player;
     private int coins;
-    private int level;
+    private int currentLevel;
+
+    private ArrayList<Level> levels;
 
     /**
      * Init the player and shop
@@ -38,13 +45,21 @@ public class GameProvider {
     private GameProvider() {
         shop = new Shop();
         player = new Player();
+        levels = new ArrayList<>();
+    }
+
+    public static Level getCurrentLevel() {
+        // TODO make some demo levels
+        if (getLevels() == null || getLevels().isEmpty()) return Level.dummy();
+        return getLevels().get(instance.currentLevel);
     }
 
     /**
      * Get all saved variables from a json file named "savedData.json" in the files dir for this app
+     *
      * @param context needed to get the files directory
      */
-    public static void getSave(Context context) {
+    public static void getSave(final Context context) {
         try {
             File file = new File(context.getFilesDir() + "/savedData.json");
             if (!file.exists()) return;
@@ -55,7 +70,7 @@ public class GameProvider {
             JSONObject data = new JSONObject(jsonString);
 
             instance.coins = data.optInt("coins");
-            instance.level = data.optInt("level");
+            instance.currentLevel = data.optInt("level");
             instance.player.setColor(data.optInt("color"));
             instance.shop.activate(data.optInt("active"));
 
@@ -65,21 +80,51 @@ public class GameProvider {
                     instance.shop.unlock(unlocked.getInt(i));
                 }
             }
+
+            JSONArray levels = data.optJSONArray("levels");
+            if (levels != null) {
+                for (int i = 0; i < levels.length(); i++) {
+                    JSONObject object = levels.optJSONObject(i);
+                    if (object != null) {
+                        Level level = Level.fromJSON(object);
+                        if (level != null && !hasLevel(level)) {
+                            instance.levels.add(level);
+                        }
+                    }
+                }
+                Collections.sort(instance.levels, new Comparator<Level>() {
+                    @Override
+                    public int compare(Level o1, Level o2) {
+                        return String.valueOf(o1.getNumber()).compareTo(String.valueOf(o2.getNumber()));
+                    }
+                });
+            }
         } catch (FileNotFoundException | JSONException e) {
-            e.printStackTrace();
+            Log.e("uwu", "getSave: ", e);
         }
+    }
+
+    public static boolean hasLevel(Level level) {
+        for (Level l : instance.levels) {
+            if (l.getNumber() == level.getNumber()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
      * Save all variables to a json file named "savedData.json" in the files dir for this app
+     *
      * @param context needed to get the files directory and for the output stream
      */
     public static void saveData(Context context) {
+        Log.i("uwu", "saveData: saving");
         try {
             JSONObject savedDataJSON = new JSONObject();
 
             savedDataJSON.put("coins", instance.coins);
-            savedDataJSON.put("level", instance.level);
+            savedDataJSON.put("level", instance.currentLevel);
             savedDataJSON.put("color", instance.player.getColor());
             savedDataJSON.put("active", instance.shop.getActive());
 
@@ -90,6 +135,12 @@ public class GameProvider {
                 }
             }
             savedDataJSON.put("unlocked", unlockedItems);
+
+            JSONArray levels = new JSONArray();
+            for (Level level : instance.levels) {
+                levels.put(level.toJSON());
+            }
+            savedDataJSON.put("levels", levels);
 
             String name = "savedData.json";
             File path = new File(context.getFilesDir(), name);
@@ -103,7 +154,7 @@ public class GameProvider {
                 out.close();
             }
         } catch (IOException | JSONException e) {
-            e.printStackTrace();
+            Log.e("uwu", "saveData: ", e);
         }
     }
 
@@ -111,8 +162,8 @@ public class GameProvider {
         return instance.coins;
     }
 
-    public static int getLevel() {
-        return instance.level;
+    public static ArrayList<Level> getLevels() {
+        return instance.levels;
     }
 
     public static Player getPlayer() {

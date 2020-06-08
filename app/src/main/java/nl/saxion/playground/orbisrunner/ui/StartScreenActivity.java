@@ -10,12 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
 import java.util.Random;
 
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.Animation;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
-import nl.saxion.playground.orbisrunner.ui.demo.GameplayDemoActivity;
 
 /**
  * Starting activity
@@ -46,7 +46,7 @@ public class StartScreenActivity extends AppCompatActivity {
 
         // Set level title
         TextView lvl = findViewById(R.id.level);
-        lvl.setText(GameProvider.getLevel() + "" /* get level from save instance */);
+        lvl.setText(String.format(Locale.ENGLISH, "%d", GameProvider.getCurrentLevel().getNumber()) /* get level from save instance */);
 
         // Assign Play Button
         Button playButton = findViewById(R.id.playButton);
@@ -54,7 +54,7 @@ public class StartScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Start the game
-                Intent game = new Intent(StartScreenActivity.this, GameplayDemoActivity.class);
+                Intent game = new Intent(StartScreenActivity.this, GameActivity.class);
                 startActivity(game);
             }
         });
