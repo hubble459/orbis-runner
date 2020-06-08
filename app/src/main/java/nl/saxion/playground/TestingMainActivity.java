@@ -22,6 +22,7 @@ import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 import nl.saxion.playground.orbisrunner.ui.ControlTestingActivity;
 import nl.saxion.playground.orbisrunner.ui.DeathScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.SettingScreenActivity;
+import nl.saxion.playground.orbisrunner.ui.SplashScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.StartScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.demo.GameplayDemoActivity;
 
@@ -46,6 +47,7 @@ public class TestingMainActivity extends AppCompatActivity {
         activityClasses.add(ControlTestingActivity.class);
         activityClasses.add(GameplayDemoActivity.class);
         activityClasses.add(SettingScreenActivity.class);
+        activityClasses.add(SplashScreenActivity.class);
     }
 
     /**
