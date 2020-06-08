@@ -37,14 +37,13 @@
             android:layout_height="235dp" />
     </LinearLayout>
 
-    <Button
+    <TextView
         android:id="@+id/startButton"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/black_ring"
         android:gravity="center"
-        android:text="@string/start"
         android:textColor="@color/colorAccent"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"

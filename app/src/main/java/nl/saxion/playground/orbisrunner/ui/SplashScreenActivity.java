@@ -1,11 +1,8 @@
 package nl.saxion.playground.orbisrunner.ui;
 
-import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import java.util.Random;
@@ -30,15 +27,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         ((AnimationDrawable) player.getBackground()).start();
         Animation.walkInCircle(findViewById(R.id.rotateView), 7000, new Random().nextBoolean());
 
-
-        Button start = findViewById(R.id.startButton);
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SplashScreenActivity.this, StartScreenActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
 }
