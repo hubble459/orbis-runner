@@ -25,8 +25,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         // Animate Player W A L K I N G
         ImageView player = findViewById(R.id.player);
         ((AnimationDrawable) player.getBackground()).start();
-        Animation.walkInCircle(findViewById(R.id.rotateView), 7000, new Random().nextBoolean());
-
+        Animation.walkInCircleSplash(findViewById(R.id.rotateView), 3000, new Random().nextBoolean());
 
     }
 }

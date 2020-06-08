@@ -54,4 +54,25 @@ public class Animation {
             ((ValueAnimator) view.getTag()).cancel();
         }
     }
+
+    public static void walkInCircleSplash(final View view, int duration, boolean inReverse) {
+
+        if (!inReverse)
+            view.setScaleX(-1);
+
+        ValueAnimator valueAnimator = new ValueAnimator();
+        valueAnimator.setInterpolator(new LinearInterpolator());
+        valueAnimator.setDuration(duration);
+        valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        valueAnimator.setFloatValues(inReverse ? -360f : 360f);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                float value = (float) valueAnimator.getAnimatedValue();
+                view.setRotation(value);
+            }
+        });
+        valueAnimator.start();
+        view.setTag(valueAnimator);
+    }
 }

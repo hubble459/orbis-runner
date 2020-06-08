@@ -20,10 +20,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/startButton"
-        app:layout_constraintEnd_toEndOf="@id/startButton"
-        app:layout_constraintStart_toStartOf="@id/startButton"
-        app:layout_constraintTop_toTopOf="@+id/startButton">
+        app:layout_constraintBottom_toBottomOf="@+id/blackCircle"
+        app:layout_constraintEnd_toEndOf="@id/blackCircle"
+        app:layout_constraintStart_toStartOf="@id/blackCircle"
+        app:layout_constraintTop_toTopOf="@+id/blackCircle">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="110dp" />
 
         <ImageView
             android:id="@+id/player"
@@ -31,21 +35,13 @@
             android:layout_height="40dp"
             android:background="@drawable/walking"
             android:scaleType="fitStart" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="235dp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/startButton"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <View
+        android:id="@+id/blackCircle"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:background="@drawable/black_ring"
-        android:gravity="center"
-        android:textColor="@color/colorAccent"
-        android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +54,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/startButton" />
+        app:layout_constraintTop_toBottomOf="@id/blackCircle" />
 
 </android.support.constraint.ConstraintLayout>
