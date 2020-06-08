@@ -6,17 +6,51 @@
     android:orientation="vertical"
     tools:context="nl.saxion.playground.orbisrunner.ui.LevelMaker">
 
+    <TextView
+        style="@style/Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Level Maker" />
+
     <nl.saxion.playground.orbisrunner.lib.GameView
         android:id="@+id/gameView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <SeekBar
-        android:id="@+id/seekBar"
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp" />
+        android:padding="8dp">
+
+        <TableRow>
+
+            <TextView
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:text="Pos:" />
+
+            <SeekBar
+                android:id="@+id/posBar"
+                android:layout_weight="1"
+                android:padding="8dp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:text="Height:" />
+
+            <SeekBar
+                android:id="@+id/heightBar"
+                android:layout_weight="1"
+                android:padding="8dp" />
+        </TableRow>
+    </TableLayout>
+
 
     <GridView
         android:id="@+id/entityList"

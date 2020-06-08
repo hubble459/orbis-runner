@@ -1,6 +1,7 @@
 package nl.saxion.playground.orbisrunner.singleton;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,13 +12,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 import nl.saxion.playground.orbisrunner.game.Level;
 import nl.saxion.playground.orbisrunner.game.Shop;
 import nl.saxion.playground.orbisrunner.game.ShopItem;
 import nl.saxion.playground.orbisrunner.game.entity.Player;
-import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -44,14 +46,11 @@ public class GameProvider {
         shop = new Shop();
         player = new Player();
         levels = new ArrayList<>();
-        Level l = new Level(1);
-        l.addEntity(new DemoEnemy());
-        levels.add(l);
     }
 
     public static Level getCurrentLevel() {
         // TODO make some demo levels
-        if (getLevels() == null || getLevels().isEmpty()) return new Level(1);
+        if (getLevels() == null || getLevels().isEmpty()) return Level.dummy();
         return getLevels().get(instance.currentLevel);
     }
 
@@ -60,7 +59,7 @@ public class GameProvider {
      *
      * @param context needed to get the files directory
      */
-    public static void getSave(Context context) {
+    public static void getSave(final Context context) {
         try {
             File file = new File(context.getFilesDir() + "/savedData.json");
             if (!file.exists()) return;
@@ -85,15 +84,33 @@ public class GameProvider {
             JSONArray levels = data.optJSONArray("levels");
             if (levels != null) {
                 for (int i = 0; i < levels.length(); i++) {
-                    Level level = Level.fromJSON(levels.optJSONObject(i));
-                    if (level != null) {
-                        instance.levels.add(level);
+                    JSONObject object = levels.optJSONObject(i);
+                    if (object != null) {
+                        Level level = Level.fromJSON(object);
+                        if (level != null && !hasLevel(level)) {
+                            instance.levels.add(level);
+                        }
                     }
                 }
+                Collections.sort(instance.levels, new Comparator<Level>() {
+                    @Override
+                    public int compare(Level o1, Level o2) {
+                        return String.valueOf(o1.getNumber()).compareTo(String.valueOf(o2.getNumber()));
+                    }
+                });
             }
         } catch (FileNotFoundException | JSONException e) {
-            e.printStackTrace();
+            Log.e("uwu", "getSave: ", e);
         }
+    }
+
+    public static boolean hasLevel(Level level) {
+        for (Level l : instance.levels) {
+            if (l.getNumber() == level.getNumber()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -102,6 +119,7 @@ public class GameProvider {
      * @param context needed to get the files directory and for the output stream
      */
     public static void saveData(Context context) {
+        Log.i("uwu", "saveData: saving");
         try {
             JSONObject savedDataJSON = new JSONObject();
 
@@ -136,7 +154,7 @@ public class GameProvider {
                 out.close();
             }
         } catch (IOException | JSONException e) {
-            e.printStackTrace();
+            Log.e("uwu", "saveData: ", e);
         }
     }
 

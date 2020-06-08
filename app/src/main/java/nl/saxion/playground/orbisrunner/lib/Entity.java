@@ -27,25 +27,29 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
     // Used to sort objects on the same layer in the entities tree.
     private int id;
 
-    // The constructor assigns an id that is used for ordering draws.
-    public Entity() {
-        id = ++count;
-    }
-
     // All entities have an x, y and an angle.
     protected float xVal, yVal, angle;
+    // Start angle used for saving levels
+    protected float startAngle;
     // All entities have dimensions.
     protected float width, height;
     // Jump height for player and jumping enemies
-    protected float jump;
+    protected float startJump, jump;
     // Used by LevelMaker to change this specific position.
     private boolean selected;
+    // Stop moving
+    private boolean pause;
     // Level Maker for selecting and deselecting entities.
     private LevelMaker levelMaker;
     // Level Model for getting the x and y positions with degrees from circle;
     private GameModel game;
     // Paint object for drawing outline when selected
     private Paint paint;
+
+    // The constructor assigns an id that is used for ordering draws.
+    public Entity() {
+        id = ++count;
+    }
 
     /**
      * Override this method to determine the rendering order for this
@@ -64,7 +68,8 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         int type = entity.optInt("type");
         Entity e = getFromType(type);
         if (e != null) {
-            e.setAngle((float) entity.optDouble("angle"));
+            e.setStartAngle((float) entity.optDouble("angle"));
+            e.setStartJump((float) entity.optDouble("jump"));
         }
         return e;
     }
@@ -82,7 +87,7 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
      * The method is to update the game state accordingly.
      */
     public void tick() {
-        if (game != null &&
+        if (game != null && !pause &&
                 !(this instanceof Player) &&
                 !(this instanceof Circle)) {
             angle += SPEED;
@@ -172,10 +177,6 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         return angle;
     }
 
-    public void setAngle(float angle) {
-        this.angle = angle;
-    }
-
     public void setGame(GameModel game) {
         this.game = game;
         this.levelMaker = null;
@@ -191,7 +192,8 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
 
     public JSONObject toJSON() throws JSONException {
         JSONObject entity = new JSONObject();
-        entity.put("angle", angle);
+        entity.put("angle", startAngle);
+        entity.put("jump", Float.isNaN(startJump) ? 0 : startJump);
         entity.put("type", getType());
         return entity;
     }
@@ -202,6 +204,74 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
                 return EntityItem.DEMO_ENEMY;
         }
         return 0;
+    }
+
+    public void setScale(float scale) {
+        height *= scale;
+        width *= scale;
+    }
+
+    public float getStartAngle() {
+        return startAngle;
+    }
+
+    public void setStartAngle(float startAngle) {
+        if (Float.isNaN(startAngle)) startAngle = 0;
+        this.startAngle = startAngle;
+        this.angle = startAngle;
+    }
+
+    public float getStartJump() {
+        return startJump;
+    }
+
+    public void setStartJump(float height) {
+        this.startJump = height;
+        this.jump = height;
+    }
+
+    public float getJump() {
+        return jump;
+    }
+
+    public float getX() {
+        return xVal;
+    }
+
+    public float getY() {
+        return yVal;
+    }
+
+    public void setPaused(boolean pause) {
+        this.pause = pause;
+    }
+
+    public boolean inHitbox(Entity e) {
+        float x = e.getX();
+        float y = e.getY();
+        float w = e.getWidth();
+        float h = e.getHeight();
+
+        float start = x - w / 2;
+        float end = x + w / 2;
+        float top = y - h / 2;
+        float bot = y + h / 2;
+
+        float start2 = xVal - width / 2;
+        float end2 = xVal + width / 2;
+        float top2 = yVal - height / 2;
+        float bot2 = yVal + height / 2;
+
+        if (end >= start2 && start <= end2) {
+            return top >= top2 && bot <= bot2
+                    || top2 >= top && bot2 <= bot;
+        }
+        return false;
+    }
+
+    public void reset() {
+        setStartJump(startJump);
+        setStartAngle(startAngle);
     }
 }
 

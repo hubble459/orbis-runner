@@ -65,20 +65,24 @@ public class Circle extends Entity {
         this.size = size;
     }
 
-    public float[] getXYFromDegrees(float degrees, float jump, Entity e) {
-        degrees = Math.max(degrees, .1f);
+    public float[] getXYFromDegrees(float degrees, float margin, Entity e) {
+        if (Float.isNaN(degrees)) {
+            degrees = 0;
+        }
 
         float width = 0;
         float height = 0;
+        float jump = 0;
         if (e != null) {
             width = e.getWidth() / 2;
             height = e.getHeight() / 2;
+            jump = e.getJump();
         }
 
         double radians = Math.toRadians(degrees);
         float[] xy = new float[3];
-        xy[0] = (float) ((getRadiusInside() - jump) * Math.cos(radians) + xMiddle - width);
-        xy[1] = (float) ((getRadiusInside() - jump) * Math.sin(radians) + yMiddle - height);
+        xy[0] = (float) ((getRadiusInside() - margin - jump) * Math.cos(radians) + xMiddle - width);
+        xy[1] = (float) ((getRadiusInside() - margin - jump) * Math.sin(radians) + yMiddle - height);
         xy[2] = degrees;
         return xy;
     }

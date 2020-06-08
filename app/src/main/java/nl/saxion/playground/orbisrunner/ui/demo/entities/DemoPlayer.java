@@ -60,7 +60,7 @@ public class DemoPlayer extends Entity {
         if (dead) return;
 
         for (DemoEnemy demoEnemy : game.getEntities(DemoEnemy.class)) {
-            if (demoEnemy.inHitbox(xVal, yVal, width, height)) {
+            if (demoEnemy.inHitbox(this)) {
                 dead = true;
                 game.dead();
                 return;

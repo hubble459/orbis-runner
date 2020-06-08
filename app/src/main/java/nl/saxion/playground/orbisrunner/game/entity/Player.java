@@ -14,11 +14,10 @@ import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameModel;
 import nl.saxion.playground.orbisrunner.lib.GameView;
-import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
 
 public class Player extends Entity {
     private static final float JUMP_ACC = 3f;
-    private static final float JUMP_MAX_HEIGHT = 400f;
+    private static final float JUMP_MAX_HEIGHT = 300f;
 
     private float maxJump;
     private float margin;
@@ -40,6 +39,11 @@ public class Player extends Entity {
     private Queue<float[]> dust;
     private Paint paint;
     private Random random;
+
+    public Player() {
+        setStartAngle(110);
+        setStartJump(0);
+    }
 
     public void setGame(GameModel game) {
         this.game = game;
@@ -122,8 +126,10 @@ public class Player extends Entity {
     public void tick() {
         if (dead) return;
 
-        for (DemoEnemy demoEnemy : game.getEntities(DemoEnemy.class)) {
-            if (demoEnemy.inHitbox(xVal, yVal, width, height)) {
+        for (Entity entity : game.getEntities()) {
+            if (!(entity instanceof Player)
+                    && !(entity instanceof Circle)
+                    && entity.inHitbox(this)) {
                 dead = true;
                 game.dead();
                 return;
@@ -174,10 +180,10 @@ public class Player extends Entity {
     }
 
     private void setXY() {
-        float[] xy = game.getXYFromDegrees((float) 110, jump, this);
+        if (game == null) return;
+        float[] xy = game.getXYFromDegrees(startAngle, jump + margin, this);
         setXYValues(xy);
         angle -= 90;
-        yVal -= margin;
     }
 
     @Override
@@ -195,5 +201,12 @@ public class Player extends Entity {
 
     public void setMargin(float margin) {
         this.margin = margin;
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        setDead(false);
+        setXY();
     }
 }

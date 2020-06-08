@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import nl.saxion.playground.orbisrunner.lib.Entity;
+import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
 
 public class Level {
     private int number;
@@ -15,6 +16,12 @@ public class Level {
     public Level(int number) {
         this.number = number;
         this.entities = new ArrayList<>();
+    }
+
+    public static Level dummy() {
+        Level l = new Level(-1);
+        l.addEntity(new DemoEnemy());
+        return l;
     }
 
     public int getNumber() {
@@ -46,11 +53,14 @@ public class Level {
         JSONArray entities = level.optJSONArray("entities");
         if (entities != null) {
             for (int i = 0; i < entities.length(); i++) {
-                l.addEntity(Entity.fromJSON(entities.optJSONObject(i)));
+                Entity e = Entity.fromJSON(entities.optJSONObject(i));
+                if (e != null) {
+                    l.addEntity(e);
+                }
             }
         }
 
-        return null;
+        return l;
     }
 
     public JSONObject toJSON() throws JSONException {

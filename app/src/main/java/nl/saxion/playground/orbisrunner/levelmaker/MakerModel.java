@@ -41,11 +41,16 @@ public class MakerModel extends GameModel {
 
     @Override
     public void started(Canvas canvas) {
+        Entity last = null;
         for (Entity entity : level.getEntities()) {
             entity.setLevelMaker(levelMaker);
-            entity.setXYValues(getXYFromDegrees(entity.getAngle(), 0, entity));
-            entity.setSelected(true);
+            entity.setXYValues(getXYFromDegrees(entity.getStartAngle(), 0, entity));
             addEntity(entity);
+            last = entity;
+        }
+
+        if (last != null) {
+            levelMaker.select(last);
         }
     }
 

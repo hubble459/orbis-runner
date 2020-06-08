@@ -25,11 +25,6 @@ public class DemoEnemy extends Entity {
         gv.getCanvas().restore();
     }
 
-    public boolean inHitbox(float x, float y, float width, float height) {
-        return x > xVal + this.width && x - width < xVal
-                && y > yVal + this.height && y - height < yVal;
-    }
-
     @Override
     public int getLayer() {
         return 1;

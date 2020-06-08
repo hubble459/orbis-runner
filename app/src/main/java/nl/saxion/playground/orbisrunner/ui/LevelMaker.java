@@ -32,7 +32,7 @@ import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
 
 public class LevelMaker extends AppCompatActivity {
-    private SeekBar seekBar;
+    private SeekBar posBar, heightBar;
     private GameView gameView;
     private GridView entityList;
     private Level level;
@@ -43,7 +43,8 @@ public class LevelMaker extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_maker);
 
-        seekBar = findViewById(R.id.seekBar);
+        posBar = findViewById(R.id.posBar);
+        heightBar = findViewById(R.id.heightBar);
         gameView = findViewById(R.id.gameView);
         entityList = findViewById(R.id.entityList);
 
@@ -110,8 +111,8 @@ public class LevelMaker extends AppCompatActivity {
             }
         });
 
-        seekBar.setMax(360);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        posBar.setMax(360);
+        posBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Entity e = getSelected();
@@ -125,13 +126,30 @@ public class LevelMaker extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+
+        heightBar.setMax(100);
+        heightBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Entity e = getSelected();
+                if (e == null) return;
+                e.setStartJump((float) progress);
+                e.setXYValues(model.getXYFromDegrees(e.getAngle(), 15, e));
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
     }
 
     public void select(Entity e) {
         deselectAll();
         e.setSelected(true);
-        int angle = 360 - (int) e.getAngle();
-        seekBar.setProgress(angle);
+        posBar.setProgress(360 - (int) e.getAngle());
+        heightBar.setProgress((int) e.getStartJump());
     }
 
     private Entity getSelected() {
@@ -174,28 +192,54 @@ public class LevelMaker extends AppCompatActivity {
     }
 
     public void save(View view) {
-        int max = GameProvider.getLevels().size() + 1;
+        for (Entity entity : level.getEntities()) {
+            entity.setStartAngle(entity.getAngle());
+        }
 
-        final NumberPicker np = new NumberPicker(this);
-        np.setMinValue(1);
-        np.setMaxValue(max);
-        np.setValue(level.getNumber());
-        np.setPaddingRelative(8, 8, 8, 8);
+        if (GameProvider.hasLevel(level)) {
+            GameProvider.getLevels().set(level.getNumber() - 1, level);
+            saveFinish();
+        } else {
+            int max = GameProvider.getLevels().size() + 1;
 
-        new AlertDialog.Builder(this)
-                .setTitle("Level")
-                .setView(np)
-                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        GameProvider.getLevels().add(np.getValue() - 1, level);
-                        GameProvider.saveData(LevelMaker.this);
-                        Toast.makeText(LevelMaker.this, "Saved!", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .show();
+            final NumberPicker np = new NumberPicker(this);
+            np.setMinValue(1);
+            np.setMaxValue(max);
+            np.setValue(level.getNumber());
+            np.setPaddingRelative(8, 8, 8, 8);
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Level")
+                    .setView(np)
+                    .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            int number = np.getValue() - 1;
+                            GameProvider.getLevels().add(number, level);
+                            shiftNumbers(number);
+                            saveFinish();
+                        }
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
+        }
+    }
+
+    private void saveFinish() {
+        GameProvider.saveData(this);
+        Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    private void shiftNumbers(int number) {
+        ArrayList<Level> levels = GameProvider.getLevels();
+        int max = levels.size();
+        if (number != max) {
+            for (int i = number; i < max; i++) {
+                Level l = levels.get(i);
+                l.setNumber(i + 1);
+            }
+        }
     }
 
     public void deselectAll() {
