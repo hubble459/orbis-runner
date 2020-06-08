@@ -3,65 +3,55 @@
 Refer to the [library documentation](library-documentation.md) as an example on how to use Markdown and PlantUML for technical documentation.
 
 ## Technical design Orbis runner
----------
-### Introduction
 
-We are making a game compatible on android. It is a game one of our group members came up with. 
+### Proposed Design and diagrams
 
-This is a project for the subject Project Speelveld. We are supposed to make a game that is playable on android. We went over some of the game ideas and decided that we wanted to make this game, Orbis runner.
+We have made an class diagram as well as an activity diagram. These can be found under the doc files.
 
-#### Rationale
+####Description of the problem
 
-#### Background
-
-This is a project for the subject Project Speelveld. We are supposed to make a game that is playable on android. We went over some of the game ideas and decided that we wanted to make this game, Orbis runner.
-
-#### Terminology
-
-(Speciale of moeilijke woorderen hier uitleggen)
-
-#### Non-Goals
-
-Here we have some related problems that we have decided not to address, but which someone might conceivably expect to make.
--A high score bord is not needed
--Controls are set, they cannot be changed
-
-----------
-### Proposed Design
-----------
-
-#### Data model
-
-The only data that has to be saved or the setting and the level the player is on.
-
-#### Interface/API Definitions
-
-#### 
-
-Description of the problem
-
-This is a project for the subject Project Speelveld. Our goal is to make a game compatible on android. We all came up with an game idea and ended up chosen the one we liked most, being Orbis Runner.
-We are going to make this game, more information about how this game works is in the functional design.
+This is a project for the subject Project Speelveld. Our goal is to make a game compatible on android. We all came up with an game idea and ended up picking the one we liked most, being Orbis Runner.
+More information about how this game works is in the functional design.
 
 Solution requirements
 
-----
+#### Background
 
-Glossary
+This is a project for the subject Project Speelveld. We are supposed to make a game on android studio. We went over some of the game ideas and decided that we wanted to make this game, Orbis runner.
 
-----
+####Rationale
 
-Out of scope, non-goals
+Here a little about what we are trying to accomplish with this game.
+
+We are trying to make a fun platformer. We hope that the player enjoys our game a lot. For example by constantly trying to break his own records or to try and unlock all items in the shop.
+
+####Glossary
+
+Orbis runner: The name of our game.
+
+####Out of scope, non-goals
 
 Here we have some related problems that we have decided not to address, but which someone might conceivably expect to make.
--A high score bord is not needed
--Controls are set, an option to change the controls is not needed
+-There is a leader board for offline scores, but one for online scores is not needed.
+-Controls are set, an option to change the controls is not needed.
 
-Assumptions
+####Security
 
-Security solutions
+It's an offline game with no in-game purchases. We are not planning on putting effort in making the game secure.
 
-Cost analysis
+####Risks
+
+We have a lot of fun ideas for the game that we all want to fit in. A risk could be that we might try a bit to much and not be able to finnish it off before the time limit.
+
+#### Data model
+
+The only data that has to be saved are the settings, the level the player is on and the selected items from the customization shop
+
+####Test plan
+
+When coding in a branch, the program will be tested by at least two people before a merge can be allowed. We will do this to make sure at least half of us is fine with all the coding in a branch.
+
+####Cost analysis
 
 We don't think any money will be spent on this project. The programming will be done by us. The level and character design will also be done by us and some music/sound effects can easily be found on the internet for free.
 
