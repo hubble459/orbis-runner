@@ -1,6 +1,7 @@
 package nl.saxion.playground.orbisrunner.singleton;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -32,6 +33,7 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class GameProvider {
     private static final GameProvider instance = new GameProvider();
+    private static Intent music;
     private Shop shop;
     private Player player;
     private int coins;
@@ -172,5 +174,23 @@ public class GameProvider {
 
     public static Shop getShop() {
         return instance.shop;
+    }
+
+    public static void startMusic(Context context) {
+        if (music == null) {
+            music = new Intent(context, MusicService.class);
+            context.startService(music);
+        }
+    }
+
+    public static void stopMusic(Context context) {
+        if (music != null) {
+            context.stopService(music);
+            music = null;
+        }
+    }
+
+    public static boolean isMusicOn() {
+        return music != null;
     }
 }

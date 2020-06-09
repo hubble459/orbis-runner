@@ -37,7 +37,8 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
     protected float startJump, jump;
     // Used by LevelMaker to change this specific position.
     private boolean selected;
-    // Stop moving
+    protected boolean reset;
+    // Stop moving, and refresh when reset
     private boolean pause;
     // Level Maker for selecting and deselecting entities.
     private LevelMaker levelMaker;
@@ -87,12 +88,17 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
      * The method is to update the game state accordingly.
      */
     public void tick() {
-        if (game != null && !pause &&
-                !(this instanceof Player) &&
-                !(this instanceof Circle)) {
-            angle += SPEED;
-            if (angle > 360) angle = 0;
-            setXYValues(game.getXYFromDegrees(angle, jump, this));
+        if (game != null && !pause) {
+            if (reset) {
+                setXYValues(game.getXYFromDegrees(startAngle, startJump, this));
+                reset = false;
+            }
+            if (!(this instanceof Player) &&
+                    !(this instanceof Circle)) {
+                angle += SPEED;
+                if (angle > 360) angle = 0;
+                setXYValues(game.getXYFromDegrees(angle, jump, this));
+            }
         }
     }
 
@@ -272,6 +278,8 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
     public void reset() {
         setStartJump(startJump);
         setStartAngle(startAngle);
+        reset = true;
+        pause = false;
     }
 }
 

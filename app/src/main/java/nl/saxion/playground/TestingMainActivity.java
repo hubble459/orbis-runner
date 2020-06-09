@@ -71,6 +71,9 @@ public class TestingMainActivity extends AppCompatActivity {
         // Should be called in Splash Screen
         GameProvider.getSave(this);
 
+        // Should be called in Start Screen or Splash Screen
+        GameProvider.startMusic(this);
+
         addActivities();
 
         ListView list = findViewById(R.id.list);
