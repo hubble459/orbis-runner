@@ -45,15 +45,15 @@ public class TestingMainActivity extends AppCompatActivity {
      * so for TemplateActivity.class the name will be TemplateActivity
      */
     private void addActivities() {
+        activityClasses.add(SplashScreenActivity.class);
         activityClasses.add(StartScreenActivity.class);
+        activityClasses.add(SettingScreenActivity.class);
+        activityClasses.add(CustomizationActivity.class);
+        activityClasses.add(GameActivity.class);
         activityClasses.add(DeathScreenActivity.class);
+        activityClasses.add(LevelMaker.class);
         activityClasses.add(ControlTestingActivity.class);
         activityClasses.add(DemoGameplayActivity.class);
-        activityClasses.add(GameActivity.class);
-        activityClasses.add(LevelMaker.class);
-        activityClasses.add(SettingScreenActivity.class);
-        activityClasses.add(SplashScreenActivity.class);
-        activityClasses.add(CustomizationActivity.class);
     }
 
     /**

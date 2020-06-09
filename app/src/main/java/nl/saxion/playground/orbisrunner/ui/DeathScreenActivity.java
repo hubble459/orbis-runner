@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-import nl.saxion.playground.TestingMainActivity;
 import nl.saxion.playground.orbisrunner.R;
 
 /**
@@ -65,7 +64,7 @@ public class DeathScreenActivity extends AppCompatActivity {
     }
 
     private void openMainMenu() {
-        Intent intent = new Intent(DeathScreenActivity.this, TestingMainActivity.class);
+        Intent intent = new Intent(DeathScreenActivity.this, StartScreenActivity.class);
         startActivity(intent);
         finish();
     }
