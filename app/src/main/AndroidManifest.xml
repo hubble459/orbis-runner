@@ -25,6 +25,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.DeathScreenActivity" />
+
+        <service android:name=".singleton.MusicService" />
     </application>
 
 </manifest>

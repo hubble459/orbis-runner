@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -189,7 +190,10 @@ public class Player extends Entity {
     }
 
     private void setXY() {
-        if (game == null) return;
+        if (game == null) {
+            Log.i("uwu", "setXY: ewe");
+            return;
+        }
         float[] xy = game.getXYFromDegrees(startAngle, jump + margin, this);
         setXYValues(xy);
         angle -= 90;

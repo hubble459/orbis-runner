@@ -9,6 +9,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import nl.saxion.playground.orbisrunner.R;
+import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 public class SettingScreenActivity extends AppCompatActivity {
 
@@ -21,7 +22,6 @@ public class SettingScreenActivity extends AppCompatActivity {
     }
 
     public void init() {
-
         Switch sound = findViewById(R.id.soundSwitch);
         sound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -37,14 +37,17 @@ public class SettingScreenActivity extends AppCompatActivity {
 
 
         Switch music = findViewById(R.id.musicSwitch);
+        music.setChecked(GameProvider.isMusicOn());
         music.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                 //toggle music off or on
-                if (b) {
-                    Toast.makeText(SettingScreenActivity.this, "Music Off", Toast.LENGTH_SHORT).show();
-                } else {
+                if (checked) {
+                    GameProvider.startMusic(SettingScreenActivity.this);
                     Toast.makeText(SettingScreenActivity.this, "Music On", Toast.LENGTH_SHORT).show();
+                } else {
+                    GameProvider.stopMusic(SettingScreenActivity.this);
+                    Toast.makeText(SettingScreenActivity.this, "Music Off", Toast.LENGTH_SHORT).show();
                 }
             }
         });

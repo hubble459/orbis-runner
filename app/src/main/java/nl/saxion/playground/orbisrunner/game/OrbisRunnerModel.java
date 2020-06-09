@@ -25,7 +25,6 @@ public class OrbisRunnerModel extends GameModel {
         this.circle.setMargin(Circle.STROKE_WIDTH);
 
         this.player = GameProvider.getPlayer();
-        this.player.reset();
         this.player.setGame(this);
 
         this.activity = activity;
@@ -41,10 +40,12 @@ public class OrbisRunnerModel extends GameModel {
         addEntity(circle);
 
         for (Entity entity : level.getEntities()) {
-            entity.setPaused(false);
-            entity.setGame(this);
-            entity.reset();
-            addEntity(entity);
+            if (!getEntities().contains(entity)) {
+                entity.setGame(this);
+                entity.setPaused(false);
+                entity.reset();
+                addEntity(entity);
+            }
         }
     }
 
@@ -52,12 +53,13 @@ public class OrbisRunnerModel extends GameModel {
     public void dead() {
         for (Entity entity : getEntities()) {
             entity.setPaused(true);
+            entity.reset();
         }
 
         Intent intent = new Intent(activity, DeathScreenActivity.class);
         intent.putExtra(DeathScreenActivity.LEVEL, level.getNumber());
-        activity.finish();
         activity.startActivity(intent);
+        activity.finish();
     }
 
     @Override
