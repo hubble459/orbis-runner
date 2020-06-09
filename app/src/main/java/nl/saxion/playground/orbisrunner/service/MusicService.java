@@ -1,4 +1,4 @@
-package nl.saxion.playground.orbisrunner.singleton;
+package nl.saxion.playground.orbisrunner.service;
 
 import android.app.Service;
 import android.content.Intent;
