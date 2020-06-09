@@ -49,7 +49,7 @@
 - Added new issue
 
 ## Stand-up 08-06-2020 12:55
-- Did the stand-up on Whatsapp because some members where unable to make it to the discord call on time.
+- Did the stand-up on WhatsApp because some members where unable to make it to the discord call on time.
 - Talked about progress
 
 ## Stand-up 09-06-2020 10:00

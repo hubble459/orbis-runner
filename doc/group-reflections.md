@@ -7,6 +7,22 @@ The teamwork was excellent. Attendance was perfect, everyone was always present 
 
 ![burndownchart-sprint1](burndownchart-sprint1.png)
 
+## Points
+##### Unfinished issues
+|Issue|Assignee|Reason|
+|---|---|---|
+|Settings screen|Joost|Bad planning  |
+|Technical design|Serwet|Unclear, design was still being changed  |
+|Entity sprites|Olaf| |
+|W A L K I N animation|Olaf| |
+
+- Issues were too big
+- Presentation was too simple
+- Excellent teamwork
+
+#### Improvement for sprint 2
+- Split large issues into smaller issues
+- Properly prepare the presentation
 
 # Sprint 2
 The first week of the second sprint there was not much progress, namely because of the android retakes. So a few issues were left unfinished. This sprint we undervalued the weight of some issues yet again.
@@ -15,3 +31,26 @@ But we did finish all the issues from the last sprint and some of the most impor
 Our app is coming out nicely. Communication was great like the previous sprint.
 
 ![burndownchart-sprint2](burndownchart-sprint2.png)
+
+
+## Points
+##### Unfinished issues
+|Issue|Assignee|Reason|
+|---|---|---|
+|Shop|Olaf| COVID-19 |
+|Shopitem|Olaf|- |
+|Logo|Olaf|- |
+|W A L K I N animation|Olaf|- |
+|Entity sprites|Olaf|- |
+|Finish screen|Serwet| Dependent on GameActivity (was changed) |
+
+- Issue weight too low
+- Distracted by retakes
+- Cleared sprint 1 backlog
+
+#### Improvements for sprint 3
+- More accurate issue weight
+- Better planning (more deadlines than just the sprint due date)
+
+
+# Sprint 3
