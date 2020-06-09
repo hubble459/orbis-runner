@@ -3,7 +3,9 @@ package nl.saxion.playground.orbisrunner.game;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.media.MediaPlayer;
 
+import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.game.entity.Circle;
 import nl.saxion.playground.orbisrunner.game.entity.Player;
 import nl.saxion.playground.orbisrunner.lib.Entity;
@@ -16,6 +18,7 @@ public class OrbisRunnerModel extends GameModel {
     private final Circle circle;
     private final Player player;
     private final Level level;
+    private final MediaPlayer mediaPlayer;
 
     public OrbisRunnerModel(Activity activity) {
         this.level = GameProvider.getCurrentLevel();
@@ -28,6 +31,9 @@ public class OrbisRunnerModel extends GameModel {
         this.player.setGame(this);
 
         this.activity = activity;
+
+        this.mediaPlayer = MediaPlayer.create(activity, R.raw.oof);
+        this.mediaPlayer.setVolume(1.0f, 1.0f);
     }
 
     @Override
@@ -51,6 +57,8 @@ public class OrbisRunnerModel extends GameModel {
 
     @Override
     public void dead() {
+        deadSound();
+
         for (Entity entity : getEntities()) {
             entity.setPaused(true);
             entity.reset();
@@ -60,6 +68,10 @@ public class OrbisRunnerModel extends GameModel {
         intent.putExtra(DeathScreenActivity.LEVEL, level.getNumber());
         activity.startActivity(intent);
         activity.finish();
+    }
+
+    private void deadSound() {
+        mediaPlayer.start();
     }
 
     @Override
