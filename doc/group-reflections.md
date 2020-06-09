@@ -6,3 +6,6 @@ We treated the presentation more like a showcase than an actual presentation. Ne
 The teamwork was excellent. Attendance was perfect, everyone was always present during the stand-ups and classes. The rules in the code of conduct were obeyed.
 
 ![burndownchart-sprint1](burndownchart-sprint1.png)
+
+
+# Sprint 2

@@ -52,4 +52,10 @@
 - Did the stand-up on Whatsapp because some members where unable to make it to the discord call on time.
 - Talked about progress
 
+## Stand-up 09-06-2020 10:00
+- Talked about progress
+- Talked with Olaf about his medical conditions and what he can and can not do in the project
+- Discussed new issues and what everyone will be working on
+
+
 
