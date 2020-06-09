@@ -15,11 +15,10 @@
         android:text="@string/retry"
         android:textColor="@color/colorAccent"
         android:textSize="32sp"
-        app:layout_constraintBottom_toTopOf="@+id/mainMenuButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diedOn" />
+        app:layout_constraintTop_toBottomOf="@+id/alignCircleView" />
 
 
     <TextView
@@ -27,13 +26,21 @@
         style="@style/Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
         android:fontFamily="@font/silkscreen_bold"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="died on lvl 3" />
+
+    <TextView
+        android:id="@+id/alignCircleView"
+        style="@style/Title"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/mainMenuButton"
