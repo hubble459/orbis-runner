@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -296,6 +297,9 @@ public class GameView extends View implements View.OnTouchListener {
 
     public Bitmap getBitmap(int drawableRes, int colour) {
         Drawable drawable = getResources().getDrawable(drawableRes);
+        if (drawable instanceof AnimationDrawable) {
+            ((AnimationDrawable) drawable).start();
+        }
         if (colour != -69) {
             drawable.setTint(colour);
         }

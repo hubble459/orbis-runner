@@ -6,10 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.util.Locale;
+
+import nl.saxion.playground.TestingMainActivity;
 import nl.saxion.playground.orbisrunner.R;
-import nl.saxion.playground.orbisrunner.ui.demo.GameplayDemoActivity;
 
 /**
  * Starting activity
@@ -26,12 +27,14 @@ public class DeathScreenActivity extends AppCompatActivity {
         level = getIntent().getIntExtra(LEVEL, -1);
 
         init();
+
+
     }
 
-    private void init(){
+    private void init() {
         // Display level player died on
         TextView lvl = findViewById(R.id.diedOn);
-        lvl.setText("You Died On Level " + level);
+        lvl.setText(String.format(Locale.ENGLISH, "You Died On Level %d", level));
 
         // Assign Retry Button
         Button retryButton = findViewById(R.id.retryButton);
@@ -39,7 +42,7 @@ public class DeathScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Retry Level
-                Intent intent = new Intent(DeathScreenActivity.this, GameplayDemoActivity.class);
+                Intent intent = new Intent(DeathScreenActivity.this, GameActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -47,13 +50,23 @@ public class DeathScreenActivity extends AppCompatActivity {
 
         // Assign Main Menu Button
         Button mainMenuButton = findViewById(R.id.mainMenuButton);
-        mainMenuButton.setOnClickListener(new View.OnClickListener(){
+        mainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 // Go to the starting screen
-                finish();
-                Toast.makeText(DeathScreenActivity.this,"Main Menu Clicked",Toast.LENGTH_SHORT).show();
+                openMainMenu();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        openMainMenu();
+    }
+
+    private void openMainMenu() {
+        Intent intent = new Intent(DeathScreenActivity.this, TestingMainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

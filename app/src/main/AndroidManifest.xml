@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.demo.GameplayDemoActivity" />
+        <activity android:name=".ui.CustomizationActivity"></activity>
+        <activity android:name=".ui.LevelMaker" />
+        <activity android:name=".ui.GameActivity" />
+        <activity android:name=".ui.demo.DemoGameplayActivity" />
+        <activity android:name=".ui.SplashScreenActivity" />
+        <activity android:name=".ui.SettingScreenActivity" />
         <activity android:name=".ui.ControlTestingActivity" />
         <activity android:name=".ui.StartScreenActivity" />
         <activity android:name="nl.saxion.playground.TestingMainActivity">
@@ -21,4 +26,5 @@
         </activity>
         <activity android:name=".ui.DeathScreenActivity" />
     </application>
+
 </manifest>

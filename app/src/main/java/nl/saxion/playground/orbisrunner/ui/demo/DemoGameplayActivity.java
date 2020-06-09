@@ -8,9 +8,10 @@ import android.widget.TextView;
 
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.GameView;
+import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 import nl.saxion.playground.orbisrunner.ui.DeathScreenActivity;
 
-public class GameplayDemoActivity extends AppCompatActivity {
+public class DemoGameplayActivity extends AppCompatActivity {
     private static final String TAG = "GameplayDemoActivity";
 
     @Override
@@ -20,17 +21,17 @@ public class GameplayDemoActivity extends AppCompatActivity {
 
         TextView speedometer = findViewById(R.id.speedometer);
 
-        OrbisGame og = new OrbisGame(this, new OrbisGame.OnDeathListener() {
+        DemoOrbisGame og = new DemoOrbisGame(this, new DemoOrbisGame.OnDeathListener() {
             @Override
             public void dead() {
-                Intent intent = new Intent(GameplayDemoActivity.this, DeathScreenActivity.class);
-                intent.putExtra(DeathScreenActivity.LEVEL, 1 /*get level from data*/);
+                Intent intent = new Intent(DemoGameplayActivity.this, DeathScreenActivity.class);
+                intent.putExtra(DeathScreenActivity.LEVEL, GameProvider.getCurrentLevel().getNumber() /*get level from data*/);
                 startActivity(intent);
                 finish();
             }
         });
         og.setSpeedometer(speedometer);
-        og.setLevel(1 /*get level from data*/);
+        og.setLevel(GameProvider.getCurrentLevel().getNumber() /*get level from data*/);
         GameView gv = findViewById(R.id.demoGame);
         gv.setBackgroundColor(Color.WHITE);
         gv.setGame(og);

@@ -15,12 +15,19 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import nl.saxion.playground.orbisrunner.R;
+import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 import nl.saxion.playground.orbisrunner.ui.ControlTestingActivity;
+import nl.saxion.playground.orbisrunner.ui.CustomizationActivity;
 import nl.saxion.playground.orbisrunner.ui.DeathScreenActivity;
+import nl.saxion.playground.orbisrunner.ui.GameActivity;
+import nl.saxion.playground.orbisrunner.ui.LevelMaker;
+import nl.saxion.playground.orbisrunner.ui.SettingScreenActivity;
+import nl.saxion.playground.orbisrunner.ui.SplashScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.StartScreenActivity;
-import nl.saxion.playground.orbisrunner.ui.demo.GameplayDemoActivity;
+import nl.saxion.playground.orbisrunner.ui.demo.DemoGameplayActivity;
 
 /**
  * Starting activity used for testing
@@ -41,7 +48,12 @@ public class TestingMainActivity extends AppCompatActivity {
         activityClasses.add(StartScreenActivity.class);
         activityClasses.add(DeathScreenActivity.class);
         activityClasses.add(ControlTestingActivity.class);
-        activityClasses.add(GameplayDemoActivity.class);
+        activityClasses.add(DemoGameplayActivity.class);
+        activityClasses.add(GameActivity.class);
+        activityClasses.add(LevelMaker.class);
+        activityClasses.add(SettingScreenActivity.class);
+        activityClasses.add(SplashScreenActivity.class);
+        activityClasses.add(CustomizationActivity.class);
     }
 
     /**
@@ -56,6 +68,9 @@ public class TestingMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_testing_main);
 
+        // Should be called in Splash Screen
+        GameProvider.getSave(this);
+
         addActivities();
 
         ListView list = findViewById(R.id.list);
@@ -65,9 +80,8 @@ public class TestingMainActivity extends AppCompatActivity {
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                Typeface typeface = Typeface.DEFAULT;
-                tv.setTypeface(typeface);
-                tv.setText(getItem(position).getSimpleName());
+                tv.setTypeface(Typeface.DEFAULT);
+                tv.setText(Objects.requireNonNull(getItem(position)).getSimpleName());
                 return view;
             }
         });

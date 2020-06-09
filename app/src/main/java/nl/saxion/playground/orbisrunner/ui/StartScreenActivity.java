@@ -10,11 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
 import java.util.Random;
 
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.Animation;
-import nl.saxion.playground.orbisrunner.ui.demo.GameplayDemoActivity;
+import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**
  * Starting activity
@@ -40,12 +41,12 @@ public class StartScreenActivity extends AppCompatActivity {
     private void init() {
         // Animate Player W A L K I N G
         ImageView player = findViewById(R.id.player);
-        ((AnimationDrawable) player.getDrawable()).start();
-        Animation.walkInCircle(player, 4000, new Random().nextBoolean());
+        ((AnimationDrawable) player.getBackground()).start();
+        Animation.walkInCircle(findViewById(R.id.rotateView), 7000, new Random().nextBoolean());
 
         // Set level title
         TextView lvl = findViewById(R.id.level);
-        lvl.setText("LVL 3" /* get level from save instance */);
+        lvl.setText(String.format(Locale.ENGLISH, "LVL %d", GameProvider.getCurrentLevel().getNumber()) /* get level from save instance */);
 
         // Assign Play Button
         Button playButton = findViewById(R.id.playButton);
@@ -53,18 +54,29 @@ public class StartScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Start the game
-                Intent game = new Intent(StartScreenActivity.this, GameplayDemoActivity.class);
+                Intent game = new Intent(StartScreenActivity.this, GameActivity.class);
                 startActivity(game);
             }
         });
 
         // Assign Customize Button
-        TextView customizeButton = findViewById(R.id.customize_button);
+        TextView customizeButton = findViewById(R.id.customizeButton);
         customizeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Start the customization intent
-                toast("Customize Clicked");
+                Intent intent = new Intent(StartScreenActivity.this, CustomizationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Assign Customize Button
+        TextView shopButton = findViewById(R.id.shopButton);
+        shopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Start the customization intent
+                toast("Shop Clicked");
             }
         });
 
@@ -84,7 +96,8 @@ public class StartScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Start settings activity
-                toast("Settings Clicked");
+                Intent settings = new Intent(StartScreenActivity.this, SettingScreenActivity.class);
+                startActivity(settings);
             }
         });
     }

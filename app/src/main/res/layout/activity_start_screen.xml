@@ -15,17 +15,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/player"
+    <LinearLayout
+        android:id="@+id/rotateView"
         android:layout_width="wrap_content"
-        android:layout_height="325dp"
-        android:scaleType="fitStart"
-        android:src="@drawable/walking"
-        app:layout_constraintBottom_toBottomOf="@id/playButton"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/playButton"
         app:layout_constraintEnd_toEndOf="@id/playButton"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="@id/playButton"
-        app:layout_constraintTop_toTopOf="@id/playButton" />
+        app:layout_constraintTop_toTopOf="@+id/playButton">
+
+        <ImageView
+            android:id="@+id/player"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/walking"
+            android:contentDescription="@android:string/untitled"
+            android:scaleType="fitStart" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="235dp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/playButton"
@@ -42,50 +53,70 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
-    <TextView
-        android:id="@+id/customize_button"
+    <Button
+        android:id="@+id/newGameButton"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:drawableTop="@drawable/ic_customize_24px"
-        android:focusable="true"
-        android:text="@string/customize"
+        android:text="@string/new_game"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/playButton" />
+        app:layout_constraintTop_toBottomOf="@+id/playButton" />
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="64dp"
+        app:layout_constraintBottom_toTopOf="@+id/settingsButton"
         app:layout_constraintEnd_toEndOf="@id/playButton"
         app:layout_constraintStart_toStartOf="@id/playButton"
-        app:layout_constraintTop_toBottomOf="@id/playButton">
+        app:layout_constraintTop_toBottomOf="@+id/newGameButton">
 
-        <Button
-            android:id="@+id/newGameButton"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/customizeButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/new_game"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:layout_weight="1"
+            android:clickable="true"
+            android:drawableTop="@drawable/ic_customize_24px"
+            android:focusable="true"
+            android:text="@string/customize"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newGameButton" />
 
-        <View
-            android:layout_width="10dp"
-            android:layout_height="match_parent" />
 
-        <Button
-            android:id="@+id/settingsButton"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/shopButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/settings"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:layout_weight="1"
+            android:clickable="true"
+            android:drawableTop="@drawable/ic_customize_24px"
+            android:focusable="true"
+            android:text="@string/shop"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newGameButton" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/settingsButton"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/settings"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/level"

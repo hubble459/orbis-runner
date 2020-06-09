@@ -529,7 +529,8 @@ public class ControlTestingActivity extends AppCompatActivity {
             yVal = (float) (int) (Math.random() * (game.getHeight() - height));
         }
 
-        void setScale(float scale) {
+
+        public void setScale(float scale) {
             this.scale = scale;
         }
 

@@ -94,7 +94,7 @@ public class GameModel implements Serializable {
      */
     public void addEntity(Entity entity) {
         entities.add(entity);
-        // For entity class and each super class up til but not including Entity,
+        // For entity class and each super class up till but not including Entity,
         // add the entity to the right entitiesByType array.
         for (Class cls = entity.getClass(); cls != Entity.class; cls = cls.getSuperclass()) {
             ArrayList<Entity> list = entitiesByType.get(entity.getClass());
@@ -152,6 +152,10 @@ public class GameModel implements Serializable {
         return list == null ? new ArrayList<T>() : list;
     }
 
+    public SafeTreeSet<Entity> getEntities() {
+        return entities;
+    }
+
     /**
      * Get an `Entity` of the specified type.
      *
@@ -203,6 +207,12 @@ public class GameModel implements Serializable {
         return touch;
     }
 
+    public void dead() {
+    }
+
+    public float[] getXYFromDegrees(float degrees, float jump, Entity e) {
+        return new float[3];
+    }
 
     /**
      * Helper class that contains information about an ongoing touch.

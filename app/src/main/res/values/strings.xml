@@ -10,14 +10,23 @@
     <!-- Used in death screen -->
     <string name="main_menu">Main Menu</string>
     <string name="retry">Retry</string>
+    <string name="save">Save</string>
+
+    <!-- Used in splash screen -->
+    <string name="start">Start</string>
+    <string name="created">Created By Group 1</string>
 
     <!-- Used in settings screen -->
-    <string name="sound_off">Sound Off</string>
-    <string name="sound_on">Sound On</string>
-    <string name="music_off">Music Off</string>
-    <string name="music_on">Music On</string>
-    <string name="music_toggle">Music Toggle</string>
-    <string name="sound_toggle">Sound Toggle</string>
+    <string name="music">Music</string>
+    <string name="sound">Sound</string>
 
+    <!-- Used in customize screen -->
+    <string name="selected">Selected</string>
+    <string name="color_">Color:</string>
 
+    <!-- Used in shop screen -->
+    <string name="shop">Shop</string>
+
+    <!-- Used in finish screen -->
+    <string name="next_level">Next Level</string>
 </resources>
