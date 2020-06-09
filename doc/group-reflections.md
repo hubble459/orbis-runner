@@ -9,3 +9,9 @@ The teamwork was excellent. Attendance was perfect, everyone was always present 
 
 
 # Sprint 2
+The first week of the second sprint there was not much progress, namely because of the android retakes. So a few issues were left unfinished. This sprint we undervalued the weight of some issues yet again.
+But we did finish all the issues from the last sprint and some of the most important issues in the second week of this sprint. One of the members of the group unfortunately caught the COVID-19 virus, so they were unable to finish their issues.
+
+Our app is coming out nicely. Communication was great like the previous sprint.
+
+![burndownchart-sprint2](burndownchart-sprint2.png)
