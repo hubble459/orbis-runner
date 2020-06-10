@@ -161,6 +161,12 @@ public class LevelMaker extends AppCompatActivity {
         return null;
     }
 
+    private void setScale(float scale) {
+        for (Entity entity : model.getEntities()) {
+            entity.setScale(scale);
+        }
+    }
+
     private void showEditPopup() {
         ArrayAdapter<Level> adapter = new ArrayAdapter<Level>(this, android.R.layout.simple_list_item_1, GameProvider.getLevels()) {
             @NonNull

@@ -1,6 +1,7 @@
 package nl.saxion.playground.orbisrunner.levelmaker;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 
 import nl.saxion.playground.orbisrunner.game.Level;
 import nl.saxion.playground.orbisrunner.game.entity.Circle;
@@ -24,8 +25,9 @@ public class MakerModel extends GameModel {
 
         this.player = new Player();
         this.player.setGame(this);
-        this.player.setScale(2);
-        this.player.setMargin(55f);
+        this.player.setColor(Color.BLACK);
+        this.player.setMargin(45f);
+        this.player.setScale(.5f);
         this.player.setEnabled(false);
     }
 
@@ -35,22 +37,18 @@ public class MakerModel extends GameModel {
     }
 
     private void addEntities() {
-        addEntity(player);
         addEntity(circle);
+        addEntity(player);
     }
 
     @Override
     public void started(Canvas canvas) {
-        Entity last = null;
         for (Entity entity : level.getEntities()) {
             entity.setLevelMaker(levelMaker);
-            entity.setXYValues(getXYFromDegrees(entity.getStartAngle(), 0, entity));
+            entity.setScale(.5f);
+            entity.setXYValues(getXYFromDegrees(entity.getStartAngle(), entity.getHeight(), entity));
             addEntity(entity);
-            last = entity;
-        }
-
-        if (last != null) {
-            levelMaker.select(last);
+            levelMaker.select(entity);
         }
     }
 

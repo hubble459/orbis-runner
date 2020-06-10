@@ -31,8 +31,8 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
     protected float xVal, yVal, angle;
     // Start angle used for saving levels
     protected float startAngle;
-    // All entities have dimensions.
-    protected float width, height;
+    // All entities have dimensions and a scale.
+    protected float width, height, scale = 1;
     // Jump height for player and jumping enemies
     protected float startJump, jump;
     // Used by LevelMaker to change this specific position.
@@ -124,7 +124,7 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
 
     private void drawOutline(Canvas canvas) {
         canvas.save();
-        canvas.rotate(angle, xVal + width / 2, yVal + height / 2);
+//        canvas.rotate(angle, xVal + width / 2, yVal + height / 2);
         canvas.drawCircle(xVal + width / 2, yVal + height / 2, width, paint);
         canvas.restore();
     }
@@ -213,6 +213,7 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
     }
 
     public void setScale(float scale) {
+        this.scale = scale;
         height *= scale;
         width *= scale;
     }
