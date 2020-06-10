@@ -17,7 +17,7 @@ public class Shop {
         for (int i = 0; i < 10; i++) {
             ShopItem item = new ShopItem();
             item.setName("item " + i);
-            item.setResId(R.drawable.walk_frame_0);
+            item.setResId(R.drawable.walk_0);
             item.setUnlocked(true);
             shopItems.add(item);
         }
