@@ -393,7 +393,7 @@ public class ControlTestingActivity extends AppCompatActivity {
 
         private void scaleCandies() {
             for (Candy candy : candies) {
-                candy.setScale(scale);
+                candy.setScale1(scale);
             }
         }
 
@@ -470,7 +470,7 @@ public class ControlTestingActivity extends AppCompatActivity {
     private static class Candy extends Entity {
         private float width, height;
         private float xVal, yVal;
-        private float scale = 1;
+        private float scale1 = 1;
         private int colour;
 
         private Paint paint;
@@ -500,7 +500,7 @@ public class ControlTestingActivity extends AppCompatActivity {
                 paint.setColor(colour);
                 changePos();
             }
-            gv.getCanvas().drawRect(xVal, yVal, xVal + width * scale, yVal + height * scale, paint);
+            gv.getCanvas().drawRect(xVal, yVal, xVal + width * scale1, yVal + height * scale1, paint);
         }
 
         /**
@@ -530,8 +530,8 @@ public class ControlTestingActivity extends AppCompatActivity {
         }
 
 
-        public void setScale(float scale) {
-            this.scale = scale;
+        public void setScale1(float scale) {
+            this.scale1 = scale;
         }
 
         void setColour(int colour) {

@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -21,7 +20,6 @@ public class Player extends Entity {
     private static final float JUMP_MAX_HEIGHT = 300f;
 
     private float maxJump;
-    private float margin;
 
     private long lastTime;
 
@@ -43,11 +41,12 @@ public class Player extends Entity {
     public Player() {
         setStartAngle(110);
         setStartJump(0);
+        setMargin(20f * scale);
     }
 
     public void setGame(GameModel game) {
+        scale = 1;
         this.game = game;
-        this.scale = 1;
         this.maxJump = JUMP_MAX_HEIGHT;
         this.dust = new ArrayDeque<>();
         this.paint = new Paint();
@@ -73,6 +72,7 @@ public class Player extends Entity {
             } else {
                 drawable.setTintList(null);
             }
+
             setXY();
         }
 
@@ -183,19 +183,17 @@ public class Player extends Entity {
         this.color = color;
     }
 
-    private void setXY() {
-        if (game == null) {
-            Log.i("uwu", "setXY: ewe");
-            return;
+    public void setXY() {
+        if (game != null) {
+            float[] xy = game.getXYFromDegrees(startAngle, jump, this);
+            setXYValues(xy);
+            angle -= 90;
         }
-        float[] xy = game.getXYFromDegrees(startAngle, jump + margin, this);
-        setXYValues(xy);
     }
 
     @Override
     public void setXYValues(float[] xy) {
         super.setXYValues(xy);
-        angle -= 90;
     }
 
     @Override
@@ -209,10 +207,6 @@ public class Player extends Entity {
 
     public void setDead(boolean dead) {
         this.dead = dead;
-    }
-
-    public void setMargin(float margin) {
-        this.margin = margin;
     }
 
     @Override

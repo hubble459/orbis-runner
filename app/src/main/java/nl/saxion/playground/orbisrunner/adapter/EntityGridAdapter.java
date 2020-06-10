@@ -13,12 +13,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import nl.saxion.playground.orbisrunner.R;
-import nl.saxion.playground.orbisrunner.levelmaker.EntityItem;
+import nl.saxion.playground.orbisrunner.game.entity.Sprite;
 
-public class EntityGridAdapter extends ArrayAdapter<EntityItem> {
+public class EntityGridAdapter extends ArrayAdapter<Sprite> {
     private LayoutInflater inflater;
 
-    public EntityGridAdapter(@NonNull Context context, @NonNull List<EntityItem> entities) {
+    public EntityGridAdapter(@NonNull Context context, @NonNull List<Sprite> entities) {
         super(context, 0, entities);
         inflater = LayoutInflater.from(context);
     }
@@ -30,15 +30,15 @@ public class EntityGridAdapter extends ArrayAdapter<EntityItem> {
             convertView = inflater.inflate(R.layout.adapter_entity_grid, parent, false);
         }
 
-        EntityItem e = getItem(position);
-        if (e == null) return convertView;
+        Sprite sprite = getItem(position);
+        if (sprite == null) return convertView;
 
         TextView name = convertView.findViewById(R.id.name);
         ImageView image = convertView.findViewById(R.id.image);
 
-        name.setText(e.getName());
+        name.setText(sprite.getName());
 
-        int imageRes = e.getDrawableRes();
+        int imageRes = sprite.getBitmapRes();
         image.setImageResource(imageRes);
 
         return convertView;

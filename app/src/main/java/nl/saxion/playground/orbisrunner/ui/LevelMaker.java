@@ -24,7 +24,8 @@ import java.util.Objects;
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.adapter.EntityGridAdapter;
 import nl.saxion.playground.orbisrunner.game.Level;
-import nl.saxion.playground.orbisrunner.levelmaker.EntityItem;
+import nl.saxion.playground.orbisrunner.game.entity.Sprite;
+import nl.saxion.playground.orbisrunner.game.entity.StaticEnemy;
 import nl.saxion.playground.orbisrunner.levelmaker.MakerModel;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameView;
@@ -32,6 +33,8 @@ import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
 
 public class LevelMaker extends AppCompatActivity {
+    private ArrayList<Sprite> sprites;
+
     private SeekBar posBar, heightBar;
     private GameView gameView;
     private GridView entityList;
@@ -89,19 +92,18 @@ public class LevelMaker extends AppCompatActivity {
         gameView.setGame(model);
         gameView.setBackgroundColor(Color.WHITE);
 
-        final ArrayList<EntityItem> entityItems = new ArrayList<>();
-        entityItems.add(new EntityItem(EntityItem.DEMO_ENEMY));
+        sprites = new ArrayList<>();
+        addSprites();
 
-        EntityGridAdapter adapter = new EntityGridAdapter(this, entityItems);
+        EntityGridAdapter adapter = new EntityGridAdapter(this, sprites);
 
         entityList.setAdapter(adapter);
         entityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    Entity e = (Entity) entityItems.get(position).getEntity().newInstance();
+                    Entity e = sprites.get(position).newInstance();
                     e.setLevelMaker(LevelMaker.this);
-                    e.setXYValues(model.getXYFromDegrees(0, 15, e));
                     select(e);
                     model.addEntity(e);
                     level.addEntity(e);
@@ -117,7 +119,7 @@ public class LevelMaker extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Entity e = getSelected();
                 if (e == null) return;
-                e.setXYValues(model.getXYFromDegrees(360 - progress, 15, e));
+                e.setXYValues(model.getXYFromDegrees(360 - progress, 0, e));
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -134,7 +136,7 @@ public class LevelMaker extends AppCompatActivity {
                 Entity e = getSelected();
                 if (e == null) return;
                 e.setStartJump((float) progress);
-                e.setXYValues(model.getXYFromDegrees(e.getAngle(), 15, e));
+                e.setXYValues(model.getXYFromDegrees(e.getAngle(), 0, e));
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -145,6 +147,11 @@ public class LevelMaker extends AppCompatActivity {
         });
     }
 
+    private void addSprites() {
+        sprites.add(new DemoEnemy());
+        sprites.add(new StaticEnemy());
+    }
+
     public void select(Entity e) {
         deselectAll();
         e.setSelected(true);
@@ -153,18 +160,12 @@ public class LevelMaker extends AppCompatActivity {
     }
 
     private Entity getSelected() {
-        for (DemoEnemy entity : model.getEntities(DemoEnemy.class)) {
+        for (Entity entity : model.getEntities()) {
             if (entity.isSelected()) {
                 return entity;
             }
         }
         return null;
-    }
-
-    private void setScale(float scale) {
-        for (Entity entity : model.getEntities()) {
-            entity.setScale(scale);
-        }
     }
 
     private void showEditPopup() {
@@ -250,5 +251,9 @@ public class LevelMaker extends AppCompatActivity {
 
     public void deselectAll() {
         model.deselectAll();
+    }
+
+    public float[] getXYFromDegrees(float angle, float margin, Entity e) {
+        return model.getXYFromDegrees(angle, margin, e);
     }
 }

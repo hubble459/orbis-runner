@@ -25,7 +25,7 @@ public class OrbisRunnerModel extends GameModel {
 
         this.circle = new Circle(true, true);
         this.circle.setSize(Circle.SIZE_DOUBLE);
-        this.circle.setMargin(Circle.STROKE_WIDTH);
+        this.circle.setMargin(Circle.STROKE_WIDTH / 2);
 
         this.player = GameProvider.getPlayer();
         this.player.setGame(this);
@@ -33,7 +33,6 @@ public class OrbisRunnerModel extends GameModel {
         this.activity = activity;
 
         this.mediaPlayer = MediaPlayer.create(activity, R.raw.oof);
-        this.mediaPlayer.setVolume(1.0f, 1.0f);
     }
 
     @Override

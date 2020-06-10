@@ -3,22 +3,34 @@ package nl.saxion.playground.orbisrunner.ui.demo.entities;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import nl.saxion.playground.orbisrunner.lib.Entity;
+import nl.saxion.playground.orbisrunner.R;
+import nl.saxion.playground.orbisrunner.game.entity.Sprite;
 import nl.saxion.playground.orbisrunner.lib.GameView;
 
-public class DemoEnemy extends Entity {
+public class DemoEnemy extends Sprite {
     private Paint paint;
 
     public DemoEnemy() {
         paint = new Paint();
         paint.setColor(Color.RED);
-        width = 50f;
-        height = 50f;
+
+        width = 50f * scale;
+        height = 50f * scale;
+
+        if (scale == 1f) {
+            setMargin(-90f);
+        } else if (scale == .5f) {
+            setMargin(-20f);
+
+        }
     }
 
     @Override
     public void draw(GameView gv) {
-        super.draw(gv);
+        width = 50f * scale;
+        height = 50f * scale;
+
+        draw(gv, false);
         gv.getCanvas().save();
         gv.getCanvas().rotate(angle, xVal + width / 2, yVal + height / 2);
         gv.getCanvas().drawRect(xVal + width, yVal + height, xVal, yVal, paint);
@@ -26,7 +38,12 @@ public class DemoEnemy extends Entity {
     }
 
     @Override
-    public int getLayer() {
-        return 1;
+    public int getBitmapRes() {
+        return R.drawable.demo_entity;
+    }
+
+    @Override
+    public String getName() {
+        return "Demo Enemy";
     }
 }
