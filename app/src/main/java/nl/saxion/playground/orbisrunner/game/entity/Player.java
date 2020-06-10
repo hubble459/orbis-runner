@@ -28,7 +28,6 @@ public class Player extends Entity {
     private int color;
     private int frame;
     private int maxFrames;
-    private int scale;
 
     private boolean falling;
     private boolean jumping;
@@ -48,7 +47,7 @@ public class Player extends Entity {
 
     public void setGame(GameModel game) {
         this.game = game;
-        this.scale = 4;
+        this.scale = 1;
         this.maxJump = JUMP_MAX_HEIGHT;
         this.dust = new ArrayDeque<>();
         this.paint = new Paint();
@@ -56,10 +55,6 @@ public class Player extends Entity {
         this.paint.setStrokeWidth(20f);
         this.paint.setAlpha(69);
         this.random = new Random();
-    }
-
-    public void setScale(int scale) {
-        this.scale = scale;
     }
 
     @Override
@@ -81,8 +76,7 @@ public class Player extends Entity {
             setXY();
         }
 
-        if (falling
-                || frame >= maxFrames) {
+        if (falling || frame >= maxFrames) {
             frame = 0;
         }
 
@@ -164,7 +158,7 @@ public class Player extends Entity {
 
     private void jump() {
         if (falling) {
-            jump -= JUMP_ACC;
+            jump -= JUMP_ACC * 0.9f;
         } else {
             jump += JUMP_ACC;
             if (jump > maxJump) {
@@ -196,6 +190,11 @@ public class Player extends Entity {
         }
         float[] xy = game.getXYFromDegrees(startAngle, jump + margin, this);
         setXYValues(xy);
+    }
+
+    @Override
+    public void setXYValues(float[] xy) {
+        super.setXYValues(xy);
         angle -= 90;
     }
 

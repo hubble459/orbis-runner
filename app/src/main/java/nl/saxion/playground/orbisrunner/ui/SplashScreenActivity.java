@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import java.util.Random;
 
 import nl.saxion.playground.orbisrunner.R;
-import nl.saxion.playground.orbisrunner.lib.Animation;
+import nl.saxion.playground.orbisrunner.lib.*;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -20,12 +20,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         init();
     }
 
-
     public void init() {
         // Animate Player W A L K I N G
         ImageView player = findViewById(R.id.player);
         ((AnimationDrawable) player.getBackground()).start();
         Animation.walkInCircleSplash(findViewById(R.id.rotateView), 3000, new Random().nextBoolean());
-
     }
 }

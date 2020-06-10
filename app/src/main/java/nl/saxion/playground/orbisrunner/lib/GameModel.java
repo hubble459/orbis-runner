@@ -97,10 +97,10 @@ public class GameModel implements Serializable {
         // For entity class and each super class up till but not including Entity,
         // add the entity to the right entitiesByType array.
         for (Class cls = entity.getClass(); cls != Entity.class; cls = cls.getSuperclass()) {
-            ArrayList<Entity> list = entitiesByType.get(entity.getClass());
+            ArrayList<Entity> list = entitiesByType.get(cls);
             if (list == null) {
                 list = new ArrayList<>();
-                entitiesByType.put(entity.getClass(), list);
+                entitiesByType.put(cls, list);
             }
             list.add(entity);
         }
