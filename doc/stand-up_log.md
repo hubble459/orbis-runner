@@ -56,6 +56,11 @@
 - Talked about progress
 - Talked with Olaf about his medical conditions and what he can and can not do in the project
 - Discussed new issues and what everyone will be working on
+- Joost is scrum master
 
+## Stand-up 10-06-2020 11:00
+- Talked about progress
+- Olaf absent, will be punished
+- Considered solutions for stopping music when app is closed
 
 
