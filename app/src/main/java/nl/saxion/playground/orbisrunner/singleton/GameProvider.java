@@ -34,11 +34,12 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class GameProvider {
     private static final GameProvider instance = new GameProvider();
-    private static Intent music;
     private Shop shop;
     private Player player;
+    private Intent music;
     private int coins;
     private int currentLevel;
+    private boolean musicOn;
 
     private ArrayList<Level> levels;
 
@@ -49,6 +50,7 @@ public class GameProvider {
         shop = new Shop();
         player = new Player();
         levels = new ArrayList<>();
+        musicOn = true;
     }
 
     public static Level getCurrentLevel() {
@@ -178,20 +180,24 @@ public class GameProvider {
     }
 
     public static void startMusic(Context context) {
-        if (music == null) {
-            music = new Intent(context, MusicService.class);
-            context.startService(music);
+        if (instance.musicOn && instance.music == null) {
+            instance.music = new Intent(context, MusicService.class);
+            context.startService(instance.music);
         }
     }
 
     public static void stopMusic(Context context) {
-        if (music != null) {
-            context.stopService(music);
-            music = null;
+        if (instance.music != null) {
+            context.stopService(instance.music);
+            instance.music = null;
         }
     }
 
     public static boolean isMusicOn() {
-        return music != null;
+        return instance.musicOn;
+    }
+
+    public static void setMusic(boolean on) {
+        instance.musicOn = on;
     }
 }

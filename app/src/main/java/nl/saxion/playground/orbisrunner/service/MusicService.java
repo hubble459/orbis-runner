@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,8 +12,6 @@ import java.util.Collections;
 import nl.saxion.playground.orbisrunner.R;
 
 public class MusicService extends Service {
-    private static final String TAG = "MusicService";
-
     private ArrayList<MediaPlayer> playlist;
 
     private void playlist() {
@@ -36,19 +33,20 @@ public class MusicService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         playlist();
-        for (int i = 0; i < playlist.size() - 1; i++) {
-            playlist.get(i).setNextMediaPlayer(playlist.get(i + 1));
+        for (int i = 0; i < playlist.size(); i++) {
+            if (i < playlist.size() - 1) {
+                playlist.get(i).setNextMediaPlayer(playlist.get(i + 1));
+            } else {
+                playlist.get(i).setNextMediaPlayer(playlist.get(0));
+            }
         }
         playlist.get(0).start();
-        Log.i(TAG, "onStartCommand: player started");
 
         return super.onStartCommand(intent, flags, startId);
     }
 
     private MediaPlayer make(int resId) {
-        MediaPlayer player = MediaPlayer.create(this, resId);
-        player.setVolume(100, 100);
-        return player;
+        return MediaPlayer.create(this, resId);
     }
 
     @Override
