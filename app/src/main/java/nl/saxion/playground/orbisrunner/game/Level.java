@@ -6,12 +6,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import nl.saxion.playground.orbisrunner.game.entity.Player;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
 
 public class Level {
     private int number;
     private ArrayList<Entity> entities;
+    private int collectableCoins;
+    private int deathCounter;
 
     public Level(int number) {
         this.number = number;
@@ -61,6 +64,26 @@ public class Level {
         }
 
         return l;
+    }
+
+    public int getCollectableCoins() {
+        for (Entity entity: entities) {
+            if (entity instanceof Player)//Change player to coin when coin object is created.
+                collectableCoins++;
+        }
+        return collectableCoins;
+    }
+
+    public int getDeathCounter() {
+        return deathCounter;
+    }
+
+    public void death() {
+        deathCounter++;
+    }
+
+    public void setDeathCounter(int deathCounter) {
+        this.deathCounter = deathCounter;
     }
 
     public JSONObject toJSON() throws JSONException {

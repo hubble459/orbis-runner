@@ -10,6 +10,8 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import nl.saxion.playground.orbisrunner.R;
+import nl.saxion.playground.orbisrunner.game.Level;
+import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**
  * Starting activity
@@ -17,6 +19,7 @@ import nl.saxion.playground.orbisrunner.R;
 public class DeathScreenActivity extends AppCompatActivity {
     public static final String LEVEL = "level_key";
     private int level;
+    private Level currentLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +27,11 @@ public class DeathScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_death_screen);
 
         level = getIntent().getIntExtra(LEVEL, -1);
+        currentLevel = GameProvider.getCurrentLevel();
+
+        currentLevel.death();
 
         init();
-
-
     }
 
     private void init() {
@@ -56,6 +60,7 @@ public class DeathScreenActivity extends AppCompatActivity {
                 openMainMenu();
             }
         });
+
     }
 
     @Override
