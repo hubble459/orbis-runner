@@ -230,11 +230,8 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         float top2 = yVal - height / 2;
         float bot2 = yVal + height / 2;
 
-        if (end >= start2 && start <= end2) {
-            return top >= top2 && bot <= bot2
-                    || top2 >= top && bot2 <= bot;
-        }
-        return false;
+        return (start < end2 && end > start2 &&
+                top < bot2 && bot > top2);
     }
 
     public void reset() {
