@@ -1,8 +1,5 @@
 package nl.saxion.playground.orbisrunner.lib;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 
@@ -11,11 +8,9 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-import nl.saxion.playground.orbisrunner.game.entity.Circle;
 import nl.saxion.playground.orbisrunner.game.entity.Coin;
 import nl.saxion.playground.orbisrunner.game.entity.FlyingEnemy;
 import nl.saxion.playground.orbisrunner.game.entity.JumpingEnemy;
-import nl.saxion.playground.orbisrunner.game.entity.Player;
 import nl.saxion.playground.orbisrunner.game.entity.Portal;
 import nl.saxion.playground.orbisrunner.game.entity.StaticEnemy;
 import nl.saxion.playground.orbisrunner.ui.LevelMaker;
@@ -23,9 +18,6 @@ import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
 
 
 abstract public class Entity implements Comparable<Entity>, Serializable {
-    // Entity speed
-    private static final float SPEED = .3f;
-
     // Static variable that provides the next `id`.
     private static int count = 0;
     // Used to sort objects on the same layer in the entities tree.
@@ -45,13 +37,11 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
     // Is resetting
     protected boolean reset;
     // Stop moving, and refresh when reset
-    private boolean pause;
+    protected boolean pause;
     // Level Maker for selecting and deselecting entities.
     protected LevelMaker levelMaker;
     // Level Model for getting the x and y positions with degrees from circle;
     protected GameModel game;
-    // Paint object for drawing outline when selected
-    private Paint paint;
 
     // The constructor assigns an id that is used for ordering draws.
     public Entity() {
@@ -83,12 +73,6 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
             e.setStartJump((float) entity.optDouble("jump"));
         }
         return e;
-    }
-
-    private void drawOutline(Canvas canvas) {
-        canvas.save();
-        canvas.drawCircle(xVal + width / 2, yVal + height / 2, width, paint);
-        canvas.restore();
     }
 
     // Used by the TreeSet to order GameObjects.
@@ -217,18 +201,6 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
      * The method is to update the game state accordingly.
      */
     public void tick() {
-        if (game != null && !pause) {
-            if (reset) {
-                setXYValues(game.getXYFromDegrees(startAngle + 90, startJump, this));
-                reset = false;
-            }
-            if (!(this instanceof Player) &&
-                    !(this instanceof Circle)) {
-                angle += SPEED;
-                if (angle > 360) angle = 0;
-                setXYValues(game.getXYFromDegrees(angle, jump, this));
-            }
-        }
     }
 
     /**
@@ -240,17 +212,6 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
      * @param gv The `GameView` to draw to.
      */
     public void draw(GameView gv) {
-        if (levelMaker != null && selected) {
-            if (paint == null) {
-                paint = new Paint();
-                paint.setColor(Color.CYAN);
-                paint.setStyle(Paint.Style.STROKE);
-                paint.setStrokeWidth(10f);
-
-                setXYValues(levelMaker.getXYFromDegrees(angle, 0, this));
-            }
-            drawOutline(gv.getCanvas());
-        }
     }
 
     public boolean inHitbox(Entity e) {

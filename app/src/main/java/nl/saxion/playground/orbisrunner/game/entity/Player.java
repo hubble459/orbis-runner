@@ -39,13 +39,13 @@ public class Player extends Entity {
     private Random random;
 
     public Player() {
-        setStartAngle(110);
-        setStartJump(0);
-        setMargin(20f * scale);
+        setStartAngle(110f);
+        setStartJump(0f);
     }
 
     public void setGame(GameModel game) {
         scale = 1;
+        setMargin(10f * (scale * scale));
         this.game = game;
         this.maxJump = JUMP_MAX_HEIGHT;
         this.dust = new ArrayDeque<>();
@@ -104,7 +104,7 @@ public class Player extends Entity {
     }
 
     private void randomDust() {
-        while (dust.size() < 10) {
+        if (dust.size() < 10 && !dead && !jumping) {
             float[] particle = new float[4];
             particle[0] = xVal + width * .69f - random.nextInt((int) width);
             particle[1] = yVal + height * .75f + random.nextInt(40);
@@ -115,7 +115,6 @@ public class Player extends Entity {
     }
 
     private void drawRunDust(Canvas canvas) {
-        if (dead || jumping) return;
         randomDust();
 
         for (float[] point : dust) {
@@ -123,7 +122,10 @@ public class Player extends Entity {
             paint.setAlpha((int) point[3]);
             canvas.drawPoint(point[0], point[1], paint);
         }
-        dust.poll();
+
+        if (dust.size() >= 10 || dead || jumping) {
+            dust.poll();
+        }
     }
 
     @Override
