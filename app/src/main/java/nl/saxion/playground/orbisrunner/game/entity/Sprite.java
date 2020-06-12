@@ -18,8 +18,8 @@ public abstract class Sprite extends Entity {
     public void draw(GameView gv) {
         if (bitmap == null) {
             bitmap = BitmapFactory.decodeResource(gv.getContext().getResources(), getBitmapRes());
-            width = bitmap.getWidth();
-            height = bitmap.getHeight();
+            width = bitmap.getWidth() * scale;
+            height = bitmap.getHeight() * scale;
             if (levelMaker != null) {
                 setXYValues(levelMaker.getXYFromDegrees(angle, jump, this));
             } else if (game != null) {

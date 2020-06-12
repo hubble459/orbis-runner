@@ -45,7 +45,7 @@ public class MakerModel extends GameModel {
     public void started(Canvas canvas) {
         for (Entity entity : level.getEntities()) {
             entity.setLevelMaker(levelMaker);
-            entity.setXYValues(getXYFromDegrees(entity.getStartAngle(), 0, entity));
+            entity.setXYValues(getXYFromDegrees(entity.getStartAngle(), entity.getStartJump(), entity));
             addEntity(entity);
             levelMaker.select(entity);
         }

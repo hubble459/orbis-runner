@@ -24,6 +24,7 @@ import java.util.Objects;
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.adapter.EntityGridAdapter;
 import nl.saxion.playground.orbisrunner.game.Level;
+import nl.saxion.playground.orbisrunner.game.entity.FlyingEnemy;
 import nl.saxion.playground.orbisrunner.game.entity.Sprite;
 import nl.saxion.playground.orbisrunner.game.entity.StaticEnemy;
 import nl.saxion.playground.orbisrunner.levelmaker.MakerModel;
@@ -40,6 +41,12 @@ public class LevelMaker extends AppCompatActivity {
     private GridView entityList;
     private Level level;
     private MakerModel model;
+
+    private void addSprites() {
+        sprites.add(new DemoEnemy());
+        sprites.add(new StaticEnemy());
+        sprites.add(new FlyingEnemy());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,11 +152,6 @@ public class LevelMaker extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-    }
-
-    private void addSprites() {
-        sprites.add(new DemoEnemy());
-        sprites.add(new StaticEnemy());
     }
 
     public void select(Entity e) {
