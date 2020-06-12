@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="nl.saxion.playground.orbisrunner.ui.FinishScreenActivity">
+
+    <Button
+        android:id="@+id/mainMenuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/retryLevelButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/retryLevelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/retry"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/nextLevelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/next_level"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/retryLevelButton" />
+
+    <TextView
+        android:id="@+id/objective"
+        android:layout_width="266dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="192dp"
+        android:text="Objective:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.324"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/theObjective"
+        android:layout_width="265dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="47dp"
+        android:text="Collect all coins and win without dying"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/objective" />
+
+    <ImageView
+        android:id="@+id/completed"
+        android:layout_width="77dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="192dp"
+        android:layout_marginEnd="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/red_cross" />
+
+    <TextView
+        android:id="@+id/deathCount"
+        android:layout_width="265dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="181dp"
+        android:text="Total deaths :"
+        app:layout_constraintBottom_toTopOf="@+id/totalCoinsCollected"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/completed" />
+
+    <TextView
+        android:id="@+id/totalCoinsCollected"
+        android:layout_width="265dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginBottom="157dp"
+        android:text="Total coins collected :"
+        app:layout_constraintBottom_toTopOf="@+id/mainMenuButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deathCount" />
+</android.support.constraint.ConstraintLayout>
