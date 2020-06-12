@@ -58,13 +58,15 @@
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="@string/level_select"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/settingsButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playButton" />
+        app:layout_constraintTop_toBottomOf="@+id/rotateView"
+        app:layout_constraintVertical_chainStyle="packed" />
 
 
     <LinearLayout
@@ -72,10 +74,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="64dp"
-        app:layout_constraintBottom_toTopOf="@+id/settingsButton"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="@id/playButton"
         app:layout_constraintStart_toStartOf="@id/playButton"
-        app:layout_constraintTop_toBottomOf="@+id/levelSelectButton">
+        app:layout_constraintTop_toBottomOf="@+id/playButton">
 
         <TextView
             android:id="@+id/customizeButton"
@@ -97,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:clickable="true"
-            android:drawableTop="@drawable/ic_customize_24px"
+            android:drawableTop="@drawable/ic_store_24"
             android:focusable="true"
             android:text="@string/shop"
             android:textAlignment="center"
@@ -108,15 +110,16 @@
     <Button
         android:id="@+id/settingsButton"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:text="@string/settings"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/levelSelectButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/levelSelectButton"
+        app:layout_constraintTop_toBottomOf="@+id/levelSelectButton" />
 
     <TextView
         android:id="@+id/level"
