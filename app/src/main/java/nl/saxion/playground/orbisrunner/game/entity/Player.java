@@ -20,6 +20,7 @@ public class Player extends Entity {
     private static final float JUMP_MAX_HEIGHT = 300f;
 
     private float maxJump;
+    private float fallingSpeed;
 
     private long lastTime;
 
