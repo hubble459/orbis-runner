@@ -256,5 +256,10 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         entity.put("type", getClass().getSimpleName());
         return entity;
     }
+
+    public boolean onScreen(float sWidth, float sHeight) {
+        return xVal >= 0 && yVal >= 0
+                && xVal <= sWidth && yVal <= sHeight;
+    }
 }
 
