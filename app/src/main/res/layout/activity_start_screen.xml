@@ -54,12 +54,12 @@
         app:layout_constraintTop_toBottomOf="@id/title" />
 
     <Button
-        android:id="@+id/newGameButton"
+        android:id="@+id/levelSelectButton"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/new_game"
+        android:text="@string/level_select"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +75,7 @@
         app:layout_constraintBottom_toTopOf="@+id/settingsButton"
         app:layout_constraintEnd_toEndOf="@id/playButton"
         app:layout_constraintStart_toStartOf="@id/playButton"
-        app:layout_constraintTop_toBottomOf="@+id/newGameButton">
+        app:layout_constraintTop_toBottomOf="@+id/levelSelectButton">
 
         <TextView
             android:id="@+id/customizeButton"
@@ -88,7 +88,7 @@
             android:text="@string/customize"
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newGameButton" />
+            app:layout_constraintTop_toBottomOf="@+id/levelSelectButton" />
 
 
         <TextView
@@ -102,7 +102,7 @@
             android:text="@string/shop"
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newGameButton" />
+            app:layout_constraintTop_toBottomOf="@+id/levelSelectButton" />
     </LinearLayout>
 
     <Button

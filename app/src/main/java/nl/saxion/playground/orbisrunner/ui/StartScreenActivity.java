@@ -81,7 +81,7 @@ public class StartScreenActivity extends AppCompatActivity {
         });
 
         // Assign New Game Button
-        Button newGameButton = findViewById(R.id.newGameButton);
+        Button newGameButton = findViewById(R.id.levelSelectButton);
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
