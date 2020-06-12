@@ -1,8 +1,5 @@
 package nl.saxion.playground.orbisrunner.lib;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 
@@ -11,17 +8,16 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-import nl.saxion.playground.orbisrunner.game.entity.Circle;
-import nl.saxion.playground.orbisrunner.game.entity.Player;
-import nl.saxion.playground.orbisrunner.levelmaker.EntityItem;
+import nl.saxion.playground.orbisrunner.game.entity.Coin;
+import nl.saxion.playground.orbisrunner.game.entity.FlyingEnemy;
+import nl.saxion.playground.orbisrunner.game.entity.JumpingEnemy;
+import nl.saxion.playground.orbisrunner.game.entity.Portal;
+import nl.saxion.playground.orbisrunner.game.entity.StaticEnemy;
 import nl.saxion.playground.orbisrunner.ui.LevelMaker;
 import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
 
 
 abstract public class Entity implements Comparable<Entity>, Serializable {
-    // Entity speed
-    private static final float SPEED = .3f;
-
     // Static variable that provides the next `id`.
     private static int count = 0;
     // Used to sort objects on the same layer in the entities tree.
@@ -31,21 +27,21 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
     protected float xVal, yVal, angle;
     // Start angle used for saving levels
     protected float startAngle;
+    protected static float scale = 1;
     // All entities have dimensions and a scale.
-    protected float width, height, scale = 1;
+    protected float width, height, margin;
     // Jump height for player and jumping enemies
     protected float startJump, jump;
     // Used by LevelMaker to change this specific position.
     private boolean selected;
+    // Is resetting
     protected boolean reset;
     // Stop moving, and refresh when reset
-    private boolean pause;
+    protected boolean pause;
     // Level Maker for selecting and deselecting entities.
-    private LevelMaker levelMaker;
+    protected LevelMaker levelMaker;
     // Level Model for getting the x and y positions with degrees from circle;
-    private GameModel game;
-    // Paint object for drawing outline when selected
-    private Paint paint;
+    protected GameModel game;
 
     // The constructor assigns an id that is used for ordering draws.
     public Entity() {
@@ -65,67 +61,18 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         return 0;
     }
 
+    public static void setScale(float scale) {
+        Entity.scale = scale;
+    }
+
     public static Entity fromJSON(JSONObject entity) {
-        int type = entity.optInt("type");
+        String type = entity.optString("type");
         Entity e = getFromType(type);
         if (e != null) {
             e.setStartAngle((float) entity.optDouble("angle"));
             e.setStartJump((float) entity.optDouble("jump"));
         }
         return e;
-    }
-
-    private static Entity getFromType(int type) {
-        switch (type) {
-            case EntityItem.DEMO_ENEMY:
-                return new DemoEnemy();
-        }
-        return null;
-    }
-
-    /**
-     * Called `GameModel::ticksPerSecond()` times per second.
-     * The method is to update the game state accordingly.
-     */
-    public void tick() {
-        if (game != null && !pause) {
-            if (reset) {
-                setXYValues(game.getXYFromDegrees(startAngle, startJump, this));
-                reset = false;
-            }
-            if (!(this instanceof Player) &&
-                    !(this instanceof Circle)) {
-                angle += SPEED;
-                if (angle > 360) angle = 0;
-                setXYValues(game.getXYFromDegrees(angle, jump, this));
-            }
-        }
-    }
-
-    /**
-     * Called up to 60 times per second, system performance allowing.
-     * The method is to draw the Entity to the GameView. Entities
-     * can be more abstract in nature (CollisionChecker, ObjectSpawner, ..),
-     * in which case this method does not need to be overridden.
-     *
-     * @param gv The `GameView` to draw to.
-     */
-    public void draw(GameView gv) {
-        if (levelMaker != null && selected) {
-            if (paint == null) {
-                paint = new Paint();
-                paint.setColor(Color.CYAN);
-                paint.setStyle(Paint.Style.STROKE);
-                paint.setStrokeWidth(10f);
-            }
-            drawOutline(gv.getCanvas());
-        }
-    }
-
-    private void drawOutline(Canvas canvas) {
-        canvas.save();
-        canvas.drawCircle(xVal + width / 2, yVal + height / 2, width, paint);
-        canvas.restore();
     }
 
     // Used by the TreeSet to order GameObjects.
@@ -195,26 +142,23 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         return width;
     }
 
-    public JSONObject toJSON() throws JSONException {
-        JSONObject entity = new JSONObject();
-        entity.put("angle", startAngle);
-        entity.put("jump", Float.isNaN(startJump) ? 0 : startJump);
-        entity.put("type", getType());
-        return entity;
-    }
-
-    private int getType() {
-        switch (getClass().getSimpleName().toLowerCase()) {
-            case "demoenemy":
-                return EntityItem.DEMO_ENEMY;
+    private static Entity getFromType(String type) {
+        switch (type) {
+            case "DemoEnemy":
+                return new DemoEnemy();
+            case "StaticEnemy":
+                return new StaticEnemy();
+            case "JumpingEnemy":
+                return new JumpingEnemy();
+            case "FlyingEnemy":
+                return new FlyingEnemy();
+            case "Coin":
+                return new Coin();
+            case "Portal":
+                return new Portal();
+            default:
+                return null;
         }
-        return 0;
-    }
-
-    public void setScale(float scale) {
-        this.scale = scale;
-        height *= scale;
-        width *= scale;
     }
 
     public float getStartAngle() {
@@ -252,6 +196,24 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         this.pause = pause;
     }
 
+    /**
+     * Called `GameModel::ticksPerSecond()` times per second.
+     * The method is to update the game state accordingly.
+     */
+    public void tick() {
+    }
+
+    /**
+     * Called up to 60 times per second, system performance allowing.
+     * The method is to draw the Entity to the GameView. Entities
+     * can be more abstract in nature (CollisionChecker, ObjectSpawner, ..),
+     * in which case this method does not need to be overridden.
+     *
+     * @param gv The `GameView` to draw to.
+     */
+    public void draw(GameView gv) {
+    }
+
     public boolean inHitbox(Entity e) {
         float x = e.getX();
         float y = e.getY();
@@ -279,9 +241,20 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         pause = false;
     }
 
-    public boolean onScreen(float sWidth, float sHeight) {
-        return xVal >= 0 && yVal >= 0
-                && xVal <= sWidth && yVal <= sHeight;
+    public float getMargin() {
+        return margin;
+    }
+
+    public void setMargin(float margin) {
+        this.margin = margin;
+    }
+
+    public JSONObject toJSON() throws JSONException {
+        JSONObject entity = new JSONObject();
+        entity.put("angle", startAngle);
+        entity.put("jump", Float.isNaN(startJump) ? 0 : startJump);
+        entity.put("type", getClass().getSimpleName());
+        return entity;
     }
 }
 

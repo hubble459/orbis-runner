@@ -1,12 +1,10 @@
 package nl.saxion.playground.orbisrunner.ui.demo.entities;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.util.Log;
 
 import java.util.Locale;
 
-import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameModel;
 import nl.saxion.playground.orbisrunner.lib.GameView;
@@ -46,11 +44,13 @@ public class DemoPlayer extends Entity {
 
     @Override
     public void draw(GameView gv) {
+
         if (bitmap == null) {
-            bitmap = gv.getBitmap(R.drawable.demo_entity, Color.GREEN);
-            width = bitmap.getWidth();
-            height = bitmap.getHeight();
-            maxJump = bitmap.getHeight() * 3;
+            return;
+//            bitmap = gv.getBitmap(R.drawable.demo_entity, Color.GREEN);
+//            width = bitmap.getWidth();
+//            height = bitmap.getHeight();
+//            maxJump = bitmap.getHeight() * 3;
         }
         gv.drawBitmap(bitmap, xVal - width / 2, yVal - height / 2, width, height, angle);
     }

@@ -58,7 +58,7 @@ public class Circle extends Entity {
     }
 
     private float getRadiusInside() {
-        return getRadiusOutside() - (strokeWidth * 0.75f);
+        return getRadiusOutside() - (strokeWidth);
     }
 
     public void setSize(float size) {
@@ -66,6 +66,8 @@ public class Circle extends Entity {
     }
 
     public float[] getXYFromDegrees(float degrees, float margin, Entity e) {
+        margin += 10f;
+
         if (Float.isNaN(degrees)) {
             degrees = 0;
         }
@@ -77,6 +79,7 @@ public class Circle extends Entity {
             width = e.getWidth() / 2;
             height = e.getHeight() / 2;
             jump = e.getJump();
+            margin += e.getMargin();
         }
 
         double radians = Math.toRadians(degrees);

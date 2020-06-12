@@ -3,7 +3,7 @@ package nl.saxion.playground.orbisrunner.game;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Canvas;
-import android.media.MediaPlayer;
+import android.media.SoundPool;
 
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.game.entity.Circle;
@@ -18,22 +18,24 @@ public class OrbisRunnerModel extends GameModel {
     private final Circle circle;
     private final Player player;
     private final Level level;
-    private final MediaPlayer mediaPlayer;
+    private final SoundPool sound;
+    private final int DEATH_SOUND;
 
     public OrbisRunnerModel(Activity activity) {
         this.level = GameProvider.getCurrentLevel();
 
         this.circle = new Circle(true, true);
         this.circle.setSize(Circle.SIZE_DOUBLE);
-        this.circle.setMargin(Circle.STROKE_WIDTH);
+        this.circle.setMargin(Circle.STROKE_WIDTH / 2);
 
         this.player = GameProvider.getPlayer();
         this.player.setGame(this);
 
         this.activity = activity;
 
-        this.mediaPlayer = MediaPlayer.create(activity, R.raw.oof);
-        this.mediaPlayer.setVolume(1.0f, 1.0f);
+        //this.sound = MediaPlayer.create(activity, R.raw.oof);
+        sound = new SoundPool.Builder().build();
+        DEATH_SOUND = sound.load(activity, R.raw.oof, 1);
     }
 
     @Override
@@ -59,19 +61,19 @@ public class OrbisRunnerModel extends GameModel {
     public void dead() {
         deadSound();
 
-        for (Entity entity : getEntities()) {
-            entity.setPaused(true);
-            entity.reset();
-        }
-
         Intent intent = new Intent(activity, DeathScreenActivity.class);
         intent.putExtra(DeathScreenActivity.LEVEL, level.getNumber());
         activity.startActivity(intent);
         activity.finish();
+
+        for (Entity entity : getEntities()) {
+            entity.setPaused(true);
+            entity.reset();
+        }
     }
 
     private void deadSound() {
-        mediaPlayer.start();
+        sound.play(DEATH_SOUND, 1, 1, 0, 0, 1);
     }
 
     @Override

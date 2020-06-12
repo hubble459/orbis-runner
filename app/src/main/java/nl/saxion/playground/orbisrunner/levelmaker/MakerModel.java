@@ -26,9 +26,9 @@ public class MakerModel extends GameModel {
         this.player = new Player();
         this.player.setGame(this);
         this.player.setColor(Color.BLACK);
-        this.player.setMargin(45f);
-        this.player.setScale(.5f);
         this.player.setEnabled(false);
+
+        Entity.setScale(.5f);
     }
 
     @Override
@@ -45,8 +45,7 @@ public class MakerModel extends GameModel {
     public void started(Canvas canvas) {
         for (Entity entity : level.getEntities()) {
             entity.setLevelMaker(levelMaker);
-            entity.setScale(.5f);
-            entity.setXYValues(getXYFromDegrees(entity.getStartAngle(), entity.getHeight(), entity));
+            entity.setXYValues(getXYFromDegrees(entity.getStartAngle(), 0, entity));
             addEntity(entity);
             levelMaker.select(entity);
         }

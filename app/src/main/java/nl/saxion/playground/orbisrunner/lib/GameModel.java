@@ -72,6 +72,7 @@ public class GameModel implements Serializable {
     /**
      * Called just before the first `draw()`. At this point, canvas widths are known, so
      * this may be a good time to create initial `Entity`s.
+     *
      * @param canvas canvas
      */
     public void start(Canvas canvas) {
