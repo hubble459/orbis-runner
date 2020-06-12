@@ -17,7 +17,7 @@ public class FinishScreenActivity extends AppCompatActivity {
     private int collectableCoins;
     private int collectedCoins;
     private int totalCoins;
-    private int deathCounter = 0;
+    private int deathCounter;
     private boolean objectiveClaimed = false;
 
     @Override
@@ -29,6 +29,7 @@ public class FinishScreenActivity extends AppCompatActivity {
 
         level = GameProvider.getCurrentLevel();
         collectableCoins = level.getCollectableCoins();
+        deathCounter = level.getDeathCounter();
 
         init();
 
