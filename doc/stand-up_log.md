@@ -63,4 +63,7 @@
 - Olaf absent, will be punished
 - Considered solutions for stopping music when app is closed
 
-
+## Stand-up 12-06-2020 13:15
+- Talked about progress
+- Talked about deadlines
+- Decided appointees for new issues
