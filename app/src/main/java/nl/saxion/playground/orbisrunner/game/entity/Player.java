@@ -21,6 +21,7 @@ public class Player extends Entity {
     private static final float JUMP_MAX_HEIGHT = 300f;
 
     private float maxJump;
+    private float fallingSpeed;
     private float margin;
 
     private long lastTime;
@@ -133,6 +134,7 @@ public class Player extends Entity {
         for (Entity entity : game.getEntities()) {
             if (!(entity instanceof Player)
                     && !(entity instanceof Circle)
+                    && entity.onScreen(game.getWidth(), game.getHeight())
                     && entity.inHitbox(this)) {
                 dead = true;
                 game.dead();
@@ -141,14 +143,18 @@ public class Player extends Entity {
         }
 
         for (GameModel.Touch touch : game.touches) {
-            if (Math.abs(touch.deltaY) == Math.abs(touch.deltaX)) {
-                if (falling) {
-                    break;
-                } else {
-                    maxJump = Math.min(JUMP_MAX_HEIGHT / 2 * Math.max(touch.getDuration() / 100, 1), JUMP_MAX_HEIGHT);
-                    jumping = true;
-                }
+            // Right side condition
+            // if (Math.abs(touch.x) > game.getWidth() / 2) {
+            if (falling) {
+                float slowdown = .99f * Math.abs(Math.min(touch.getDuration() / 200, 1));
+                fallingSpeed = JUMP_ACC / 2 * slowdown;
+            } else {
+                maxJump = Math.min(JUMP_MAX_HEIGHT / 2 * Math.max(touch.getDuration() / 100, 1), JUMP_MAX_HEIGHT);
+                jumping = true;
             }
+            // } else {
+            //      left side
+            // }
         }
 
         if (jumping) {
@@ -158,7 +164,8 @@ public class Player extends Entity {
 
     private void jump() {
         if (falling) {
-            jump -= JUMP_ACC * 0.9f;
+            jump -= fallingSpeed == 0 ? JUMP_ACC * .9f : fallingSpeed;
+            fallingSpeed = JUMP_ACC * .99f;
         } else {
             jump += JUMP_ACC;
             if (jump > maxJump) {
@@ -218,6 +225,8 @@ public class Player extends Entity {
     @Override
     public void reset() {
         super.reset();
+        jumping = false;
+        falling = false;
         setDead(false);
         setXY();
     }
