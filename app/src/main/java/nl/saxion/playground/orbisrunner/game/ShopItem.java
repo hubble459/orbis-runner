@@ -1,7 +1,9 @@
 package nl.saxion.playground.orbisrunner.game;
 
 import android.support.annotation.DrawableRes;
-
+/**
+ * Shop item for buying, unlocking and using (selecting)
+ */
 public class ShopItem {
     private static int idCount;
 
@@ -11,6 +13,9 @@ public class ShopItem {
     private boolean unlocked;
     private boolean active;
 
+    /**
+     * Set a unique id to the shop item on create
+     */
     ShopItem() {
         id = idCount++;
     }

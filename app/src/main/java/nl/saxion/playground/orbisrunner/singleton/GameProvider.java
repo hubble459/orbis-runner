@@ -77,7 +77,7 @@ public class GameProvider {
             instance.coins = data.optInt("coins");
             instance.currentLevel = data.optInt("level");
             instance.player.setColor(data.optInt("color"));
-            instance.shop.activate(data.optInt("active"));
+            instance.shop.select(data.optInt("active"));
 
             JSONArray unlocked = data.optJSONArray("unlocked");
             if (unlocked != null) {
@@ -131,7 +131,7 @@ public class GameProvider {
             savedDataJSON.put("coins", instance.coins);
             savedDataJSON.put("level", instance.currentLevel);
             savedDataJSON.put("color", instance.player.getColor());
-            savedDataJSON.put("active", instance.shop.getActive());
+            savedDataJSON.put("active", instance.shop.getSelected());
 
             JSONArray unlockedItems = new JSONArray();
             for (ShopItem shopItem : instance.shop.getShopItems()) {
