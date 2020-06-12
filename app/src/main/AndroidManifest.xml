@@ -26,7 +26,7 @@
         </activity>
         <activity android:name=".ui.DeathScreenActivity" />
 
-        <service android:name=".singleton.MusicService" />
+        <service android:name=".service.MusicService" />
     </application>
 
 </manifest>

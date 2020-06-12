@@ -43,10 +43,10 @@ public class SettingScreenActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                 //toggle music off or on
                 if (checked) {
-                    GameProvider.startMusic(SettingScreenActivity.this);
+                    GameProvider.setMusic(true);
                     Toast.makeText(SettingScreenActivity.this, "Music On", Toast.LENGTH_SHORT).show();
                 } else {
-                    GameProvider.stopMusic(SettingScreenActivity.this);
+                    GameProvider.setMusic(false);
                     Toast.makeText(SettingScreenActivity.this, "Music Off", Toast.LENGTH_SHORT).show();
                 }
             }
