@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.sprite.Player;
-import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
+import nl.saxion.playground.orbisrunner.sprite.StaticEnemy;
 
 public class Level {
     private int number;
@@ -25,7 +25,7 @@ public class Level {
 
     public static Level dummy() {
         Level l = new Level(-1);
-        l.addEntity(new DemoEnemy());
+        l.addEntity(new StaticEnemy());
         return l;
     }
 

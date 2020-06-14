@@ -14,7 +14,6 @@ import nl.saxion.playground.orbisrunner.sprite.JumpingEnemy;
 import nl.saxion.playground.orbisrunner.sprite.Portal;
 import nl.saxion.playground.orbisrunner.sprite.StaticEnemy;
 import nl.saxion.playground.orbisrunner.ui.LevelMaker;
-import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
 
 
 abstract public class Entity implements Comparable<Entity>, Serializable {
@@ -149,8 +148,6 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
 
     private static Entity getFromType(String type) {
         switch (type) {
-            case "DemoEnemy":
-                return new DemoEnemy();
             case "StaticEnemy":
                 return new StaticEnemy();
             case "JumpingEnemy":
