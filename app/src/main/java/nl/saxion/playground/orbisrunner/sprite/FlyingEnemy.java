@@ -1,4 +1,4 @@
-package nl.saxion.playground.orbisrunner.game.entity;
+package nl.saxion.playground.orbisrunner.sprite;
 
 import android.graphics.Canvas;
 import android.graphics.drawable.AnimationDrawable;
@@ -40,6 +40,12 @@ public class FlyingEnemy extends Sprite {
         }
 
         if (bird != null) {
+            // Reset scale if needed
+            if (width != bird.getIntrinsicWidth() * scale) {
+                width = bird.getIntrinsicWidth() * scale;
+                height = bird.getIntrinsicHeight() * scale;
+            }
+
             long now = System.currentTimeMillis();
             if (last < now - bird.getDuration(frame)) {
                 ++frame;

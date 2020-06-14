@@ -4,8 +4,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 import nl.saxion.playground.orbisrunner.R;
-import nl.saxion.playground.orbisrunner.game.entity.Sprite;
 import nl.saxion.playground.orbisrunner.lib.GameView;
+import nl.saxion.playground.orbisrunner.sprite.Sprite;
 
 public class DemoEnemy extends Sprite {
     private Paint paint;

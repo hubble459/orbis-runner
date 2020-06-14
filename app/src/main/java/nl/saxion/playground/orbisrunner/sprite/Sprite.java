@@ -1,4 +1,4 @@
-package nl.saxion.playground.orbisrunner.game.entity;
+package nl.saxion.playground.orbisrunner.sprite;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,13 +21,18 @@ public abstract class Sprite extends Entity {
             width = bitmap.getWidth() * scale;
             height = bitmap.getHeight() * scale;
             if (levelMaker != null) {
-                setXYValues(levelMaker.getXYFromDegrees(angle, jump, this));
+                setXYValues(levelMaker.getXYFromDegrees(startAngle, jump, this));
             } else if (game != null) {
-                setXYValues(game.getXYFromDegrees(angle, jump, this));
+                setXYValues(game.getXYFromDegrees(startAngle, jump, this));
             }
         }
 
         if (bitmap != null) {
+            // Reset scale if needed
+            if (width != bitmap.getWidth() * scale) {
+                width = bitmap.getWidth() * scale;
+                height = bitmap.getHeight() * scale;
+            }
             gv.drawBitmap(bitmap, xVal, yVal, width, height, angle - 90);
         }
 

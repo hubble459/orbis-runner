@@ -8,11 +8,11 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-import nl.saxion.playground.orbisrunner.game.entity.Coin;
-import nl.saxion.playground.orbisrunner.game.entity.FlyingEnemy;
-import nl.saxion.playground.orbisrunner.game.entity.JumpingEnemy;
-import nl.saxion.playground.orbisrunner.game.entity.Portal;
-import nl.saxion.playground.orbisrunner.game.entity.StaticEnemy;
+import nl.saxion.playground.orbisrunner.sprite.Coin;
+import nl.saxion.playground.orbisrunner.sprite.FlyingEnemy;
+import nl.saxion.playground.orbisrunner.sprite.JumpingEnemy;
+import nl.saxion.playground.orbisrunner.sprite.Portal;
+import nl.saxion.playground.orbisrunner.sprite.StaticEnemy;
 import nl.saxion.playground.orbisrunner.ui.LevelMaker;
 import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
 
@@ -64,6 +64,11 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
     public static void setScale(float scale) {
         Entity.scale = scale;
     }
+
+    public static float getScale() {
+        return scale;
+    }
+
 
     public static Entity fromJSON(JSONObject entity) {
         String type = entity.optString("type");
@@ -214,7 +219,13 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
     public void draw(GameView gv) {
     }
 
-    public boolean inHitbox(Entity e) {
+    /**
+     * Check if an entity is inside this entities hit-box
+     *
+     * @param e entity needed for dimensions
+     * @return true if dead
+     */
+    public boolean inHitBox(Entity e) {
         float x = e.getX();
         float y = e.getY();
         float w = e.getWidth();
@@ -260,6 +271,11 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
     public boolean onScreen(float sWidth, float sHeight) {
         return xVal >= 0 && yVal >= 0
                 && xVal <= sWidth && yVal <= sHeight;
+    }
+
+    public void resize() {
+        width = width * scale;
+        height = height * scale;
     }
 }
 

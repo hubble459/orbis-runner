@@ -6,8 +6,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import nl.saxion.playground.orbisrunner.game.entity.Player;
 import nl.saxion.playground.orbisrunner.lib.Entity;
+import nl.saxion.playground.orbisrunner.sprite.Player;
 import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
 
 public class Level {

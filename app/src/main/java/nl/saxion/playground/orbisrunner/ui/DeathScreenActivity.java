@@ -18,18 +18,18 @@ import nl.saxion.playground.orbisrunner.singleton.GameProvider;
  */
 public class DeathScreenActivity extends AppCompatActivity {
     public static final String LEVEL = "level_key";
-    private int level;
-    private Level currentLevel;
+    private int number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_death_screen);
 
-        level = getIntent().getIntExtra(LEVEL, -1);
-        currentLevel = GameProvider.getCurrentLevel();
 
-        currentLevel.death();
+        Level level = GameProvider.getCurrentLevel();
+        number = level.getNumber();
+
+        level.death();
 
         init();
     }
@@ -37,7 +37,7 @@ public class DeathScreenActivity extends AppCompatActivity {
     private void init() {
         // Display level player died on
         TextView lvl = findViewById(R.id.diedOn);
-        lvl.setText(String.format(Locale.ENGLISH, "You Died On Level %d", level));
+        lvl.setText(String.format(Locale.ENGLISH, "You Died On Level %d", number));
 
         // Assign Retry Button
         Button retryButton = findViewById(R.id.retryButton);
@@ -57,7 +57,8 @@ public class DeathScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Go to the starting screen
-                openMainMenu();
+                // openMainMenu();
+                finish();
             }
         });
 
@@ -65,7 +66,8 @@ public class DeathScreenActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        openMainMenu();
+        // openMainMenu();
+        finish();
     }
 
     private void openMainMenu() {

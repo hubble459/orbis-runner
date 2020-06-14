@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.adapter.ItemGridAdapter;
 import nl.saxion.playground.orbisrunner.game.ShopItem;
-import nl.saxion.playground.orbisrunner.game.entity.Player;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
+import nl.saxion.playground.orbisrunner.sprite.Player;
 
 /**
  * @author : Joost Winkelman & Quentin Correia

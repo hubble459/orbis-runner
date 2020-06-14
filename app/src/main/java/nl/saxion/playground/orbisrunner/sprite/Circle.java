@@ -1,4 +1,4 @@
-package nl.saxion.playground.orbisrunner.game.entity;
+package nl.saxion.playground.orbisrunner.sprite;
 
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,9 +9,10 @@ import nl.saxion.playground.orbisrunner.lib.GameView;
 public class Circle extends Entity {
     public static final float SIZE_DOUBLE = -1;
 
-    public static final float STROKE_WIDTH = 100f;
+    private static final float STROKE_WIDTH = 100f;
 
-    private float size, margin, strokeWidth;
+    private float superSize;
+    private float size, strokeWidth;
     private float xMiddle, yMiddle;
 
     private boolean onlyBottom;
@@ -29,16 +30,12 @@ public class Circle extends Entity {
         strokeWidth = STROKE_WIDTH;
     }
 
-    public void setMargin(float margin) {
-        this.margin = margin;
-    }
 
     @Override
     public void draw(GameView gv) {
         if (size == 0 || size == SIZE_DOUBLE) {
-            float sizeTMP = size;
-            size = Math.min(gv.getWidth(), gv.getHeight()) - strokeWidth;
-            if (sizeTMP == SIZE_DOUBLE) {
+            size = Math.min(gv.getWidth() - strokeWidth, gv.getHeight() - strokeWidth);
+            if (superSize == SIZE_DOUBLE) {
                 size *= 2;
             }
         }
@@ -46,11 +43,12 @@ public class Circle extends Entity {
         if (xMiddle == 0 || yMiddle == 0) {
             xMiddle = gv.getWidth() / 2f;
             yMiddle = gv.getHeight() / 2f;
-            if (onlyBottom)
-                yMiddle -= (size / 2 - strokeWidth - margin) / 2;
+            if (onlyBottom) {
+                yMiddle -= (size / 2 - strokeWidth) / 2;
+            }
         }
 
-        gv.getCanvas().drawCircle(xMiddle, yMiddle, getRadiusOutside() + margin, paint);
+        gv.getCanvas().drawCircle(xMiddle, yMiddle, getRadiusOutside(), paint);
     }
 
     private float getRadiusOutside() {
@@ -63,10 +61,11 @@ public class Circle extends Entity {
 
     public void setSize(float size) {
         this.size = size;
+        this.superSize = size;
     }
 
     public float[] getXYFromDegrees(float degrees, float margin, Entity e) {
-        margin += 10f;
+        margin = Math.max(25f, this.margin + margin);
 
         if (Float.isNaN(degrees)) {
             degrees = 0;
@@ -90,8 +89,13 @@ public class Circle extends Entity {
         return xy;
     }
 
+    public float getStrokeWidth() {
+        return strokeWidth;
+    }
+
     public void setStrokeWidth(float width) {
         strokeWidth = width;
         paint.setStrokeWidth(strokeWidth);
+        size = superSize;
     }
 }

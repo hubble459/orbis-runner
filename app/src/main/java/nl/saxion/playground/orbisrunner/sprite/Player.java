@@ -1,16 +1,18 @@
-package nl.saxion.playground.orbisrunner.game.entity;
+package nl.saxion.playground.orbisrunner.sprite;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Random;
 
 import nl.saxion.playground.orbisrunner.R;
+import nl.saxion.playground.orbisrunner.game.OrbisRunnerModel;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameModel;
 import nl.saxion.playground.orbisrunner.lib.GameView;
@@ -45,8 +47,6 @@ public class Player extends Entity {
     }
 
     public void setGame(GameModel game) {
-        scale = 1;
-        setMargin(10f * (scale * scale));
         this.game = game;
         this.maxJump = JUMP_MAX_HEIGHT;
         this.dust = new ArrayDeque<>();
@@ -92,6 +92,12 @@ public class Player extends Entity {
         }
 
         if (drawable != null) {
+            // Reset scale if needed
+            if (width != drawable.getIntrinsicWidth() * scale) {
+                width = drawable.getIntrinsicWidth() * scale;
+                height = drawable.getIntrinsicHeight() * scale;
+            }
+
             gv.getCanvas().rotate(angle, xVal, yVal);
             drawable.setBounds(
                     (int) xVal,
@@ -131,15 +137,18 @@ public class Player extends Entity {
 
     @Override
     public void tick() {
+        Log.i("uwu", "tick: " + dead);
         if (dead) return;
 
         for (Entity entity : game.getEntities()) {
             if (!(entity instanceof Player)
                     && !(entity instanceof Circle)
                     && entity.onScreen(game.getWidth(), game.getHeight())
-                    && entity.inHitbox(this)) {
+                    && entity.inHitBox(this)) {
                 dead = true;
-                game.dead();
+                if (game instanceof OrbisRunnerModel) {
+                    ((OrbisRunnerModel) game).dead();
+                }
                 return;
             }
         }
@@ -214,16 +223,12 @@ public class Player extends Entity {
         this.dead = !enabled;
     }
 
-    public void setDead(boolean dead) {
-        this.dead = dead;
-    }
-
     @Override
     public void reset() {
-        super.reset();
         jumping = false;
         falling = false;
-        setDead(false);
+        dead = false;
+        super.reset();
         setXY();
     }
 }
