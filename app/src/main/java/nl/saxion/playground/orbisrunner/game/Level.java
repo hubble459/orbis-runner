@@ -13,10 +13,12 @@ import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
 public class Level {
     private int number;
     private ArrayList<Entity> entities;
+    private float scale;
     private int collectableCoins;
     private int deathCounter;
 
     public Level(int number) {
+        this.scale = 1;
         this.number = number;
         this.entities = new ArrayList<>();
     }
@@ -52,6 +54,7 @@ public class Level {
 
         int number = level.optInt("number");
         Level l = new Level(number);
+        l.setScale((float) level.optDouble("scale"));
 
         JSONArray entities = level.optJSONArray("entities");
         if (entities != null) {
@@ -89,6 +92,7 @@ public class Level {
     public JSONObject toJSON() throws JSONException {
         JSONObject level = new JSONObject();
         level.put("number", number);
+        level.put("scale", scale);
 
         JSONArray entities = new JSONArray();
         for (Entity entity : this.entities) {
@@ -96,5 +100,13 @@ public class Level {
         }
         level.put("entities", entities);
         return level;
+    }
+
+    public float getScale() {
+        return scale;
+    }
+
+    public void setScale(float scale) {
+        this.scale = scale;
     }
 }

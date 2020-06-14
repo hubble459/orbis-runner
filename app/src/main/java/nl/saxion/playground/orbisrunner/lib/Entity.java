@@ -268,9 +268,13 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         return entity;
     }
 
-    public boolean onScreen(float sWidth, float sHeight) {
-        return xVal >= 0 && yVal >= 0
-                && xVal <= sWidth && yVal <= sHeight;
+    public boolean onScreen() {
+        if (game != null) {
+            return xVal >= 0 && yVal >= 0
+                    && xVal <= game.getWidth() && yVal <= game.getHeight();
+        } else {
+            return true;
+        }
     }
 
     public void resize() {

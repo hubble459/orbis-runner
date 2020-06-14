@@ -20,6 +20,7 @@ import nl.saxion.playground.orbisrunner.lib.GameView;
 public class Player extends Entity {
     private static final float JUMP_ACC = 3f;
     private static final float JUMP_MAX_HEIGHT = 300f;
+    private static final float POS = 110f;
 
     private float maxJump;
     private float fallingSpeed;
@@ -34,7 +35,6 @@ public class Player extends Entity {
     private boolean jumping;
     private boolean dead;
 
-    private GameModel game;
     private AnimationDrawable animationDrawable;
     private Drawable drawable;
     private Queue<float[]> dust;
@@ -42,7 +42,7 @@ public class Player extends Entity {
     private Random random;
 
     public Player() {
-        setStartAngle(110f);
+        setStartAngle(POS);
         setStartJump(0f);
     }
 
@@ -75,6 +75,10 @@ public class Player extends Entity {
             }
 
             setXY();
+            Log.i("uwu", "draw: " + onScreen());
+            if (!onScreen()) {
+                getBestPosition();
+            }
         }
 
         if (falling || frame >= maxFrames) {
@@ -110,6 +114,18 @@ public class Player extends Entity {
         }
     }
 
+    private void getBestPosition() {
+        while (!onScreen()) {
+            setStartAngle(--startAngle);
+            setXY();
+        }
+
+        for (int i = 0; i < 5; i++) {
+            setStartAngle(--startAngle);
+            setXY();
+        }
+    }
+
     private void randomDust() {
         if (dust.size() < 10 && !dead && !jumping) {
             float[] particle = new float[4];
@@ -137,13 +153,12 @@ public class Player extends Entity {
 
     @Override
     public void tick() {
-        Log.i("uwu", "tick: " + dead);
         if (dead) return;
 
         for (Entity entity : game.getEntities()) {
             if (!(entity instanceof Player)
                     && !(entity instanceof Circle)
-                    && entity.onScreen(game.getWidth(), game.getHeight())
+                    && entity.onScreen()
                     && entity.inHitBox(this)) {
                 dead = true;
                 if (game instanceof OrbisRunnerModel) {

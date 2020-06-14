@@ -3,7 +3,6 @@ package nl.saxion.playground.orbisrunner.ui;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.game.OrbisRunnerModel;
@@ -25,7 +24,6 @@ public class GameActivity extends AppCompatActivity {
         gv.setGame(or);
         gv.setBackgroundColor(Color.WHITE);
 
-        Log.i("uwu", "onCreate: reset");
         for (Entity entity : or.getEntities()) {
             entity.reset();
             entity.setGame(or);

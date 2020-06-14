@@ -13,6 +13,7 @@ import nl.saxion.playground.orbisrunner.lib.GameView;
 public abstract class Sprite extends Entity {
     private Bitmap bitmap;
     private Paint paint;
+    private float speedScale;
 
     @Override
     public void draw(GameView gv) {
@@ -68,10 +69,10 @@ public abstract class Sprite extends Entity {
     public void tick() {
         if (game != null && !pause) {
             if (reset) {
-                angle = startAngle - .3f;
+                angle = startAngle - .3f * getSpeedScale();
                 reset = false;
             }
-            angle += .3f;
+            angle += .3f * getSpeedScale();
             if (angle > 360) angle = 0;
             setXYValues(game.getXYFromDegrees(angle, jump, this));
         }
@@ -84,5 +85,13 @@ public abstract class Sprite extends Entity {
 
     public Sprite newInstance() throws IllegalAccessException, InstantiationException {
         return getClass().newInstance();
+    }
+
+    public float getSpeedScale() {
+        return Float.isNaN(speedScale) ? 1 : (speedScale * 2);
+    }
+
+    public void setSpeedScale(float speedScale) {
+        this.speedScale = speedScale;
     }
 }

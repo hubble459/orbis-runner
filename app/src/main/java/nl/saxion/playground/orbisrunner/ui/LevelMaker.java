@@ -138,7 +138,7 @@ public class LevelMaker extends AppCompatActivity {
                 for (Entity entity : model.getEntities()) {
                     entity.resize();
                     if (entity instanceof Player) {
-                        float[] xy = getXYFromDegrees(110, entity.getMargin(), entity);
+                        float[] xy = getXYFromDegrees(entity.getStartAngle(), entity.getMargin(), entity);
                         xy[2] -= 90;
                         entity.setXYValues(xy);
                     } else {
@@ -153,6 +153,8 @@ public class LevelMaker extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+        sizeBar.setProgress((int) (1 / level.getScale()) - 2);
+
 
         posBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -234,6 +236,7 @@ public class LevelMaker extends AppCompatActivity {
     }
 
     public void save(View view) {
+        level.setScale(Entity.getScale());
         for (Entity entity : level.getEntities()) {
             entity.setStartAngle(entity.getAngle());
         }

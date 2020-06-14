@@ -14,6 +14,7 @@ public class Circle extends Entity {
     private float superSize;
     private float size, strokeWidth;
     private float xMiddle, yMiddle;
+    private float scale;
 
     private boolean onlyBottom;
 
@@ -21,6 +22,7 @@ public class Circle extends Entity {
 
     public Circle(boolean black, boolean onlyBottom) {
         this.onlyBottom = onlyBottom;
+        scale = 1;
 
         paint = new Paint();
         paint.setColor(black ? Color.BLACK : Color.WHITE);
@@ -30,11 +32,11 @@ public class Circle extends Entity {
         strokeWidth = STROKE_WIDTH;
     }
 
-
     @Override
     public void draw(GameView gv) {
         if (size == 0 || size == SIZE_DOUBLE) {
             size = Math.min(gv.getWidth() - strokeWidth, gv.getHeight() - strokeWidth);
+            size /= scale;
             if (superSize == SIZE_DOUBLE) {
                 size *= 2;
             }
@@ -44,7 +46,7 @@ public class Circle extends Entity {
             xMiddle = gv.getWidth() / 2f;
             yMiddle = gv.getHeight() / 2f;
             if (onlyBottom) {
-                yMiddle -= (size / 2 - strokeWidth) / 2;
+                yMiddle += (yMiddle / 2) - size / 2;
             }
         }
 
@@ -59,7 +61,8 @@ public class Circle extends Entity {
         return getRadiusOutside() - (strokeWidth);
     }
 
-    public void setSize(float size) {
+    public void setSize(float size, float scale) {
+        this.scale = scale;
         this.size = size;
         this.superSize = size;
     }

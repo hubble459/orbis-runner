@@ -11,6 +11,7 @@ import nl.saxion.playground.orbisrunner.lib.GameModel;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 import nl.saxion.playground.orbisrunner.sprite.Circle;
 import nl.saxion.playground.orbisrunner.sprite.Player;
+import nl.saxion.playground.orbisrunner.sprite.Sprite;
 import nl.saxion.playground.orbisrunner.ui.DeathScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.FinishScreenActivity;
 
@@ -28,7 +29,7 @@ public class OrbisRunnerModel extends GameModel {
         this.level = GameProvider.getCurrentLevel();
 
         this.circle = new Circle(true, true);
-        this.circle.setSize(Circle.SIZE_DOUBLE);
+        this.circle.setSize(Circle.SIZE_DOUBLE, level.getScale());
         this.circle.setMargin(circle.getStrokeWidth() / 2);
 
         this.player = GameProvider.getPlayer();
@@ -54,6 +55,9 @@ public class OrbisRunnerModel extends GameModel {
             if (!getEntities().contains(entity)) {
                 entity.setGame(this);
                 entity.reset();
+                if (entity instanceof Sprite) {
+                    ((Sprite) entity).setSpeedScale(level.getScale() / 2);
+                }
                 addEntity(entity);
             }
         }
