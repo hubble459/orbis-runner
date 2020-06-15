@@ -13,7 +13,6 @@
     <string name="save">Save</string>
 
     <!-- Used in splash screen -->
-    <string name="start">Start</string>
     <string name="created">Created By Group 1</string>
 
     <!-- Used in settings screen -->
@@ -29,4 +28,19 @@
 
     <!-- Used in finish screen -->
     <string name="next_level">Next Level</string>
+
+    <!-- Used in level maker -->
+    <string name="level_maker">Level Maker</string>
+    <string name="pos_">Pos:</string>
+    <string name="height_">Height:</string>
+    <string name="size_">Size:</string>
+    <string name="make_level_question">Do you want to make a new level or edit a level?</string>
+    <string name="new_">New</string>
+    <string name="edit">Edit</string>
+    <string name="cancel">Cancel</string>
+    <string name="level_and_number">Level %d</string>
+    <string name="edit_level">Edit Level</string>
+    <string name="level">Level</string>
+    <string name="saved">Saved!</string>
+
 </resources>

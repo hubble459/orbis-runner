@@ -20,8 +20,8 @@ import java.util.Scanner;
 import nl.saxion.playground.orbisrunner.game.Level;
 import nl.saxion.playground.orbisrunner.game.Shop;
 import nl.saxion.playground.orbisrunner.game.ShopItem;
-import nl.saxion.playground.orbisrunner.game.entity.Player;
 import nl.saxion.playground.orbisrunner.service.MusicService;
+import nl.saxion.playground.orbisrunner.sprite.Player;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -165,6 +165,10 @@ public class GameProvider {
 
     public static int getCoins() {
         return instance.coins;
+    }
+
+    public static void setCoins(int coins) {
+        instance.coins = coins;
     }
 
     public static ArrayList<Level> getLevels() {

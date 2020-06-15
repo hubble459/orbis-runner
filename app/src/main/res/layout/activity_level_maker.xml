@@ -10,8 +10,29 @@
         style="@style/Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/level_maker" />
 
-        android:text="Level Maker" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
+            android:text="@string/size_" />
+
+        <SeekBar
+            android:id="@+id/sizeBar"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:max="5"
+            android:padding="8dp" />
+    </LinearLayout>
 
     <nl.saxion.playground.orbisrunner.lib.GameView
         android:id="@+id/gameView"
@@ -22,18 +43,19 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="4dp">
 
         <TableRow>
 
             <TextView
                 android:layout_height="match_parent"
                 android:gravity="center|start"
-                android:text="Pos:" />
+                android:text="@string/pos_" />
 
             <SeekBar
                 android:id="@+id/posBar"
                 android:layout_weight="1"
+                android:max="360"
                 android:padding="8dp" />
         </TableRow>
 
@@ -42,7 +64,7 @@
             <TextView
                 android:layout_height="match_parent"
                 android:gravity="center|start"
-                android:text="Height:" />
+                android:text="@string/height_" />
 
             <SeekBar
                 android:id="@+id/heightBar"
@@ -50,7 +72,6 @@
                 android:padding="8dp" />
         </TableRow>
     </TableLayout>
-
 
     <GridView
         android:id="@+id/entityList"

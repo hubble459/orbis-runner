@@ -24,28 +24,42 @@ import java.util.Objects;
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.adapter.EntityGridAdapter;
 import nl.saxion.playground.orbisrunner.game.Level;
-import nl.saxion.playground.orbisrunner.game.entity.Sprite;
-import nl.saxion.playground.orbisrunner.game.entity.StaticEnemy;
 import nl.saxion.playground.orbisrunner.levelmaker.MakerModel;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameView;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
-import nl.saxion.playground.orbisrunner.ui.demo.entities.DemoEnemy;
+import nl.saxion.playground.orbisrunner.sprite.Circle;
+import nl.saxion.playground.orbisrunner.sprite.Coin;
+import nl.saxion.playground.orbisrunner.sprite.FlyingEnemy;
+import nl.saxion.playground.orbisrunner.sprite.JumpingEnemy;
+import nl.saxion.playground.orbisrunner.sprite.Player;
+import nl.saxion.playground.orbisrunner.sprite.Portal;
+import nl.saxion.playground.orbisrunner.sprite.Sprite;
+import nl.saxion.playground.orbisrunner.sprite.StaticEnemy;
 
 public class LevelMaker extends AppCompatActivity {
     private ArrayList<Sprite> sprites;
 
-    private SeekBar posBar, heightBar;
+    private SeekBar sizeBar, posBar, heightBar;
     private GameView gameView;
     private GridView entityList;
     private Level level;
     private MakerModel model;
+
+    private void addSprites() {
+        sprites.add(new StaticEnemy());
+        sprites.add(new FlyingEnemy());
+        sprites.add(new JumpingEnemy());
+        sprites.add(new Coin());
+        sprites.add(new Portal());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_maker);
 
+        sizeBar = findViewById(R.id.sizeBar);
         posBar = findViewById(R.id.posBar);
         heightBar = findViewById(R.id.heightBar);
         gameView = findViewById(R.id.gameView);
@@ -73,11 +87,11 @@ public class LevelMaker extends AppCompatActivity {
         };
 
         new AlertDialog.Builder(this)
-                .setTitle("Level Maker")
-                .setMessage("Do you want to make a new level or edit a level?")
-                .setPositiveButton("New", listener)
-                .setNegativeButton("Edit", listener)
-                .setNeutralButton("Cancel", listener)
+                .setTitle(R.string.level_maker)
+                .setMessage(R.string.make_level_question)
+                .setPositiveButton(R.string.new_, listener)
+                .setNegativeButton(R.string.edit, listener)
+                .setNeutralButton(R.string.cancel, listener)
                 .setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
@@ -113,7 +127,35 @@ public class LevelMaker extends AppCompatActivity {
             }
         });
 
-        posBar.setMax(360);
+        sizeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                float scale = 1 / (progress + 2f);
+                Entity.setScale(scale);
+                Circle c = model.getCircle();
+                c.setMargin(c.getMargin() / scale);
+
+                for (Entity entity : model.getEntities()) {
+                    entity.resize();
+                    if (entity instanceof Player) {
+                        float[] xy = getXYFromDegrees(entity.getStartAngle(), entity.getMargin(), entity);
+                        xy[2] -= 90;
+                        entity.setXYValues(xy);
+                    } else {
+                        entity.setXYValues(getXYFromDegrees(entity.getAngle(), entity.getJump(), entity));
+                    }
+                }
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+        sizeBar.setProgress((int) (1 / level.getScale()) - 2);
+
+
         posBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -129,7 +171,7 @@ public class LevelMaker extends AppCompatActivity {
             }
         });
 
-        heightBar.setMax(100);
+        heightBar.setMax(200);
         heightBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -145,11 +187,6 @@ public class LevelMaker extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-    }
-
-    private void addSprites() {
-        sprites.add(new DemoEnemy());
-        sprites.add(new StaticEnemy());
     }
 
     public void select(Entity e) {
@@ -175,13 +212,13 @@ public class LevelMaker extends AppCompatActivity {
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                tv.setText(String.format(Locale.ENGLISH, "Level %d", Objects.requireNonNull(getItem(position)).getNumber()));
+                tv.setText(String.format(Locale.ENGLISH, getString(R.string.level_and_number), Objects.requireNonNull(getItem(position)).getNumber()));
                 return view;
             }
         };
 
         new AlertDialog.Builder(this)
-                .setTitle("Edit Level")
+                .setTitle(R.string.edit_level)
                 .setAdapter(adapter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -189,7 +226,7 @@ public class LevelMaker extends AppCompatActivity {
                         init();
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
@@ -199,6 +236,7 @@ public class LevelMaker extends AppCompatActivity {
     }
 
     public void save(View view) {
+        level.setScale(Entity.getScale());
         for (Entity entity : level.getEntities()) {
             entity.setStartAngle(entity.getAngle());
         }
@@ -216,9 +254,9 @@ public class LevelMaker extends AppCompatActivity {
             np.setPaddingRelative(8, 8, 8, 8);
 
             new AlertDialog.Builder(this)
-                    .setTitle("Level")
+                    .setTitle(R.string.level)
                     .setView(np)
-                    .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             int number = np.getValue() - 1;
@@ -227,14 +265,14 @@ public class LevelMaker extends AppCompatActivity {
                             saveFinish();
                         }
                     })
-                    .setNegativeButton("Cancel", null)
+                    .setNegativeButton(R.string.cancel, null)
                     .show();
         }
     }
 
     private void saveFinish() {
         GameProvider.saveData(this);
-        Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.saved, Toast.LENGTH_SHORT).show();
         finish();
     }
 

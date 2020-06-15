@@ -1,16 +1,18 @@
-package nl.saxion.playground.orbisrunner.game.entity;
+package nl.saxion.playground.orbisrunner.sprite;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Random;
 
 import nl.saxion.playground.orbisrunner.R;
+import nl.saxion.playground.orbisrunner.game.OrbisRunnerModel;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameModel;
 import nl.saxion.playground.orbisrunner.lib.GameView;
@@ -18,6 +20,7 @@ import nl.saxion.playground.orbisrunner.lib.GameView;
 public class Player extends Entity {
     private static final float JUMP_ACC = 3f;
     private static final float JUMP_MAX_HEIGHT = 300f;
+    private static final float POS = 110f;
 
     private float maxJump;
     private float fallingSpeed;
@@ -32,7 +35,6 @@ public class Player extends Entity {
     private boolean jumping;
     private boolean dead;
 
-    private GameModel game;
     private AnimationDrawable animationDrawable;
     private Drawable drawable;
     private Queue<float[]> dust;
@@ -40,13 +42,11 @@ public class Player extends Entity {
     private Random random;
 
     public Player() {
-        setStartAngle(110f);
+        setStartAngle(POS);
         setStartJump(0f);
     }
 
     public void setGame(GameModel game) {
-        scale = 1;
-        setMargin(10f * (scale * scale));
         this.game = game;
         this.maxJump = JUMP_MAX_HEIGHT;
         this.dust = new ArrayDeque<>();
@@ -75,6 +75,10 @@ public class Player extends Entity {
             }
 
             setXY();
+            Log.i("uwu", "draw: " + onScreen());
+            if (!onScreen()) {
+                getBestPosition();
+            }
         }
 
         if (falling || frame >= maxFrames) {
@@ -92,6 +96,12 @@ public class Player extends Entity {
         }
 
         if (drawable != null) {
+            // Reset scale if needed
+            if (width != drawable.getIntrinsicWidth() * scale) {
+                width = drawable.getIntrinsicWidth() * scale;
+                height = drawable.getIntrinsicHeight() * scale;
+            }
+
             gv.getCanvas().rotate(angle, xVal, yVal);
             drawable.setBounds(
                     (int) xVal,
@@ -101,6 +111,18 @@ public class Player extends Entity {
             drawable.draw(gv.getCanvas());
 
             drawRunDust(gv.getCanvas());
+        }
+    }
+
+    private void getBestPosition() {
+        while (!onScreen()) {
+            setStartAngle(--startAngle);
+            setXY();
+        }
+
+        for (int i = 0; i < 5; i++) {
+            setStartAngle(--startAngle);
+            setXY();
         }
     }
 
@@ -136,10 +158,12 @@ public class Player extends Entity {
         for (Entity entity : game.getEntities()) {
             if (!(entity instanceof Player)
                     && !(entity instanceof Circle)
-                    && entity.onScreen(game.getWidth(), game.getHeight())
-                    && entity.inHitbox(this)) {
+                    && entity.onScreen()
+                    && entity.inHitBox(this)) {
                 dead = true;
-                game.dead();
+                if (game instanceof OrbisRunnerModel) {
+                    ((OrbisRunnerModel) game).dead();
+                }
                 return;
             }
         }
@@ -214,16 +238,12 @@ public class Player extends Entity {
         this.dead = !enabled;
     }
 
-    public void setDead(boolean dead) {
-        this.dead = dead;
-    }
-
     @Override
     public void reset() {
-        super.reset();
         jumping = false;
         falling = false;
-        setDead(false);
+        dead = false;
+        super.reset();
         setXY();
     }
 }

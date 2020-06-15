@@ -208,9 +208,6 @@ public class GameModel implements Serializable {
         return touch;
     }
 
-    public void dead() {
-    }
-
     public float[] getXYFromDegrees(float degrees, float jump, Entity e) {
         return new float[3];
     }

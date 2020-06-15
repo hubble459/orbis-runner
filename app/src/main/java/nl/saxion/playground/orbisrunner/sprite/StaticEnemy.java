@@ -1,7 +1,6 @@
-package nl.saxion.playground.orbisrunner.game.entity;
+package nl.saxion.playground.orbisrunner.sprite;
 
 import nl.saxion.playground.orbisrunner.R;
-import nl.saxion.playground.orbisrunner.lib.Entity;
 
 public class StaticEnemy extends Sprite {
     public StaticEnemy() {
@@ -16,16 +15,5 @@ public class StaticEnemy extends Sprite {
     @Override
     public String getName() {
         return "Static Enemy";
-    }
-
-    @Override
-    public boolean inHitbox(Entity e) {
-        boolean hit = super.inHitbox(e);
-
-        if (hit) {
-
-        }
-
-        return hit;
     }
 }
