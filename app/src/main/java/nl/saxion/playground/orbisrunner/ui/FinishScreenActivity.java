@@ -42,6 +42,13 @@ public class FinishScreenActivity extends AppCompatActivity {
     }
 
     private void init() {
+        Button nextLevelButton = findViewById(R.id.nextLevelButton);
+        nextLevelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Stub
+            }
+        });
 
         Button mainMenuButton = findViewById(R.id.mainMenuButton);
         mainMenuButton.setOnClickListener(new View.OnClickListener() {

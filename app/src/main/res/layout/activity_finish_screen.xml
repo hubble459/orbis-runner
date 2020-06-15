@@ -1,105 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="nl.saxion.playground.orbisrunner.ui.FinishScreenActivity">
 
-    <Button
-        android:id="@+id/mainMenuButton"
-        android:layout_width="wrap_content"
+    <TextView
+        style="@style/Title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/main_menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/retryLevelButton"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="Finished" />
 
-    <Button
-        android:id="@+id/retryLevelButton"
+    <TextView
+        style="@style/Subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/retry"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginHorizontal="4dp"
+        android:text="Objectives:" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Collect all coins:" />
+
+        <ImageView
+            android:id="@+id/completed"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="8dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@android:string/untitled"
+            android:scaleType="fitStart"
+            app:srcCompat="@drawable/red_cross" />
+    </LinearLayout>
+
+    <TextView
+        style="@style/Subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:text="Stats:" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <TableRow>
+
+            <TextView android:text="Total deaths:" />
+
+            <TextView
+                android:id="@+id/totalDeaths"
+                android:paddingHorizontal="16dp"
+                tools:text="0" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView android:text="Total coins collected:" />
+
+            <TextView
+                android:id="@+id/totalCoins"
+                android:paddingHorizontal="16dp"
+                tools:text="0" />
+        </TableRow>
+    </TableLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/nextLevelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginVertical="32dp"
+        android:background="@drawable/black_ring"
+        android:gravity="center"
         android:text="@string/next_level"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/retryLevelButton" />
+        android:textColor="@color/colorAccent"
+        android:textSize="32sp" />
 
-    <TextView
-        android:id="@+id/objective"
-        android:layout_width="266dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="192dp"
-        android:text="Objective:"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.324"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-    <TextView
-        android:id="@+id/theObjective"
-        android:layout_width="265dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="47dp"
-        android:text="Collect all coins and win without dying"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/objective" />
+    <Button
+        android:id="@+id/retryLevelButton"
+        style="@style/Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/retry" />
 
-    <ImageView
-        android:id="@+id/completed"
-        android:layout_width="77dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="192dp"
-        android:layout_marginEnd="22dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/red_cross" />
-
-    <TextView
-        android:id="@+id/deathCount"
-        android:layout_width="265dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="181dp"
-        android:text="Total deaths :"
-        app:layout_constraintBottom_toTopOf="@+id/totalCoinsCollected"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/completed" />
-
-    <TextView
-        android:id="@+id/totalCoinsCollected"
-        android:layout_width="265dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="49dp"
-        android:layout_marginBottom="157dp"
-        android:text="Total coins collected :"
-        app:layout_constraintBottom_toTopOf="@+id/mainMenuButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deathCount" />
-
-    <TextView
-        android:id="@+id/totalDeaths"
-        android:layout_width="93dp"
-        android:layout_height="42dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/deathCount"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.66" />
-
-    <TextView
-        android:id="@+id/totalCoins"
-        android:layout_width="92dp"
-        android:layout_height="47dp"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/totalCoinsCollected"
-        app:layout_constraintTop_toBottomOf="@+id/totalDeaths" />
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/mainMenuButton"
+        style="@style/Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/main_menu" />
+</LinearLayout>
