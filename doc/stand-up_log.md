@@ -67,3 +67,7 @@
 - Talked about progress
 - Talked about deadlines
 - Decided appointees for new issues
+
+## Stand-up 15-06-2020 12:55
+- Talked about progress
+- Planned some paired programming sessions. A session where multiple people work together on some issues.
