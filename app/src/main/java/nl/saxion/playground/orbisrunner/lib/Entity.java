@@ -68,17 +68,6 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         return scale;
     }
 
-
-    public static Entity fromJSON(JSONObject entity) {
-        String type = entity.optString("type");
-        Entity e = getFromType(type);
-        if (e != null) {
-            e.setStartAngle((float) entity.optDouble("angle"));
-            e.setStartJump((float) entity.optDouble("jump"));
-        }
-        return e;
-    }
-
     // Used by the TreeSet to order GameObjects.
     // We order by layer first, and then by id.
     @Override
@@ -87,7 +76,20 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         return prio == 0 ? id - o.id : prio;
     }
 
-    public void onSwipe(int direction) {
+    /**
+     * Turn an JSONObject into an Entity
+     *
+     * @param entity JSONObject
+     * @return Entity
+     */
+    public static Entity fromJSON(JSONObject entity) {
+        String type = entity.optString("type");
+        Entity e = getFromType(type);
+        if (e != null) {
+            e.setStartAngle((float) entity.optDouble("angle"));
+            e.setStartJump((float) entity.optDouble("jump"));
+        }
+        return e;
     }
 
     public boolean isSelected() {
@@ -99,23 +101,36 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
     }
 
     /**
-     * Can be overridden if the entity wants to act on touch events.
+     * Turn a String into a json
      *
-     * @param touch Information about the touch this event is about.
-     * @param event ACTION_DOWN, ACTION_UP or ACTION_MOVE.
+     * @param type Type String
+     * @return Entity
      */
-    public void handleTouch(GameModel.Touch touch, MotionEvent event) {
-        if (levelMaker != null && clickedOnEnemy(touch)) {
-            levelMaker.select(this);
+    private static Entity getFromType(String type) {
+        switch (type) {
+            case "StaticEnemy":
+                return new StaticEnemy();
+            case "JumpingEnemy":
+                return new JumpingEnemy();
+            case "FlyingEnemy":
+                return new FlyingEnemy();
+            case "Coin":
+                return new Coin();
+            case "Portal":
+                return new Portal();
+            default:
+                return null;
         }
     }
 
-    private boolean clickedOnEnemy(GameModel.Touch touch) {
-        float x = touch.x;
-        float y = touch.y;
-
-        return x + width > xVal && x - width < xVal
-                && y + height > yVal && y - height < yVal;
+    /**
+     * Used by the control testing activity
+     * Use GameModel#touches instead
+     *
+     * @param direction the swiping direction
+     */
+    @Deprecated
+    public void onSwipe(int direction) {
     }
 
     public void setXYValues(float[] xy) {
@@ -144,23 +159,6 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
 
     public float getWidth() {
         return width;
-    }
-
-    private static Entity getFromType(String type) {
-        switch (type) {
-            case "StaticEnemy":
-                return new StaticEnemy();
-            case "JumpingEnemy":
-                return new JumpingEnemy();
-            case "FlyingEnemy":
-                return new FlyingEnemy();
-            case "Coin":
-                return new Coin();
-            case "Portal":
-                return new Portal();
-            default:
-                return null;
-        }
     }
 
     public float getStartAngle() {
@@ -242,11 +240,16 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
                 top < bot2 && bot > top2);
     }
 
-    public void reset() {
-        setStartJump(startJump);
-        setStartAngle(startAngle);
-        reset = true;
-        pause = false;
+    /**
+     * Can be overridden if the entity wants to act on touch events.
+     *
+     * @param touch Information about the touch this event is about.
+     * @param event ACTION_DOWN, ACTION_UP or ACTION_MOVE.
+     */
+    public void handleTouch(GameModel.Touch touch, MotionEvent event) {
+        if (levelMaker != null && clickedOnEntity(touch)) {
+            levelMaker.select(this);
+        }
     }
 
     public float getMargin() {
@@ -255,14 +258,6 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
 
     public void setMargin(float margin) {
         this.margin = margin;
-    }
-
-    public JSONObject toJSON() throws JSONException {
-        JSONObject entity = new JSONObject();
-        entity.put("angle", startAngle);
-        entity.put("jump", Float.isNaN(startJump) ? 0 : startJump);
-        entity.put("type", getClass().getSimpleName());
-        return entity;
     }
 
     public boolean onScreen() {
@@ -274,9 +269,49 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         }
     }
 
+    /**
+     * Used by levelMaker to check if the user clicked on an entity
+     *
+     * @param touch GameModel.Touch
+     * @return clicked
+     */
+    private boolean clickedOnEntity(GameModel.Touch touch) {
+        float x = touch.x;
+        float y = touch.y;
+
+        return x + width > xVal && x - width < xVal
+                && y + height > yVal && y - height < yVal;
+    }
+
+    /**
+     * Reset the entity
+     */
+    public void reset() {
+        setStartJump(startJump);
+        setStartAngle(startAngle);
+        reset = true;
+        pause = false;
+    }
+
+    /**
+     * Resize
+     */
     public void resize() {
         width = width * scale;
         height = height * scale;
+    }
+
+    /**
+     * Turn an Entity into a JSONObject
+     *
+     * @return JSONObject
+     */
+    public JSONObject toJSON() throws JSONException {
+        JSONObject entity = new JSONObject();
+        entity.put("angle", startAngle);
+        entity.put("jump", Float.isNaN(startJump) ? 0 : startJump);
+        entity.put("type", getClass().getSimpleName());
+        return entity;
     }
 }
 

@@ -9,6 +9,9 @@ import java.util.Collections;
 
 import nl.saxion.playground.orbisrunner.R;
 
+/**
+ * Can be used instead of MusicService but is more poo-poo
+ */
 @Deprecated
 public class Music extends AsyncTask<Context, Void, Void> {
     private ArrayList<MediaPlayer> playlist;

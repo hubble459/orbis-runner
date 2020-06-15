@@ -22,6 +22,11 @@ public class FlyingEnemy extends Sprite {
         return "Flying Enemy";
     }
 
+    /**
+     * Draw frames of birb
+     *
+     * @param gv GameView
+     */
     @Override
     public void draw(GameView gv) {
         if (bird == null) {

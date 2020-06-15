@@ -24,6 +24,9 @@ public class JumpingEnemy extends Sprite {
         return "Jumping Enemy";
     }
 
+    /**
+     * Make the entity continuously jump with random heights
+     */
     @Override
     public void tick() {
         super.tick();

@@ -11,9 +11,17 @@ import java.util.Collections;
 
 import nl.saxion.playground.orbisrunner.R;
 
+/**
+ * Music Service to play music while g A m i n G
+ * <p>
+ * Has a playlist of three songs
+ */
 public class MusicService extends Service {
     private ArrayList<MediaPlayer> playlist;
 
+    /**
+     * Make playlist
+     */
     private void playlist() {
         playlist = new ArrayList<>();
 
@@ -24,12 +32,10 @@ public class MusicService extends Service {
         Collections.shuffle(playlist);
     }
 
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
+    /**
+     * Called when service gets started
+     * First song in playlist will start
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         playlist();
@@ -45,10 +51,19 @@ public class MusicService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
+    /**
+     * Make making a MediaPlayer easier
+     *
+     * @param resId Resource ID
+     * @return MediaPlayer
+     */
     private MediaPlayer make(int resId) {
         return MediaPlayer.create(this, resId);
     }
 
+    /**
+     * Stop music and service
+     */
     @Override
     public void onDestroy() {
         if (playlist != null) {
@@ -57,5 +72,11 @@ public class MusicService extends Service {
             }
         }
         super.onDestroy();
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 }

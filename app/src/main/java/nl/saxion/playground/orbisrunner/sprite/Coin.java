@@ -20,6 +20,12 @@ public class Coin extends Sprite {
         return "Coin";
     }
 
+    /**
+     * When you touch a coin the coin will disappear and you will be granted one coin
+     *
+     * @param e entity needed for dimensions
+     * @return true if dead
+     */
     @Override
     public boolean inHitBox(Entity e) {
         if (super.inHitBox(e) && game instanceof OrbisRunnerModel) {

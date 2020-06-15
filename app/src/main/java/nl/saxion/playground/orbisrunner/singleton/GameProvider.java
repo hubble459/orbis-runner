@@ -53,6 +53,11 @@ public class GameProvider {
         musicOn = true;
     }
 
+    /**
+     * Get the current level
+     *
+     * @return current level
+     */
     public static Level getCurrentLevel() {
         // TODO make some demo levels
         if (getLevels() == null || getLevels().isEmpty()) return Level.dummy();
@@ -183,6 +188,11 @@ public class GameProvider {
         return instance.shop;
     }
 
+    /**
+     * Start music
+     *
+     * @param context Context
+     */
     public static void startMusic(Context context) {
         if (instance.musicOn && instance.music == null) {
             instance.music = new Intent(context, MusicService.class);
@@ -190,6 +200,11 @@ public class GameProvider {
         }
     }
 
+    /**
+     * Stop music
+     *
+     * @param context Context
+     */
     public static void stopMusic(Context context) {
         if (instance.music != null) {
             context.stopService(instance.music);
@@ -197,10 +212,20 @@ public class GameProvider {
         }
     }
 
+    /**
+     * Check if music is on
+     *
+     * @return music is on
+     */
     public static boolean isMusicOn() {
         return instance.musicOn;
     }
 
+    /**
+     * Turn music on or off
+     *
+     * @param on music turned on
+     */
     public static void setMusic(boolean on) {
         instance.musicOn = on;
     }

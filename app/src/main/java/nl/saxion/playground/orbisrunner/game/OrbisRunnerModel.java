@@ -23,6 +23,14 @@ public class OrbisRunnerModel extends GameModel {
     private final SoundPool sound;
     private final int DEATH_SOUND;
 
+    /**
+     * When a new game gets created game will reset all values
+     * Scale = 1
+     * new Circle
+     * Player#reset()
+     *
+     * @param activity used for context needed for sounds
+     */
     public OrbisRunnerModel(Activity activity) {
         Entity.setScale(1);
 
@@ -42,11 +50,20 @@ public class OrbisRunnerModel extends GameModel {
         DEATH_SOUND = sound.load(activity, R.raw.oof, 1);
     }
 
+    /**
+     * When game starts this gets run
+     *
+     * @param canvas canvas
+     */
     @Override
     public void start(Canvas canvas) {
         addEntities();
     }
 
+    /**
+     * Add player and circle to game
+     * Add all entities found in level entity list
+     */
     private void addEntities() {
         addEntity(player);
         addEntity(circle);
@@ -63,18 +80,26 @@ public class OrbisRunnerModel extends GameModel {
         }
     }
 
+    /**
+     * If player dies it will call this method
+     * Plays a death sound
+     * Starts the death screen activity
+     */
     public void dead() {
         for (Entity entity : getEntities()) {
             entity.setPaused(true);
         }
 
-        deadSound();
+        deathSound();
 
         Intent intent = new Intent(activity, DeathScreenActivity.class);
         activity.startActivity(intent);
         activity.finish();
     }
 
+    /**
+     * When player reaches the finish, this gets called
+     */
     public void finish() {
         player.setEnabled(false);
         for (Entity entity : getEntities()) {
@@ -86,7 +111,10 @@ public class OrbisRunnerModel extends GameModel {
         activity.finish();
     }
 
-    private void deadSound() {
+    /**
+     * Play sound
+     */
+    private void deathSound() {
         sound.play(DEATH_SOUND, 1, 1, 0, 0, 1);
     }
 
