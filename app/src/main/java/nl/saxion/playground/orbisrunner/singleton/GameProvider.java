@@ -1,7 +1,6 @@
 package nl.saxion.playground.orbisrunner.singleton;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -20,7 +19,6 @@ import java.util.Scanner;
 import nl.saxion.playground.orbisrunner.game.Level;
 import nl.saxion.playground.orbisrunner.game.Shop;
 import nl.saxion.playground.orbisrunner.game.ShopItem;
-import nl.saxion.playground.orbisrunner.service.MusicService;
 import nl.saxion.playground.orbisrunner.sprite.Player;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -36,7 +34,6 @@ public class GameProvider {
     private static final GameProvider instance = new GameProvider();
     private Shop shop;
     private Player player;
-    private Intent music;
     private int coins;
     private int currentLevel;
     private int maxLevel;
@@ -196,20 +193,6 @@ public class GameProvider {
 
     public static Shop getShop() {
         return instance.shop;
-    }
-
-    public static void startMusic(Context context) {
-        if (instance.musicOn && instance.music == null) {
-            instance.music = new Intent(context, MusicService.class);
-            context.startService(instance.music);
-        }
-    }
-
-    public static void stopMusic(Context context) {
-        if (instance.music != null) {
-            context.stopService(instance.music);
-            instance.music = null;
-        }
     }
 
     public static boolean isMusicOn() {
