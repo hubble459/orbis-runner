@@ -84,4 +84,22 @@
         app:layout_constraintBottom_toTopOf="@+id/mainMenuButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/deathCount" />
+
+    <TextView
+        android:id="@+id/totalDeaths"
+        android:layout_width="93dp"
+        android:layout_height="42dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/deathCount"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.66" />
+
+    <TextView
+        android:id="@+id/totalCoins"
+        android:layout_width="92dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/totalCoinsCollected"
+        app:layout_constraintTop_toBottomOf="@+id/totalDeaths" />
 </android.support.constraint.ConstraintLayout>
