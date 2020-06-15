@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -73,10 +72,6 @@ public class Player extends Entity {
             drawable.setTint(color);
 
             setXY();
-            Log.i("uwu", "draw: " + onScreen());
-            if (!onScreen()) {
-                getBestPosition();
-            }
         }
 
         if (falling || frame >= maxFrames) {
@@ -212,6 +207,10 @@ public class Player extends Entity {
             float[] xy = game.getXYFromDegrees(startAngle, jump, this);
             setXYValues(xy);
             angle -= 90;
+        }
+
+        if (!onScreen()) {
+            getBestPosition();
         }
     }
 

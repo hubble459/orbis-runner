@@ -3,7 +3,7 @@ package nl.saxion.playground.orbisrunner.game;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Canvas;
-import android.media.SoundPool;
+import android.media.MediaPlayer;
 
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.Entity;
@@ -20,8 +20,7 @@ public class OrbisRunnerModel extends GameModel {
     private final Circle circle;
     private final Player player;
     private final Level level;
-    private final SoundPool sound;
-    private final int DEATH_SOUND;
+    private final MediaPlayer mediaPlayer;
 
     public OrbisRunnerModel(Activity activity) {
         Entity.setScale(1);
@@ -38,8 +37,7 @@ public class OrbisRunnerModel extends GameModel {
 
         this.activity = activity;
 
-        sound = new SoundPool.Builder().build();
-        DEATH_SOUND = sound.load(activity, R.raw.oof, 1);
+        this.mediaPlayer = MediaPlayer.create(activity, R.raw.oof);
     }
 
     @Override
@@ -91,7 +89,12 @@ public class OrbisRunnerModel extends GameModel {
     }
 
     private void deadSound() {
-        sound.play(DEATH_SOUND, 1, 1, 0, 0, 1);
+        if (GameProvider.isSoundOn()) {
+            mediaPlayer.start();
+        } else {
+            mediaPlayer.release();
+        }
+
     }
 
     @Override
