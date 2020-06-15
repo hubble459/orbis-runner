@@ -64,8 +64,12 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        mediaPlayer.stop();
-        mediaPlayer.release();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
+
+
         super.onPause();
     }
 }

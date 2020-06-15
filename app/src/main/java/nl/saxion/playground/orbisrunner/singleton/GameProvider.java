@@ -38,6 +38,7 @@ public class GameProvider {
     private int currentLevel;
     private int maxLevel;
     private boolean musicOn;
+    private boolean soundOn;
 
     private ArrayList<Level> levels;
 
@@ -77,6 +78,8 @@ public class GameProvider {
             instance.maxLevel = data.optInt("maxLevel");
             instance.player.setColor(data.optInt("color"));
             instance.shop.select(data.optInt("active"));
+            instance.musicOn = data.optBoolean("music", true);
+            instance.soundOn = data.optBoolean("sound", true);
 
             JSONArray unlocked = data.optJSONArray("unlocked");
             if (unlocked != null) {
@@ -132,6 +135,8 @@ public class GameProvider {
             savedDataJSON.put("maxLevel", instance.maxLevel);
             savedDataJSON.put("color", instance.player.getColor());
             savedDataJSON.put("active", instance.shop.getSelected());
+            savedDataJSON.put("music", instance.musicOn);
+            savedDataJSON.put("sound", instance.soundOn);
 
             JSONArray unlockedItems = new JSONArray();
             for (ShopItem shopItem : instance.shop.getShopItems()) {
@@ -199,7 +204,17 @@ public class GameProvider {
         return instance.musicOn;
     }
 
-    public static void setMusic(boolean on) {
+    public static void setMusicOn(boolean on) {
         instance.musicOn = on;
     }
+
+    public static boolean isSoundOn() {
+        return instance.soundOn;
+    }
+
+    public static void setSoundOn(boolean soundOn) {
+        instance.soundOn = soundOn;
+    }
 }
+
+

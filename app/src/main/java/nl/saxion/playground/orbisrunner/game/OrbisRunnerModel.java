@@ -20,7 +20,7 @@ public class OrbisRunnerModel extends GameModel {
     private final Circle circle;
     private final Player player;
     private final Level level;
-    //  private final MediaPlayer mediaPlayer;
+    private final MediaPlayer mediaPlayer;
 
     public OrbisRunnerModel(Activity activity) {
         Entity.setScale(1);
@@ -37,13 +37,7 @@ public class OrbisRunnerModel extends GameModel {
 
         this.activity = activity;
 
-
-//        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//            @Override
-//            public void onCompletion(MediaPlayer mediaPlayer) {
-//                mediaPlayer.release();
-//            }
-//        });
+        this.mediaPlayer = MediaPlayer.create(activity, R.raw.oof);
     }
 
     @Override
@@ -95,8 +89,12 @@ public class OrbisRunnerModel extends GameModel {
     }
 
     private void deadSound() {
-        MediaPlayer mediaPlayer = MediaPlayer.create(activity, R.raw.oof);
-        mediaPlayer.start();
+        if (GameProvider.isSoundOn()) {
+            mediaPlayer.start();
+        } else {
+            mediaPlayer.release();
+        }
+
     }
 
     @Override
