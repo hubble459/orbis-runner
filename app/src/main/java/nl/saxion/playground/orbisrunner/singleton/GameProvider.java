@@ -39,6 +39,7 @@ public class GameProvider {
     private Intent music;
     private int coins;
     private int currentLevel;
+    private int maxLevel;
     private boolean musicOn;
 
     private ArrayList<Level> levels;
@@ -76,6 +77,7 @@ public class GameProvider {
 
             instance.coins = data.optInt("coins");
             instance.currentLevel = data.optInt("level");
+            instance.maxLevel = data.optInt("maxLevel");
             instance.player.setColor(data.optInt("color"));
             instance.shop.select(data.optInt("active"));
 
@@ -130,6 +132,7 @@ public class GameProvider {
 
             savedDataJSON.put("coins", instance.coins);
             savedDataJSON.put("level", instance.currentLevel);
+            savedDataJSON.put("maxLevel", instance.maxLevel);
             savedDataJSON.put("color", instance.player.getColor());
             savedDataJSON.put("active", instance.shop.getSelected());
 
@@ -169,6 +172,18 @@ public class GameProvider {
 
     public static void setCoins(int coins) {
         instance.coins = coins;
+    }
+
+    public static int getMaxLevel() {
+        return instance.maxLevel;
+    }
+
+    public static void setMaxLevel(int maxLevel) {
+        instance.maxLevel = maxLevel;
+    }
+
+    public static void setCurrentLevel(int currentLevel) {
+        instance.currentLevel = currentLevel;
     }
 
     public static ArrayList<Level> getLevels() {

@@ -13,12 +13,13 @@ import nl.saxion.playground.orbisrunner.sprite.Coin;
 import nl.saxion.playground.orbisrunner.sprite.StaticEnemy;
 
 public class Level {
-    private int number;
     private ArrayList<Entity> entities;
     private float scale;
     private int deathCounter;
-    private boolean objectiveClaimed = false;
+    private int number;
     private int collectedCoins = 0;
+    private boolean custom;
+    private boolean objectiveClaimed = false;
 
     public Level(int number) {
         this.scale = 1;
@@ -60,6 +61,7 @@ public class Level {
         l.setScale((float) level.optDouble("scale"));
         l.setObjectiveClaimed(level.optBoolean("objectiveClaimed"));
         l.setDeathCounter(level.optInt("deaths"));
+        l.setCustom(level.optBoolean("custom"));
 
         JSONArray entities = level.optJSONArray("entities");
         if (entities != null) {
@@ -122,6 +124,7 @@ public class Level {
         level.put("scale", scale);
         level.put("deaths", deathCounter);
         level.put("objectiveClaimed", objectiveClaimed);
+        level.put("custom", custom);
 
         JSONArray entities = new JSONArray();
         for (Entity entity : this.entities) {
@@ -129,6 +132,15 @@ public class Level {
         }
         level.put("entities", entities);
         return level;
+    }
+
+
+    public boolean isCustom() {
+        return custom;
+    }
+
+    public void setCustom(boolean custom) {
+        this.custom = custom;
     }
 
     public int getCollectedCoins() {

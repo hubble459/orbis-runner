@@ -44,6 +44,7 @@ public class Player extends Entity {
     public Player() {
         setStartAngle(POS);
         setStartJump(0f);
+        color = Color.BLACK;
     }
 
     public void setGame(GameModel game) {
@@ -68,11 +69,8 @@ public class Player extends Entity {
             height = animationDrawable.getIntrinsicHeight() * scale;
 
             drawable = animationDrawable.getFrame(0);
-            if (color != Color.BLACK) {
-                drawable.setTint(color);
-            } else {
-                drawable.setTintList(null);
-            }
+
+            drawable.setTint(color);
 
             setXY();
             Log.i("uwu", "draw: " + onScreen());
@@ -87,11 +85,9 @@ public class Player extends Entity {
 
         if (animationDrawable.getDuration(frame) < System.currentTimeMillis() - lastTime) {
             drawable = animationDrawable.getFrame(frame++);
-            if (color != Color.BLACK) {
-                drawable.setTint(color);
-            } else {
-                drawable.setTintList(null);
-            }
+
+            drawable.setTint(color);
+
             lastTime = System.currentTimeMillis();
         }
 
@@ -116,11 +112,6 @@ public class Player extends Entity {
 
     private void getBestPosition() {
         while (!onScreen()) {
-            setStartAngle(--startAngle);
-            setXY();
-        }
-
-        for (int i = 0; i < 5; i++) {
             setStartAngle(--startAngle);
             setXY();
         }

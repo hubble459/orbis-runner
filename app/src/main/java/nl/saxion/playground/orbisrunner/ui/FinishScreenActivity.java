@@ -42,6 +42,10 @@ public class FinishScreenActivity extends AppCompatActivity {
     }
 
     private void init() {
+        // TODO: 6/15/2020 Current level is het volgende level
+        int max = Math.max(GameProvider.getCurrentLevel().getNumber(), GameProvider.getMaxLevel());
+        GameProvider.setMaxLevel(max);
+
         Button nextLevelButton = findViewById(R.id.nextLevelButton);
         nextLevelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,8 +58,7 @@ public class FinishScreenActivity extends AppCompatActivity {
         mainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FinishScreenActivity.this, StartScreenActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -65,6 +68,7 @@ public class FinishScreenActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(FinishScreenActivity.this, GameActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
