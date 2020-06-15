@@ -73,6 +73,10 @@ public class OrbisRunnerModel extends GameModel {
         Intent intent = new Intent(activity, DeathScreenActivity.class);
         activity.startActivity(intent);
         activity.finish();
+
+        level.setCollectedCoins(0);
+        level.death();
+        GameProvider.saveData(activity);
     }
 
     public void finish() {

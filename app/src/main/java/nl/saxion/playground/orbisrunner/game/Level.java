@@ -1,5 +1,7 @@
 package nl.saxion.playground.orbisrunner.game;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,15 +9,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import nl.saxion.playground.orbisrunner.lib.Entity;
-import nl.saxion.playground.orbisrunner.sprite.Player;
+import nl.saxion.playground.orbisrunner.sprite.Coin;
 import nl.saxion.playground.orbisrunner.sprite.StaticEnemy;
 
 public class Level {
-    private int number;
     private ArrayList<Entity> entities;
     private float scale;
-    private int collectableCoins;
     private int deathCounter;
+    private int number;
+    private int collectedCoins = 0;
+    private boolean custom;
+    private boolean objectiveClaimed = false;
 
     public Level(int number) {
         this.scale = 1;
@@ -55,6 +59,9 @@ public class Level {
         int number = level.optInt("number");
         Level l = new Level(number);
         l.setScale((float) level.optDouble("scale"));
+        l.setObjectiveClaimed(level.optBoolean("objectiveClaimed"));
+        l.setDeathCounter(level.optInt("deaths"));
+        l.setCustom(level.optBoolean("custom"));
 
         JSONArray entities = level.optJSONArray("entities");
         if (entities != null) {
@@ -69,12 +76,26 @@ public class Level {
         return l;
     }
 
-    public int getCollectableCoins() {
+    public int getCollectibleCoins() {
+        int collectibleCoins = 0;
         for (Entity entity: entities) {
-            if (entity instanceof Player)//Change player to coin when coin object is created.
-                collectableCoins++;
+            if (entity instanceof Coin)
+                collectibleCoins++;
         }
-        return collectableCoins;
+        return collectibleCoins;
+    }
+
+    private void setDeathCounter(int deathCounter) {
+        this.deathCounter = deathCounter;
+    }
+
+    public void collectCoin() {
+        ++collectedCoins;
+        Log.i("OwO", "collectCoin: " + collectedCoins);
+    }
+
+    public boolean getObjectiveClaimed() {
+        return objectiveClaimed;
     }
 
     public int getDeathCounter() {
@@ -85,14 +106,25 @@ public class Level {
         deathCounter++;
     }
 
-    public void setDeathCounter(int deathCounter) {
-        this.deathCounter = deathCounter;
+    public void setObjectiveClaimed(boolean objectiveClaimed) {
+        this.objectiveClaimed = objectiveClaimed;
+    }
+
+    public float getScale() {
+        return scale;
+    }
+
+    public void setScale(float scale) {
+        this.scale = scale;
     }
 
     public JSONObject toJSON() throws JSONException {
         JSONObject level = new JSONObject();
         level.put("number", number);
         level.put("scale", scale);
+        level.put("deaths", deathCounter);
+        level.put("objectiveClaimed", objectiveClaimed);
+        level.put("custom", custom);
 
         JSONArray entities = new JSONArray();
         for (Entity entity : this.entities) {
@@ -102,11 +134,20 @@ public class Level {
         return level;
     }
 
-    public float getScale() {
-        return scale;
+
+    public boolean isCustom() {
+        return custom;
     }
 
-    public void setScale(float scale) {
-        this.scale = scale;
+    public void setCustom(boolean custom) {
+        this.custom = custom;
+    }
+
+    public int getCollectedCoins() {
+        return collectedCoins;
+    }
+
+    public void setCollectedCoins(int collectedCoins) {
+        this.collectedCoins = collectedCoins;
     }
 }

@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/tmp_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.FinishScreenActivity"></activity>
+        <activity android:name=".ui.LevelSelectorActivity" />
+        <activity android:name=".ui.FinishScreenActivity" />
         <activity android:name=".ui.CustomizationActivity" />
         <activity android:name=".ui.LevelMaker" />
         <activity android:name=".ui.GameActivity" />
-        <activity android:name=".ui.demo.DemoGameplayActivity" />
         <activity android:name=".ui.SplashScreenActivity" />
         <activity android:name=".ui.SettingScreenActivity" />
         <activity android:name=".ui.ControlTestingActivity" />
