@@ -61,7 +61,10 @@ public class FinishScreenActivity extends AppCompatActivity {
         nextLevelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Stub
+                GameProvider.nextLevel();
+
+                Intent intent = new Intent(FinishScreenActivity.this, GameActivity.class);
+                startActivity(intent);
             }
         });
 
