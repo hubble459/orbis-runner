@@ -90,7 +90,6 @@ public class Shop {
         }
     }
 
-
     /**
      * Get the item that's currently selected
      *
@@ -103,5 +102,14 @@ public class Shop {
             }
         }
         return -1;
+    }
+
+    public int getSelectedRes() {
+        for (ShopItem shopItem : shopItems) {
+            if (shopItem.isSelected()) {
+                return shopItem.getResId();
+            }
+        }
+        return R.drawable.sprite_koopa;
     }
 }

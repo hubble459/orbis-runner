@@ -1,5 +1,6 @@
 package nl.saxion.playground.orbisrunner.sprite;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -15,6 +16,7 @@ import nl.saxion.playground.orbisrunner.game.OrbisRunnerModel;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameModel;
 import nl.saxion.playground.orbisrunner.lib.GameView;
+import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**
  * MC of Orbis Runner
@@ -40,6 +42,7 @@ public class Player extends Entity {
 
     private AnimationDrawable animationDrawable;
     private Drawable drawable;
+    private Bitmap hat;
     private Queue<float[]> dust;
     private Paint paint;
     private Random random;
@@ -78,6 +81,10 @@ public class Player extends Entity {
      */
     @Override
     public void draw(GameView gv) {
+        if (hat == null) {
+            hat = gv.getBitmapFromResource(GameProvider.getShop().getSelectedRes());
+        }
+
         if (animationDrawable == null) {
             animationDrawable = (AnimationDrawable) gv.getContext().getDrawable(R.drawable.walking);
             if (animationDrawable == null) return;
@@ -120,7 +127,20 @@ public class Player extends Entity {
                     (int) (yVal + height));
             drawable.draw(gv.getCanvas());
 
+            drawHat(gv);
+
             drawRunDust(gv.getCanvas());
+        }
+    }
+
+    private void drawHat(GameView gv) {
+        if (hat != null) {
+            gv.drawBitmap(
+                    hat,
+                    xVal - 20,
+                    yVal - height + hat.getHeight() * .25f,
+                    hat.getWidth() + 5,
+                    hat.getHeight() * .75f);
         }
     }
 
@@ -274,6 +294,7 @@ public class Player extends Entity {
         jumping = false;
         falling = false;
         dead = false;
+        hat = null;
         super.reset();
         setXY();
     }
