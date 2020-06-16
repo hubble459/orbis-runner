@@ -42,6 +42,7 @@
     <string name="edit_level">Edit Level</string>
     <string name="level">Level</string>
     <string name="saved">Saved!</string>
+    <string name="remove">Remove</string>
 
     <!-- Used in level selector -->
     <string name="levels">Levels</string>

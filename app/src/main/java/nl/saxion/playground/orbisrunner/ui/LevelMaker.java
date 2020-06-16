@@ -104,7 +104,6 @@ public class LevelMaker extends AppCompatActivity {
                     e.setLevelMaker(LevelMaker.this);
                     select(e);
                     model.addEntity(e);
-                    level.addEntity(e);
                 } catch (InstantiationException | IllegalAccessException ex) {
                     ex.printStackTrace();
                 }
@@ -289,7 +288,6 @@ public class LevelMaker extends AppCompatActivity {
         }
 
         if (GameProvider.hasLevel(level)) {
-            GameProvider.getLevels().set(level.getNumber() - 1, level);
             saveFinish();
         } else {
             int max = GameProvider.getLevels().size() + 1;
@@ -321,6 +319,19 @@ public class LevelMaker extends AppCompatActivity {
      * Save and finish
      */
     private void saveFinish() {
+        for (Entity entity : model.getEntities()) {
+            if (entity instanceof Sprite && !level.getEntities().contains(entity)) {
+                level.addEntity(entity);
+            }
+        }
+        ArrayList<Entity> toRemove = new ArrayList<>();
+        for (Entity entity : level.getEntities()) {
+            if (entity instanceof Sprite && !model.getEntities().contains(entity)) {
+                toRemove.add(entity);
+            }
+        }
+        level.getEntities().removeAll(toRemove);
+
         GameProvider.saveData(this);
         Toast.makeText(this, R.string.saved, Toast.LENGTH_SHORT).show();
         finish();
@@ -351,5 +362,12 @@ public class LevelMaker extends AppCompatActivity {
 
     public float[] getXYFromDegrees(float angle, float margin, Entity e) {
         return model.getXYFromDegrees(angle, margin, e);
+    }
+
+    public void removeSelected(View view) {
+        Entity selected = getSelected();
+        if (selected != null) {
+            model.removeEntity(selected);
+        }
     }
 }

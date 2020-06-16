@@ -134,7 +134,7 @@ public class Player extends Entity {
     }
 
     private void drawHat(GameView gv) {
-        if (hat != null) {
+        if (hat != null && !dead) {
             gv.drawBitmap(
                     hat,
                     xVal - 20,
