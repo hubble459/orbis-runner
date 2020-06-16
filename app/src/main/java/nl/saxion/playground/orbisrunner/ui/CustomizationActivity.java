@@ -82,11 +82,11 @@ public class CustomizationActivity extends AppCompatActivity {
             ShopItem si = unlocked.get(i);
             if (i == pos) {
                 si.setSelected(true);
-                // TODO: 09/06/2020 save selected and use in Player class
             } else {
                 si.setSelected(false);
             }
         }
+        GameProvider.saveData(this);
     }
 
     /**

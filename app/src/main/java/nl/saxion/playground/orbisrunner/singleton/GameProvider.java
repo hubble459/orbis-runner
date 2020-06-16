@@ -51,6 +51,7 @@ public class GameProvider {
         player = new Player();
         levels = new ArrayList<>();
         musicOn = true;
+        soundOn = true;
     }
 
     public static Level getCurrentLevel() {
