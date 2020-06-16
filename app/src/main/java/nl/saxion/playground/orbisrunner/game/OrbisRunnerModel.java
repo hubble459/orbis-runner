@@ -42,10 +42,6 @@ public class OrbisRunnerModel extends GameModel {
         DEATH_SOUND = sound.load(activity, R.raw.oof, 1);
     }
 
-    public static void nextLevel() {
-        level = GameProvider.getNextLevel();
-    }
-
     @Override
     public void start(Canvas canvas) {
         addEntities();
