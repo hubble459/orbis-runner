@@ -71,3 +71,10 @@
 ## Stand-up 15-06-2020 12:55
 - Talked about progress
 - Planned some paired programming sessions. A session where multiple people work together on some issues.
+
+## Stand-up 16-06-2020 10:00
+- Talked about progress
+- Distributed some issues to those who already finished theirs
+- Quentin fixed the level maker
+- Serwet finished his finish screen issue
+- Joost has finished his level selector issue and worked on the music and sound
