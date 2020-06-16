@@ -29,8 +29,6 @@ public class DeathScreenActivity extends AppCompatActivity {
         Level level = GameProvider.getCurrentLevel();
         number = level.getNumber();
 
-        level.death();
-
         init();
     }
 

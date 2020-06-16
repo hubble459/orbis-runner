@@ -1,7 +1,6 @@
 package nl.saxion.playground.orbisrunner.singleton;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -20,7 +19,6 @@ import java.util.Scanner;
 import nl.saxion.playground.orbisrunner.game.Level;
 import nl.saxion.playground.orbisrunner.game.Shop;
 import nl.saxion.playground.orbisrunner.game.ShopItem;
-import nl.saxion.playground.orbisrunner.service.MusicService;
 import nl.saxion.playground.orbisrunner.sprite.Player;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -36,10 +34,11 @@ public class GameProvider {
     private static final GameProvider instance = new GameProvider();
     private Shop shop;
     private Player player;
-    private Intent music;
     private int coins;
     private int currentLevel;
+    private int maxLevel;
     private boolean musicOn;
+    private boolean soundOn;
 
     private ArrayList<Level> levels;
 
@@ -53,11 +52,6 @@ public class GameProvider {
         musicOn = true;
     }
 
-    /**
-     * Get the current level
-     *
-     * @return current level
-     */
     public static Level getCurrentLevel() {
         // TODO make some demo levels
         if (getLevels() == null || getLevels().isEmpty()) return Level.dummy();
@@ -81,8 +75,11 @@ public class GameProvider {
 
             instance.coins = data.optInt("coins");
             instance.currentLevel = data.optInt("level");
+            instance.maxLevel = data.optInt("maxLevel");
             instance.player.setColor(data.optInt("color"));
             instance.shop.select(data.optInt("active"));
+            instance.musicOn = data.optBoolean("music", true);
+            instance.soundOn = data.optBoolean("sound", true);
 
             JSONArray unlocked = data.optJSONArray("unlocked");
             if (unlocked != null) {
@@ -135,8 +132,11 @@ public class GameProvider {
 
             savedDataJSON.put("coins", instance.coins);
             savedDataJSON.put("level", instance.currentLevel);
+            savedDataJSON.put("maxLevel", instance.maxLevel);
             savedDataJSON.put("color", instance.player.getColor());
             savedDataJSON.put("active", instance.shop.getSelected());
+            savedDataJSON.put("music", instance.musicOn);
+            savedDataJSON.put("sound", instance.soundOn);
 
             JSONArray unlockedItems = new JSONArray();
             for (ShopItem shopItem : instance.shop.getShopItems()) {
@@ -176,6 +176,18 @@ public class GameProvider {
         instance.coins = coins;
     }
 
+    public static int getMaxLevel() {
+        return instance.maxLevel;
+    }
+
+    public static void setMaxLevel(int maxLevel) {
+        instance.maxLevel = maxLevel;
+    }
+
+    public static void setCurrentLevel(int currentLevel) {
+        instance.currentLevel = currentLevel;
+    }
+
     public static ArrayList<Level> getLevels() {
         return instance.levels;
     }
@@ -188,45 +200,21 @@ public class GameProvider {
         return instance.shop;
     }
 
-    /**
-     * Start music
-     *
-     * @param context Context
-     */
-    public static void startMusic(Context context) {
-        if (instance.musicOn && instance.music == null) {
-            instance.music = new Intent(context, MusicService.class);
-            context.startService(instance.music);
-        }
-    }
-
-    /**
-     * Stop music
-     *
-     * @param context Context
-     */
-    public static void stopMusic(Context context) {
-        if (instance.music != null) {
-            context.stopService(instance.music);
-            instance.music = null;
-        }
-    }
-
-    /**
-     * Check if music is on
-     *
-     * @return music is on
-     */
     public static boolean isMusicOn() {
         return instance.musicOn;
     }
 
-    /**
-     * Turn music on or off
-     *
-     * @param on music turned on
-     */
-    public static void setMusic(boolean on) {
+    public static void setMusicOn(boolean on) {
         instance.musicOn = on;
     }
+
+    public static boolean isSoundOn() {
+        return instance.soundOn;
+    }
+
+    public static void setSoundOn(boolean soundOn) {
+        instance.soundOn = soundOn;
+    }
 }
+
+

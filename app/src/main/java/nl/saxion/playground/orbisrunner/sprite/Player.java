@@ -16,10 +16,6 @@ import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameModel;
 import nl.saxion.playground.orbisrunner.lib.GameView;
 
-/**
- * MC of Orbis Runner
- * Has a tragic life story but continues to tread on
- */
 public class Player extends Entity {
     private static final float JUMP_ACC = 3f;
     private static final float JUMP_MAX_HEIGHT = 300f;
@@ -44,20 +40,12 @@ public class Player extends Entity {
     private Paint paint;
     private Random random;
 
-    /**
-     * Start angle gets set to 110
-     * because when the scale is default (1) 110° is in the perfect place
-     */
     public Player() {
         setStartAngle(POS);
         setStartJump(0f);
+        color = Color.BLACK;
     }
 
-    /**
-     * Reset the player and set game values
-     *
-     * @param game GameModel
-     */
     public void setGame(GameModel game) {
         this.game = game;
         this.maxJump = JUMP_MAX_HEIGHT;
@@ -69,11 +57,6 @@ public class Player extends Entity {
         this.random = new Random();
     }
 
-    /**
-     * Draw the walking frames and dust clouds at the players feet
-     *
-     * @param gv The `GameView` to draw to.
-     */
     @Override
     public void draw(GameView gv) {
         if (animationDrawable == null) {
@@ -85,16 +68,10 @@ public class Player extends Entity {
             height = animationDrawable.getIntrinsicHeight() * scale;
 
             drawable = animationDrawable.getFrame(0);
-            if (color != Color.BLACK) {
-                drawable.setTint(color);
-            } else {
-                drawable.setTintList(null);
-            }
+
+            drawable.setTint(color);
 
             setXY();
-            if (!onScreen()) {
-                getBestPosition();
-            }
         }
 
         if (falling || frame >= maxFrames) {
@@ -103,11 +80,9 @@ public class Player extends Entity {
 
         if (animationDrawable.getDuration(frame) < System.currentTimeMillis() - lastTime) {
             drawable = animationDrawable.getFrame(frame++);
-            if (color != Color.BLACK) {
-                drawable.setTint(color);
-            } else {
-                drawable.setTintList(null);
-            }
+
+            drawable.setTint(color);
+
             lastTime = System.currentTimeMillis();
         }
 
@@ -130,24 +105,13 @@ public class Player extends Entity {
         }
     }
 
-    /**
-     * If player gets spawned off-screen (110°) it will try to find a new spot
-     */
     private void getBestPosition() {
         while (!onScreen()) {
             setStartAngle(--startAngle);
             setXY();
         }
-
-        for (int i = 0; i < 5; i++) {
-            setStartAngle(--startAngle);
-            setXY();
-        }
     }
 
-    /**
-     * Add random dust particles to the dust queue
-     */
     private void randomDust() {
         if (dust.size() < 10 && !dead && !jumping) {
             float[] particle = new float[4];
@@ -159,11 +123,6 @@ public class Player extends Entity {
         }
     }
 
-    /**
-     * Draw the random dust particles
-     *
-     * @param canvas canvas to draw to
-     */
     private void drawRunDust(Canvas canvas) {
         randomDust();
 
@@ -178,15 +137,10 @@ public class Player extends Entity {
         }
     }
 
-    /**
-     * Every tick it will check for collision
-     * And it will respond to the users touches by either jumping or ducking
-     */
     @Override
     public void tick() {
         if (dead) return;
 
-        // Collision detection
         for (Entity entity : game.getEntities()) {
             if (!(entity instanceof Player)
                     && !(entity instanceof Circle)
@@ -200,7 +154,6 @@ public class Player extends Entity {
             }
         }
 
-        // Jump or Duck
         for (GameModel.Touch touch : game.touches) {
             // Right side condition
             // if (Math.abs(touch.x) > game.getWidth() / 2) {
@@ -216,15 +169,11 @@ public class Player extends Entity {
             // }
         }
 
-        // if player is jumping finish the jump
         if (jumping) {
             jump();
         }
     }
 
-    /**
-     * Either fall down or continue jumping
-     */
     private void jump() {
         if (falling) {
             jump -= fallingSpeed == 0 ? JUMP_ACC * .9f : fallingSpeed;
@@ -259,6 +208,10 @@ public class Player extends Entity {
             setXYValues(xy);
             angle -= 90;
         }
+
+        if (!onScreen()) {
+            getBestPosition();
+        }
     }
 
     @Override
@@ -275,9 +228,6 @@ public class Player extends Entity {
         this.dead = !enabled;
     }
 
-    /**
-     * Reset player values
-     */
     @Override
     public void reset() {
         jumping = false;

@@ -43,4 +43,10 @@
     <string name="level">Level</string>
     <string name="saved">Saved!</string>
 
+    <!-- Used in level selector -->
+    <string name="levels">Levels</string>
+    <string name="delete">Delete</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+
 </resources>

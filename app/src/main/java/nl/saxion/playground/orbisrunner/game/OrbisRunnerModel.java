@@ -3,7 +3,7 @@ package nl.saxion.playground.orbisrunner.game;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Canvas;
-import android.media.SoundPool;
+import android.media.MediaPlayer;
 
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.Entity;
@@ -20,17 +20,8 @@ public class OrbisRunnerModel extends GameModel {
     private final Circle circle;
     private final Player player;
     private final Level level;
-    private final SoundPool sound;
-    private final int DEATH_SOUND;
+    private final MediaPlayer mediaPlayer;
 
-    /**
-     * When a new game gets created game will reset all values
-     * Scale = 1
-     * new Circle
-     * Player#reset()
-     *
-     * @param activity used for context needed for sounds
-     */
     public OrbisRunnerModel(Activity activity) {
         Entity.setScale(1);
 
@@ -46,24 +37,14 @@ public class OrbisRunnerModel extends GameModel {
 
         this.activity = activity;
 
-        sound = new SoundPool.Builder().build();
-        DEATH_SOUND = sound.load(activity, R.raw.oof, 1);
+        this.mediaPlayer = MediaPlayer.create(activity, R.raw.oof);
     }
 
-    /**
-     * When game starts this gets run
-     *
-     * @param canvas canvas
-     */
     @Override
     public void start(Canvas canvas) {
         addEntities();
     }
 
-    /**
-     * Add player and circle to game
-     * Add all entities found in level entity list
-     */
     private void addEntities() {
         addEntity(player);
         addEntity(circle);
@@ -80,26 +61,22 @@ public class OrbisRunnerModel extends GameModel {
         }
     }
 
-    /**
-     * If player dies it will call this method
-     * Plays a death sound
-     * Starts the death screen activity
-     */
     public void dead() {
         for (Entity entity : getEntities()) {
             entity.setPaused(true);
         }
 
-        deathSound();
+        deadSound();
 
         Intent intent = new Intent(activity, DeathScreenActivity.class);
         activity.startActivity(intent);
         activity.finish();
+
+        level.setCollectedCoins(0);
+        level.death();
+        GameProvider.saveData(activity);
     }
 
-    /**
-     * When player reaches the finish, this gets called
-     */
     public void finish() {
         player.setEnabled(false);
         for (Entity entity : getEntities()) {
@@ -111,11 +88,13 @@ public class OrbisRunnerModel extends GameModel {
         activity.finish();
     }
 
-    /**
-     * Play sound
-     */
-    private void deathSound() {
-        sound.play(DEATH_SOUND, 1, 1, 0, 0, 1);
+    private void deadSound() {
+        if (GameProvider.isSoundOn()) {
+            mediaPlayer.start();
+        } else {
+            mediaPlayer.release();
+        }
+
     }
 
     @Override
