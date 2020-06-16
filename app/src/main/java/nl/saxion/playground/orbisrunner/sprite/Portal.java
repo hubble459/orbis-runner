@@ -4,9 +4,6 @@ import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.game.OrbisRunnerModel;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 
-/**
- * Portal sprite
- */
 public class Portal extends Sprite {
     @Override
     public int getBitmapRes() {
@@ -18,12 +15,6 @@ public class Portal extends Sprite {
         return "Portal";
     }
 
-    /**
-     * When hit, finish the level
-     *
-     * @param e entity needed for dimensions
-     * @return true if dead
-     */
     @Override
     public boolean inHitBox(Entity e) {
         if (super.inHitBox(e) && game instanceof OrbisRunnerModel) {

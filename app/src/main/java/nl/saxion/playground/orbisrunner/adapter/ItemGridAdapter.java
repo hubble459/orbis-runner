@@ -15,10 +15,6 @@ import java.util.List;
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.game.ShopItem;
 
-/**
- * Adapter class for showing Items in a grid
- * Used in Customization and Shop Activity class
- */
 public class ItemGridAdapter extends ArrayAdapter<ShopItem> {
     private LayoutInflater inflater;
 

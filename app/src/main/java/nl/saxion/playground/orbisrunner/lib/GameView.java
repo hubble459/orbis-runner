@@ -293,12 +293,6 @@ public class GameView extends View implements View.OnTouchListener {
         }
     }
 
-    /**
-     * Set the background color of the view
-     * Default = Color.BLACK
-     *
-     * @param color new bg color
-     */
     @Override
     public void setBackgroundColor(int color) {
         blackPaint.setColor(color);

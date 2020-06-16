@@ -1,6 +1,7 @@
 package nl.saxion.playground.orbisrunner.singleton;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -19,6 +20,7 @@ import java.util.Scanner;
 import nl.saxion.playground.orbisrunner.game.Level;
 import nl.saxion.playground.orbisrunner.game.Shop;
 import nl.saxion.playground.orbisrunner.game.ShopItem;
+import nl.saxion.playground.orbisrunner.service.MusicService;
 import nl.saxion.playground.orbisrunner.sprite.Player;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -34,11 +36,10 @@ public class GameProvider {
     private static final GameProvider instance = new GameProvider();
     private Shop shop;
     private Player player;
+    private Intent music;
     private int coins;
     private int currentLevel;
-    private int maxLevel;
     private boolean musicOn;
-    private boolean soundOn;
 
     private ArrayList<Level> levels;
 
@@ -58,52 +59,62 @@ public class GameProvider {
         return getLevels().get(instance.currentLevel);
     }
 
-    public static int getCoins() {
-        return instance.coins;
+    public static void nextLevel() {
+        if (instance.currentLevel < getLevels().size()) {
+            instance.currentLevel += 1;
+        } else {
+            //TODO Show level selector screen
+        }
     }
 
-    public static void setCoins(int coins) {
-        instance.coins = coins;
-    }
+    /**
+     * Get all saved variables from a json file named "savedData.json" in the files dir for this app
+     *
+     * @param context needed to get the files directory
+     */
+    public static void getSave(final Context context) {
+        try {
+            File file = new File(context.getFilesDir() + "/savedData.json");
+            if (!file.exists()) return;
 
-    public static int getMaxLevel() {
-        return instance.maxLevel;
-    }
+            Scanner sc = new Scanner(file);
+            String jsonString = sc.nextLine();
 
-    public static void setMaxLevel(int maxLevel) {
-        instance.maxLevel = maxLevel;
-    }
+            JSONObject data = new JSONObject(jsonString);
 
-    public static void setCurrentLevel(int currentLevel) {
-        instance.currentLevel = currentLevel;
-    }
+            instance.coins = data.optInt("coins");
+            instance.currentLevel = data.optInt("level");
+            instance.player.setColor(data.optInt("color"));
+            instance.shop.select(data.optInt("active"));
 
-    public static ArrayList<Level> getLevels() {
-        return instance.levels;
-    }
+            JSONArray unlocked = data.optJSONArray("unlocked");
+            if (unlocked != null) {
+                for (int i = 0; i < unlocked.length(); i++) {
+                    instance.shop.unlock(unlocked.getInt(i));
+                }
+            }
 
-    public static Player getPlayer() {
-        return instance.player;
-    }
-
-    public static Shop getShop() {
-        return instance.shop;
-    }
-
-    public static boolean isMusicOn() {
-        return instance.musicOn;
-    }
-
-    public static void setMusicOn(boolean on) {
-        instance.musicOn = on;
-    }
-
-    public static boolean isSoundOn() {
-        return instance.soundOn;
-    }
-
-    public static void setSoundOn(boolean soundOn) {
-        instance.soundOn = soundOn;
+            JSONArray levels = data.optJSONArray("levels");
+            if (levels != null) {
+                for (int i = 0; i < levels.length(); i++) {
+                    JSONObject object = levels.optJSONObject(i);
+                    if (object != null) {
+                        Level level = Level.fromJSON(object);
+                        if (level != null && !hasLevel(level)) {
+                            instance.levels.add(level);
+                        }
+                    }
+                }
+                Collections.sort(instance.levels, new Comparator<Level>() {
+                    @Override
+                    public int compare(Level o1, Level o2) {
+                        return String.valueOf(o1.getNumber()).compareTo(String.valueOf(o2.getNumber()));
+                    }
+                });
+            }
+        } catch (FileNotFoundException | JSONException e) {
+            Log.e("uwu", "getSave: ", e);
+        }
     }
 
     public static boolean hasLevel(Level level) {
@@ -127,11 +138,8 @@ public class GameProvider {
 
             savedDataJSON.put("coins", instance.coins);
             savedDataJSON.put("level", instance.currentLevel);
-            savedDataJSON.put("maxLevel", instance.maxLevel);
             savedDataJSON.put("color", instance.player.getColor());
             savedDataJSON.put("active", instance.shop.getSelected());
-            savedDataJSON.put("music", instance.musicOn);
-            savedDataJSON.put("sound", instance.soundOn);
 
             JSONArray unlockedItems = new JSONArray();
             for (ShopItem shopItem : instance.shop.getShopItems()) {
@@ -163,58 +171,45 @@ public class GameProvider {
         }
     }
 
-    /**
-     * Get all saved variables from a json file named "savedData.json" in the files dir for this app
-     *
-     * @param context needed to get the files directory
-     */
-    public static void getSave(final Context context) {
-        try {
-            File file = new File(context.getFilesDir() + "/savedData.json");
-            if (!file.exists()) return;
+    public static int getCoins() {
+        return instance.coins;
+    }
 
-            Scanner sc = new Scanner(file);
-            String jsonString = sc.nextLine();
+    public static void setCoins(int coins) {
+        instance.coins = coins;
+    }
 
-            JSONObject data = new JSONObject(jsonString);
+    public static ArrayList<Level> getLevels() {
+        return instance.levels;
+    }
 
-            instance.coins = data.optInt("coins");
-            instance.currentLevel = data.optInt("level");
-            instance.maxLevel = data.optInt("maxLevel");
-            instance.player.setColor(data.optInt("color"));
-            instance.shop.select(data.optInt("active"));
-            instance.musicOn = data.optBoolean("music", true);
-            instance.soundOn = data.optBoolean("sound", true);
+    public static Player getPlayer() {
+        return instance.player;
+    }
 
-            JSONArray unlocked = data.optJSONArray("unlocked");
-            if (unlocked != null) {
-                for (int i = 0; i < unlocked.length(); i++) {
-                    instance.shop.unlock(unlocked.getInt(i));
-                }
-            }
+    public static Shop getShop() {
+        return instance.shop;
+    }
 
-            JSONArray levels = data.optJSONArray("levels");
-            if (levels != null) {
-                for (int i = 0; i < levels.length(); i++) {
-                    JSONObject object = levels.optJSONObject(i);
-                    if (object != null) {
-                        Level level = Level.fromJSON(object);
-                        if (level != null && !hasLevel(level)) {
-                            instance.levels.add(level);
-                        }
-                    }
-                }
-                Collections.sort(instance.levels, new Comparator<Level>() {
-                    @Override
-                    public int compare(Level o1, Level o2) {
-                        return String.valueOf(o1.getNumber()).compareTo(String.valueOf(o2.getNumber()));
-                    }
-                });
-            }
-        } catch (FileNotFoundException | JSONException e) {
-            Log.e("uwu", "getSave: ", e);
+    public static void startMusic(Context context) {
+        if (instance.musicOn && instance.music == null) {
+            instance.music = new Intent(context, MusicService.class);
+            context.startService(instance.music);
         }
     }
+
+    public static void stopMusic(Context context) {
+        if (instance.music != null) {
+            context.stopService(instance.music);
+            instance.music = null;
+        }
+    }
+
+    public static boolean isMusicOn() {
+        return instance.musicOn;
+    }
+
+    public static void setMusic(boolean on) {
+        instance.musicOn = on;
+    }
 }
-
-

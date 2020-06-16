@@ -33,11 +33,6 @@ public class CustomizationActivity extends AppCompatActivity {
         init();
     }
 
-    /**
-     * Initialize the screen
-     * Fill spinner with colors to choose from
-     * Make a grid with hats you bought to select/wear
-     */
     private void init() {
         final ArrayList<Color> colors = colors();
 
@@ -71,11 +66,6 @@ public class CustomizationActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Select a hat
-     *
-     * @param pos hat position
-     */
     private void setSelected(int pos) {
         ArrayList<ShopItem> unlocked = unlockedItems();
         for (int i = 0; i < unlocked.size(); i++) {
@@ -89,11 +79,6 @@ public class CustomizationActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Get all unlocked/bought items
-     *
-     * @return unlocked items
-     */
     private ArrayList<ShopItem> unlockedItems() {
         ArrayList<ShopItem> items = new ArrayList<>();
         for (ShopItem item : GameProvider.getShop().getShopItems()) {
@@ -104,13 +89,6 @@ public class CustomizationActivity extends AppCompatActivity {
         return items;
     }
 
-    /**
-     * Get the color position in the spinner from a color
-     *
-     * @param colors color list
-     * @param color  color
-     * @return position in spinner
-     */
     private int colorPos(ArrayList<Color> colors, int color) {
         for (int i = 0; i < colors.size(); i++) {
             if (colors.get(i).color == color) {
@@ -120,11 +98,6 @@ public class CustomizationActivity extends AppCompatActivity {
         return 0;
     }
 
-    /**
-     * List of colors to choose from
-     *
-     * @return colors
-     */
     private ArrayList<Color> colors() {
         ArrayList<Color> colors = new ArrayList<>();
         colors.add(new Color("Black", android.graphics.Color.BLACK));
@@ -141,9 +114,6 @@ public class CustomizationActivity extends AppCompatActivity {
         finish();
     }
 
-    /**
-     * Simple color class to make saving and using colors easier
-     */
     private static class Color {
         private String name;
         private int color;

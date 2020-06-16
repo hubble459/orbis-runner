@@ -37,11 +37,6 @@ import nl.saxion.playground.orbisrunner.sprite.Portal;
 import nl.saxion.playground.orbisrunner.sprite.Sprite;
 import nl.saxion.playground.orbisrunner.sprite.StaticEnemy;
 
-/**
- * Activity for making and editing levels
- * Intended to be used by the developers only
- * but will be integrated into the app as a bonus
- */
 public class LevelMaker extends AppCompatActivity {
     private ArrayList<Sprite> sprites;
 
@@ -51,9 +46,6 @@ public class LevelMaker extends AppCompatActivity {
     private Level level;
     private MakerModel model;
 
-    /**
-     * Sprites you can choose from
-     */
     private void addSprites() {
         sprites.add(new StaticEnemy());
         sprites.add(new FlyingEnemy());
@@ -62,11 +54,6 @@ public class LevelMaker extends AppCompatActivity {
         sprites.add(new Portal());
     }
 
-    /**
-     * Get views
-     *
-     * @param savedInstanceState unused
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,105 +68,6 @@ public class LevelMaker extends AppCompatActivity {
         startingPopup();
     }
 
-    /**
-     * Initialize the editor/maker
-     */
-    private void init() {
-        model = new MakerModel(this, level);
-        gameView.setGame(model);
-        gameView.setBackgroundColor(Color.WHITE);
-
-        sprites = new ArrayList<>();
-        addSprites();
-
-        EntityGridAdapter adapter = new EntityGridAdapter(this, sprites);
-
-        // Entity chooser grid
-        entityList.setAdapter(adapter);
-        entityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    Entity e = sprites.get(position).newInstance();
-                    e.setLevelMaker(LevelMaker.this);
-                    select(e);
-                    model.addEntity(e);
-                    level.addEntity(e);
-                } catch (InstantiationException | IllegalAccessException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-
-        // Change the circle size (scale)
-        sizeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                float scale = 1 / (progress + 2f);
-                Entity.setScale(scale);
-                Circle c = model.getCircle();
-                c.setMargin(c.getMargin() / scale);
-
-                for (Entity entity : model.getEntities()) {
-                    entity.resize();
-                    if (entity instanceof Player) {
-                        float[] xy = getXYFromDegrees(entity.getStartAngle(), entity.getMargin(), entity);
-                        xy[2] -= 90;
-                        entity.setXYValues(xy);
-                    } else {
-                        entity.setXYValues(getXYFromDegrees(entity.getAngle(), entity.getJump(), entity));
-                    }
-                }
-            }
-
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-        sizeBar.setProgress((int) (1 / level.getScale()) - 2);
-
-        // Change the position of the currently selected entity
-        posBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Entity e = getSelected();
-                if (e == null) return;
-                e.setXYValues(model.getXYFromDegrees(360 - progress, 0, e));
-            }
-
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-
-        // Change the height of the currently selected entity
-        heightBar.setMax(200);
-        heightBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Entity e = getSelected();
-                if (e == null) return;
-                e.setStartJump((float) progress);
-                e.setXYValues(model.getXYFromDegrees(e.getAngle(), 0, e));
-            }
-
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-    }
-
-    /**
-     * On startup ask user if they want to make or edit a level
-     * <p>
-     * Finish activity on dismiss and cancel
-     */
     private void startingPopup() {
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             @Override
@@ -213,11 +101,94 @@ public class LevelMaker extends AppCompatActivity {
                 .show();
     }
 
-    /**
-     * Select an entity
-     *
-     * @param e entity to select
-     */
+    private void init() {
+        model = new MakerModel(this, level);
+        gameView.setGame(model);
+        gameView.setBackgroundColor(Color.WHITE);
+
+        sprites = new ArrayList<>();
+        addSprites();
+
+        EntityGridAdapter adapter = new EntityGridAdapter(this, sprites);
+
+        entityList.setAdapter(adapter);
+        entityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    Entity e = sprites.get(position).newInstance();
+                    e.setLevelMaker(LevelMaker.this);
+                    select(e);
+                    model.addEntity(e);
+                    level.addEntity(e);
+                } catch (InstantiationException | IllegalAccessException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        sizeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                float scale = 1 / (progress + 2f);
+                Entity.setScale(scale);
+                Circle c = model.getCircle();
+                c.setMargin(c.getMargin() / scale);
+
+                for (Entity entity : model.getEntities()) {
+                    entity.resize();
+                    if (entity instanceof Player) {
+                        float[] xy = getXYFromDegrees(entity.getStartAngle(), entity.getMargin(), entity);
+                        xy[2] -= 90;
+                        entity.setXYValues(xy);
+                    } else {
+                        entity.setXYValues(getXYFromDegrees(entity.getAngle(), entity.getJump(), entity));
+                    }
+                }
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+        sizeBar.setProgress((int) (1 / level.getScale()) - 2);
+
+
+        posBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Entity e = getSelected();
+                if (e == null) return;
+                e.setXYValues(model.getXYFromDegrees(360 - progress, 0, e));
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        heightBar.setMax(200);
+        heightBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Entity e = getSelected();
+                if (e == null) return;
+                e.setStartJump((float) progress);
+                e.setXYValues(model.getXYFromDegrees(e.getAngle(), 0, e));
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+    }
+
     public void select(Entity e) {
         deselectAll();
         e.setSelected(true);
@@ -225,11 +196,6 @@ public class LevelMaker extends AppCompatActivity {
         heightBar.setProgress((int) e.getStartJump());
     }
 
-    /**
-     * Get the selected entity
-     *
-     * @return selected entity
-     */
     private Entity getSelected() {
         for (Entity entity : model.getEntities()) {
             if (entity.isSelected()) {
@@ -239,11 +205,7 @@ public class LevelMaker extends AppCompatActivity {
         return null;
     }
 
-    /**
-     * Show popup with levels you can edit
-     */
     private void showEditPopup() {
-        // 'Custom' adapter
         ArrayAdapter<Level> adapter = new ArrayAdapter<Level>(this, android.R.layout.simple_list_item_1, GameProvider.getLevels()) {
             @NonNull
             @Override
@@ -255,7 +217,6 @@ public class LevelMaker extends AppCompatActivity {
             }
         };
 
-        // Popup
         new AlertDialog.Builder(this)
                 .setTitle(R.string.edit_level)
                 .setAdapter(adapter, new DialogInterface.OnClickListener() {
@@ -274,14 +235,6 @@ public class LevelMaker extends AppCompatActivity {
                 .show();
     }
 
-    /**
-     * Save level to file
-     * Can choose which level it should be on save
-     * Eg. you have 3 levels. You made a new one and this is perfect to be the first level,
-     * you can save it as the first level. Levels behind it will be shifted forwards a spot
-     *
-     * @param view save button
-     */
     public void save(View view) {
         level.setScale(Entity.getScale());
         for (Entity entity : level.getEntities()) {
@@ -317,20 +270,12 @@ public class LevelMaker extends AppCompatActivity {
         }
     }
 
-    /**
-     * Save and finish
-     */
     private void saveFinish() {
         GameProvider.saveData(this);
         Toast.makeText(this, R.string.saved, Toast.LENGTH_SHORT).show();
         finish();
     }
 
-    /**
-     * Shift levels ahead
-     *
-     * @param number number to start shifting at
-     */
     private void shiftNumbers(int number) {
         ArrayList<Level> levels = GameProvider.getLevels();
         int max = levels.size();
@@ -342,9 +287,6 @@ public class LevelMaker extends AppCompatActivity {
         }
     }
 
-    /**
-     * Deselect all entities
-     */
     public void deselectAll() {
         model.deselectAll();
     }

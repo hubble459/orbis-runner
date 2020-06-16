@@ -2,9 +2,6 @@ package nl.saxion.playground.orbisrunner.sprite;
 
 import nl.saxion.playground.orbisrunner.R;
 
-/**
- * Dino sprite
- */
 public class StaticEnemy extends Sprite {
     public StaticEnemy() {
         setMargin(-20f);
@@ -17,6 +14,6 @@ public class StaticEnemy extends Sprite {
 
     @Override
     public String getName() {
-        return "Dino";
+        return "Static Enemy";
     }
 }

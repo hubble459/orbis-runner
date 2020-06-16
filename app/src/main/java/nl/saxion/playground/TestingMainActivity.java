@@ -24,9 +24,7 @@ import nl.saxion.playground.orbisrunner.ui.CustomizationActivity;
 import nl.saxion.playground.orbisrunner.ui.DeathScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.FinishScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.GameActivity;
-import nl.saxion.playground.orbisrunner.ui.LevelExporterActivity;
 import nl.saxion.playground.orbisrunner.ui.LevelMaker;
-import nl.saxion.playground.orbisrunner.ui.LevelSelectorActivity;
 import nl.saxion.playground.orbisrunner.ui.SettingScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.SplashScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.StartScreenActivity;
@@ -50,14 +48,12 @@ public class TestingMainActivity extends AppCompatActivity {
         activityClasses.add(SplashScreenActivity.class);
         activityClasses.add(StartScreenActivity.class);
         activityClasses.add(SettingScreenActivity.class);
-        activityClasses.add(LevelSelectorActivity.class);
         activityClasses.add(CustomizationActivity.class);
         activityClasses.add(GameActivity.class);
         activityClasses.add(DeathScreenActivity.class);
         activityClasses.add(LevelMaker.class);
         activityClasses.add(ControlTestingActivity.class);
         activityClasses.add(FinishScreenActivity.class);
-        activityClasses.add(LevelExporterActivity.class);
     }
 
     /**

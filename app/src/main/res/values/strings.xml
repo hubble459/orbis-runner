@@ -43,14 +43,4 @@
     <string name="level">Level</string>
     <string name="saved">Saved!</string>
 
-    <!-- Used in level selector -->
-    <string name="levels">Levels</string>
-    <string name="delete">Delete</string>
-    <string name="no">No</string>
-    <string name="yes">Yes</string>
-
-    <!-- Used in level exporter -->
-    <string name="copy_all">Copy All</string>
-    <string name="copy_specific">Copy specific</string>
-
 </resources>
