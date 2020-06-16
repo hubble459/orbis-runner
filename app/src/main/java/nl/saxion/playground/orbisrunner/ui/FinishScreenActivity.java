@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.game.Level;
+import nl.saxion.playground.orbisrunner.game.OrbisRunnerModel;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 public class FinishScreenActivity extends AppCompatActivity {
@@ -46,7 +47,10 @@ public class FinishScreenActivity extends AppCompatActivity {
         nextLevelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Stub
+                OrbisRunnerModel.nextLevel();
+
+                Intent intent = new Intent(FinishScreenActivity.this, GameActivity.class);
+                startActivity(intent);
             }
         });
 

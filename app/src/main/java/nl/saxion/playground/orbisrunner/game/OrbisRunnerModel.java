@@ -19,14 +19,14 @@ public class OrbisRunnerModel extends GameModel {
     private final Activity activity;
     private final Circle circle;
     private final Player player;
-    private final Level level;
+    private static Level level;
     private final SoundPool sound;
     private final int DEATH_SOUND;
 
     public OrbisRunnerModel(Activity activity) {
         Entity.setScale(1);
 
-        this.level = GameProvider.getCurrentLevel();
+        level = GameProvider.getCurrentLevel();
 
         this.circle = new Circle(true, true);
         this.circle.setSize(Circle.SIZE_DOUBLE, level.getScale());
@@ -40,6 +40,10 @@ public class OrbisRunnerModel extends GameModel {
 
         sound = new SoundPool.Builder().build();
         DEATH_SOUND = sound.load(activity, R.raw.oof, 1);
+    }
+
+    public static void nextLevel() {
+        level = GameProvider.getNextLevel();
     }
 
     @Override

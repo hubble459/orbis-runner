@@ -59,6 +59,11 @@ public class GameProvider {
         return getLevels().get(instance.currentLevel);
     }
 
+    public static Level getNextLevel() {
+        if (getLevels() == null || getLevels().isEmpty()) return Level.dummy();
+        return getLevels().get(instance.currentLevel + 1);
+    }
+
     /**
      * Get all saved variables from a json file named "savedData.json" in the files dir for this app
      *
