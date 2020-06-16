@@ -6,6 +6,9 @@ import android.graphics.Paint;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameView;
 
+/**
+ * Circle sprite
+ */
 public class Circle extends Entity {
     public static final float SIZE_DOUBLE = -1;
 
@@ -20,6 +23,12 @@ public class Circle extends Entity {
 
     private Paint paint;
 
+    /**
+     * Set-up paint, scale and strokeWidth
+     *
+     * @param black      circle color is blacl
+     * @param onlyBottom show only the bottom half of the circle
+     */
     public Circle(boolean black, boolean onlyBottom) {
         this.onlyBottom = onlyBottom;
         scale = 1;
@@ -32,6 +41,11 @@ public class Circle extends Entity {
         strokeWidth = STROKE_WIDTH;
     }
 
+    /**
+     * Draw the circle
+     *
+     * @param gv The `GameView` to draw to.
+     */
     @Override
     public void draw(GameView gv) {
         if (size == 0 || size == SIZE_DOUBLE) {
@@ -53,12 +67,22 @@ public class Circle extends Entity {
         gv.getCanvas().drawCircle(xMiddle, yMiddle, getRadiusOutside(), paint);
     }
 
+    /**
+     * Get radius including the strokeWidth
+     *
+     * @return radius
+     */
     private float getRadiusOutside() {
         return size / 2;
     }
 
+    /**
+     * Get radius excluding the strokeWidth
+     *
+     * @return radius
+     */
     private float getRadiusInside() {
-        return getRadiusOutside() - (strokeWidth);
+        return getRadiusOutside() - strokeWidth;
     }
 
     public void setSize(float size, float scale) {
@@ -67,6 +91,14 @@ public class Circle extends Entity {
         this.superSize = size;
     }
 
+    /**
+     * Calculate the X and Y points in the circle from the degrees
+     *
+     * @param degrees degrees
+     * @param margin  margin
+     * @param e       Entity needed for dimensions
+     * @return XY[]
+     */
     public float[] getXYFromDegrees(float degrees, float margin, Entity e) {
         margin = Math.max(25f, this.margin + margin);
 

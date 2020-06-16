@@ -15,6 +15,10 @@ import java.util.List;
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.sprite.Sprite;
 
+/**
+ * Adapter class for showing Sprites in a grid
+ * Used in LevelMaker Activity
+ */
 public class EntityGridAdapter extends ArrayAdapter<Sprite> {
     private LayoutInflater inflater;
 

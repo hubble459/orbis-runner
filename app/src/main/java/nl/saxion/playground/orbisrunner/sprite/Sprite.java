@@ -10,11 +10,19 @@ import android.support.annotation.DrawableRes;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameView;
 
+/**
+ * Sprite inherits from Entity and automatically moves toward the player
+ */
 public abstract class Sprite extends Entity {
     private Bitmap bitmap;
     private Paint paint;
     private float speedScale;
 
+    /**
+     * Draw a bitmap to the x and y
+     *
+     * @param gv The `GameView` to draw to.
+     */
     @Override
     public void draw(GameView gv) {
         if (bitmap == null) {
@@ -48,6 +56,11 @@ public abstract class Sprite extends Entity {
         }
     }
 
+    /**
+     * Draw outline when selected
+     *
+     * @param canvas canvas to draw on
+     */
     private void drawOutline(Canvas canvas) {
         if (levelMaker != null && isSelected()) {
             if (paint == null) {
@@ -65,6 +78,9 @@ public abstract class Sprite extends Entity {
         }
     }
 
+    /**
+     * Move by a certain amount
+     */
     @Override
     public void tick() {
         if (game != null && !pause) {

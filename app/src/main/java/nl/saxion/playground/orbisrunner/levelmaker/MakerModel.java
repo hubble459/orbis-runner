@@ -10,12 +10,21 @@ import nl.saxion.playground.orbisrunner.sprite.Circle;
 import nl.saxion.playground.orbisrunner.sprite.Player;
 import nl.saxion.playground.orbisrunner.ui.LevelMaker;
 
+/**
+ * Model used in the LevelMaker activity to make a level
+ */
 public class MakerModel extends GameModel {
     private Circle circle;
     private Player player;
     private Level level;
     private LevelMaker levelMaker;
 
+    /**
+     * Constructor resetting most values to set-up a maker screen
+     *
+     * @param levelMaker Activity
+     * @param level      is GameProvider#getCurrentGame();
+     */
     public MakerModel(LevelMaker levelMaker, Level level) {
         this.levelMaker = levelMaker;
         this.level = level;
@@ -57,6 +66,9 @@ public class MakerModel extends GameModel {
         return circle.getXYFromDegrees(degrees, margin, e);
     }
 
+    /**
+     * When an entity is clicked it will first deselect all other entities
+     */
     public void deselectAll() {
         for (Entity entity : getEntities()) {
             entity.setSelected(false);

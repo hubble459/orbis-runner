@@ -6,11 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
+/**
+ * Settings screen in which you can turn sound or music off and on
+ */
 public class SettingScreenActivity extends AppCompatActivity {
 
     @Override
@@ -21,17 +23,19 @@ public class SettingScreenActivity extends AppCompatActivity {
         init();
     }
 
+    /**
+     * Set buttons
+     * Save when toggled
+     */
     public void init() {
         Switch sound = findViewById(R.id.soundSwitch);
+        sound.setChecked(GameProvider.isSoundOn());
         sound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                 //toggle sound off or on
-                if (b) {
-                    Toast.makeText(SettingScreenActivity.this, "Sound Off", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(SettingScreenActivity.this, "Sound On", Toast.LENGTH_SHORT).show();
-                }
+                GameProvider.setSoundOn(checked);
+                GameProvider.saveData(SettingScreenActivity.this);
             }
         });
 
@@ -42,13 +46,8 @@ public class SettingScreenActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                 //toggle music off or on
-                if (checked) {
-                    GameProvider.setMusic(true);
-                    Toast.makeText(SettingScreenActivity.this, "Music On", Toast.LENGTH_SHORT).show();
-                } else {
-                    GameProvider.setMusic(false);
-                    Toast.makeText(SettingScreenActivity.this, "Music Off", Toast.LENGTH_SHORT).show();
-                }
+                GameProvider.setMusicOn(checked);
+                GameProvider.saveData(SettingScreenActivity.this);
             }
         });
 
@@ -58,7 +57,6 @@ public class SettingScreenActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Go to the starting screen
                 finish();
-
             }
         });
     }
