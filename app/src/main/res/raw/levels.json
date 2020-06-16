@@ -1,8 +1,8 @@
 [
   {
     "number": 1,
-    "scale": 0.1428571492433548,
-    "deaths": 3,
+    "scale": 0.5,
+    "deaths": 0,
     "objectiveClaimed": false,
     "custom": false,
     "entities": [
@@ -15,6 +15,51 @@
         "angle": 291,
         "jump": 92,
         "type": "FlyingEnemy"
+      },
+      {
+        "angle": 134,
+        "jump": 0,
+        "type": "Portal"
+      },
+      {
+        "angle": 209,
+        "jump": 0,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 54,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 307,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 152,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 191,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 187,
+        "jump": 45,
+        "type": "Coin"
+      },
+      {
+        "angle": 176,
+        "jump": 75,
+        "type": "Coin"
+      },
+      {
+        "angle": 164,
+        "jump": 55,
+        "type": "Coin"
       }
     ]
   }
