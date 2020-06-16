@@ -60,7 +60,11 @@ public class GameProvider {
     }
 
     public static void nextLevel() {
-        instance.currentLevel += 1;
+        if (instance.currentLevel < getLevels().size()) {
+            instance.currentLevel += 1;
+        } else {
+            //Show level selector screen
+        }
     }
 
     /**

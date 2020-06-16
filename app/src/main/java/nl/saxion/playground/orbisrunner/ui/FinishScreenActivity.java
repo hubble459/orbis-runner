@@ -94,5 +94,4 @@ public class FinishScreenActivity extends AppCompatActivity {
         imageView.setImageResource(R.drawable.green_tick);
     }
 
-
 }
