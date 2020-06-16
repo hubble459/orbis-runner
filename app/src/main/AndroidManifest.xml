@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/tmp_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.LevelExporterActivity" />
         <activity android:name=".ui.LevelSelectorActivity" />
         <activity android:name=".ui.FinishScreenActivity" />
         <activity android:name=".ui.CustomizationActivity" />
@@ -26,8 +27,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.DeathScreenActivity" />
-
-        <service android:name=".service.MusicService" />
     </application>
 
 </manifest>
