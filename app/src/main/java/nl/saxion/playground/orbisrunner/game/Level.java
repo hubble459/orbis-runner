@@ -97,7 +97,7 @@ public class Level {
         return l;
     }
 
-    private void setDeathCounter(int deathCounter) {
+    public void setDeathCounter(int deathCounter) {
         this.deathCounter = deathCounter;
     }
 

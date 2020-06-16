@@ -238,7 +238,7 @@ public class GameProvider {
                                 Level gLevel = getSameLevel(level);
                                 if (gLevel != null) {
                                     gLevel.setObjectiveClaimed(level.getObjectiveClaimed());
-                                    //gLevel.setNumberDeaths();
+                                    gLevel.setDeathCounter(level.getDeathCounter());
                                 }
                             }
                         }
