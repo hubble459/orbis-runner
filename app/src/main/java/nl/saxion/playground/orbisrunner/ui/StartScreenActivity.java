@@ -86,7 +86,8 @@ public class StartScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Clear saved level progress and start game on level 0
-                toast("New Game Clicked");
+                Intent game = new Intent(StartScreenActivity.this, LevelSelectorActivity.class);
+                startActivity(game);
             }
         });
 
@@ -104,6 +105,7 @@ public class StartScreenActivity extends AppCompatActivity {
 
     /**
      * A toast is used for testing purposes
+     *
      * @param msg the String to show
      */
     private void toast(String msg) {

@@ -10,6 +10,9 @@ import java.util.Random;
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.Animation;
 
+/**
+ * Splash screen shown at startup for extra cool points
+ */
 public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
@@ -20,6 +23,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         init();
     }
 
+    /**
+     * Start player walking animation and rotation, so it looks like the player is walking in the circle
+     */
     public void init() {
         // Animate Player W A L K I N G
         ImageView player = findViewById(R.id.player);

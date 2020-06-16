@@ -6,6 +6,9 @@ import nl.saxion.playground.orbisrunner.game.OrbisRunnerModel;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
+/**
+ * Coin sprite
+ */
 public class Coin extends Sprite {
     public Coin() {
         setMargin(-20f);
@@ -21,6 +24,12 @@ public class Coin extends Sprite {
         return "Coin";
     }
 
+    /**
+     * When you touch a coin the coin will disappear and you will be granted one coin
+     *
+     * @param e entity needed for dimensions
+     * @return true if dead
+     */
     @Override
     public boolean inHitBox(Entity e) {
         if (super.inHitBox(e) && game instanceof OrbisRunnerModel) {
