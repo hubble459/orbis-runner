@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
 
+import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.game.Level;
 import nl.saxion.playground.orbisrunner.game.Shop;
 import nl.saxion.playground.orbisrunner.game.ShopItem;
@@ -123,6 +124,15 @@ public class GameProvider {
         return false;
     }
 
+    private static Level getSameLevel(Level level) {
+        for (Level l : getLevels()) {
+            if (l.getNumber() == level.getNumber()) {
+                return l;
+            }
+        }
+        return null;
+    }
+
     /**
      * Save all variables to a json file named "savedData.json" in the files dir for this app
      *
@@ -177,6 +187,28 @@ public class GameProvider {
      * @param context needed to get the files directory
      */
     public static void getSave(final Context context) {
+        // Get levels
+        try {
+            Scanner sc = new Scanner(context.getResources().openRawResource(R.raw.levels));
+            StringBuilder builder = new StringBuilder();
+            while (sc.hasNextLine()) {
+                builder.append(sc.nextLine());
+            }
+
+            JSONArray levels = new JSONArray(builder.toString());
+            for (int i = 0; i < levels.length(); i++) {
+                JSONObject level = levels.optJSONObject(i);
+                if (level != null) {
+                    Level l = Level.fromJSON(level);
+                    instance.levels.add(l);
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Get data
         try {
             File file = new File(context.getFilesDir() + "/savedData.json");
             if (!file.exists()) return;
@@ -207,8 +239,16 @@ public class GameProvider {
                     JSONObject object = levels.optJSONObject(i);
                     if (object != null) {
                         Level level = Level.fromJSON(object);
-                        if (level != null && !hasLevel(level)) {
-                            instance.levels.add(level);
+                        if (level != null) {
+                            if (!hasLevel(level)) {
+                                instance.levels.add(level);
+                            } else {
+                                Level gLevel = getSameLevel(level);
+                                if (gLevel != null) {
+                                    gLevel.setObjectiveClaimed(level.getObjectiveClaimed());
+                                    gLevel.setDeathCounter(level.getDeathCounter());
+                                }
+                            }
                         }
                     }
                 }
