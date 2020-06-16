@@ -15,6 +15,9 @@ import nl.saxion.playground.orbisrunner.sprite.Sprite;
 import nl.saxion.playground.orbisrunner.ui.DeathScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.FinishScreenActivity;
 
+/**
+ * Model used by the GameView to run the game
+ */
 public class OrbisRunnerModel extends GameModel {
     private final Activity activity;
     private final Circle circle;
@@ -22,6 +25,14 @@ public class OrbisRunnerModel extends GameModel {
     private final Level level;
     private final MediaPlayer mediaPlayer;
 
+    /**
+     * When a new game gets created game will reset all values
+     * Scale = 1
+     * new Circle
+     * Player#reset()
+     *
+     * @param activity used for context needed for sounds
+     */
     public OrbisRunnerModel(Activity activity) {
         Entity.setScale(1);
 
@@ -40,11 +51,20 @@ public class OrbisRunnerModel extends GameModel {
         this.mediaPlayer = MediaPlayer.create(activity, R.raw.oof);
     }
 
+    /**
+     * When game starts this gets called
+     *
+     * @param canvas canvas
+     */
     @Override
     public void start(Canvas canvas) {
         addEntities();
     }
 
+    /**
+     * Add player and circle to game
+     * Add all entities found in level entity list
+     */
     private void addEntities() {
         addEntity(player);
         addEntity(circle);
@@ -61,6 +81,11 @@ public class OrbisRunnerModel extends GameModel {
         }
     }
 
+    /**
+     * If player dies it will call this method
+     * Plays a death sound
+     * Starts the death screen activity
+     */
     public void dead() {
         for (Entity entity : getEntities()) {
             entity.setPaused(true);
@@ -77,6 +102,9 @@ public class OrbisRunnerModel extends GameModel {
         GameProvider.saveData(activity);
     }
 
+    /**
+     * When player reaches the finish, this gets called
+     */
     public void finish() {
         player.setEnabled(false);
         for (Entity entity : getEntities()) {
@@ -88,6 +116,9 @@ public class OrbisRunnerModel extends GameModel {
         activity.finish();
     }
 
+    /**
+     * Play sound
+     */
     private void deadSound() {
         if (GameProvider.isSoundOn()) {
             mediaPlayer.start();
@@ -97,6 +128,14 @@ public class OrbisRunnerModel extends GameModel {
 
     }
 
+    /**
+     * Get XY from degrees calculated with circle width and height
+     *
+     * @param degrees angle in circle
+     * @param margin  margin
+     * @param e       entity used for dimensions
+     * @return float[3] 0 being x; 1 being y; 2 being the angle
+     */
     @Override
     public float[] getXYFromDegrees(float degrees, float margin, Entity e) {
         return circle.getXYFromDegrees(degrees, margin, e);

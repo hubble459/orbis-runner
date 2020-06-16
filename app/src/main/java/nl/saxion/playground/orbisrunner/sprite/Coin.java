@@ -6,6 +6,9 @@ import nl.saxion.playground.orbisrunner.game.OrbisRunnerModel;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
+/**
+ * Coin sprite
+ */
 public class Coin extends Sprite {
     public Coin() {
         setMargin(-20f);

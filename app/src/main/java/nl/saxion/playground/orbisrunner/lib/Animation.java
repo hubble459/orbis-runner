@@ -40,7 +40,6 @@ public class Animation {
      * Same as the other one but reverse is in reverse
      */
     public static void walkInCircleSplash(final View view, int duration, boolean inReverse) {
-
         if (!inReverse)
             view.setScaleX(-1);
 

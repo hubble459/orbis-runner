@@ -15,7 +15,10 @@ import nl.saxion.playground.orbisrunner.R;
  * Music Service to play music while g A m i n G
  * <p>
  * Has a playlist of three songs
+ * <p>
+ * Music stops working after a while, so don't use this
  */
+@Deprecated
 public class MusicService extends Service {
     private ArrayList<MediaPlayer> playlist;
 

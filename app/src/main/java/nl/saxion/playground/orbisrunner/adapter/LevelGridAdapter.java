@@ -16,6 +16,10 @@ import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.game.Level;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
+/**
+ * Adapter class for showing Levels in a grid
+ * Used in LevelSelector Activity
+ */
 public class LevelGridAdapter extends ArrayAdapter<Level> {
     private LayoutInflater inflater;
 

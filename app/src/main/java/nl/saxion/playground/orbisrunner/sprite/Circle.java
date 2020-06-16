@@ -6,6 +6,9 @@ import android.graphics.Paint;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameView;
 
+/**
+ * Circle sprite
+ */
 public class Circle extends Entity {
     public static final float SIZE_DOUBLE = -1;
 

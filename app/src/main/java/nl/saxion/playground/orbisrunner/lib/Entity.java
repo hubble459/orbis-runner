@@ -26,8 +26,9 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
     protected float xVal, yVal, angle;
     // Start angle used for saving levels
     protected float startAngle;
+    // Entity scale used in LevelMaker
     protected static float scale = 1;
-    // All entities have dimensions and a scale.
+    // All entities have dimensions.
     protected float width, height, margin;
     // Jump height for player and jumping enemies
     protected float startJump, jump;

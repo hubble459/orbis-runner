@@ -10,6 +10,9 @@ import nl.saxion.playground.orbisrunner.sprite.Circle;
 import nl.saxion.playground.orbisrunner.sprite.Player;
 import nl.saxion.playground.orbisrunner.ui.LevelMaker;
 
+/**
+ * Model used in the LevelMaker activity to make a level
+ */
 public class MakerModel extends GameModel {
     private Circle circle;
     private Player player;

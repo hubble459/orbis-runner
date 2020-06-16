@@ -6,6 +6,9 @@ import android.graphics.drawable.AnimationDrawable;
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.GameView;
 
+/**
+ * Bird Sprite
+ */
 public class FlyingEnemy extends Sprite {
     private AnimationDrawable bird;
     private int frames;
@@ -19,7 +22,7 @@ public class FlyingEnemy extends Sprite {
 
     @Override
     public String getName() {
-        return "Flying Enemy";
+        return "Bird";
     }
 
     /**

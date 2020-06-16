@@ -13,10 +13,17 @@ import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameView;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
+/**
+ * Game activity
+ */
 public class GameActivity extends AppCompatActivity {
-
     private MediaPlayer mediaPlayer;
 
+    /**
+     * Init stuff on create
+     *
+     * @param savedInstanceState unused
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +40,20 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Start music on start
+     * <p>
+     * When you rotate the screen, music will restart
+     */
     @Override
     protected void onStart() {
         startMusic();
         super.onStart();
     }
 
+    /**
+     * Start music if turned on
+     */
     private void startMusic() {
         if (GameProvider.isMusicOn()) {
             mediaPlayer = MediaPlayer.create(this, randomMusic());
@@ -46,6 +61,11 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Get a random song
+     *
+     * @return random song resource
+     */
     private int randomMusic() {
         switch (new Random().nextInt(3)) {
             case 0:
@@ -57,18 +77,25 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Finish the activity when the back button is pressed
+     * <p>
+     * For some reason super.onBackPressed() doesn't work
+     */
     @Override
     public void onBackPressed() {
         finish();
     }
 
+    /**
+     * When the activity is paused, stop the music
+     */
     @Override
     protected void onPause() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.release();
         }
-
 
         super.onPause();
     }

@@ -1,7 +1,5 @@
 package nl.saxion.playground.orbisrunner.game;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,21 +10,42 @@ import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.sprite.Coin;
 import nl.saxion.playground.orbisrunner.sprite.StaticEnemy;
 
+/**
+ * Level class used by the game model and level maker
+ * The level will contains the entity types with positions
+ */
 public class Level {
+    // List of entities in the level
     private ArrayList<Entity> entities;
+    // Scale of level circle
     private float scale;
-    private int deathCounter;
+    // Level number. eg. 3 for level 3
     private int number;
-    private int collectedCoins = 0;
+    // Counter for the # of deaths
+    private int deathCounter;
+    // Counter for coins collected
+    private int collectedCoins;
+    // Check if you already received bonus coins for completing the objectives
+    private boolean objectiveClaimed;
+    // Is a custom made level
     private boolean custom;
-    private boolean objectiveClaimed = false;
 
+    /**
+     * Set default scale to 1
+     *
+     * @param number level number
+     */
     public Level(int number) {
         this.scale = 1;
         this.number = number;
         this.entities = new ArrayList<>();
     }
 
+    /**
+     * If GameProvider#currentLevel() gets called but there are no levels, you will get this dummy
+     *
+     * @return a dummy level with one static enemy
+     */
     public static Level dummy() {
         Level l = new Level(-1);
         l.addEntity(new StaticEnemy());
@@ -45,14 +64,16 @@ public class Level {
         return entities;
     }
 
-    public void setEntities(ArrayList<Entity> entities) {
-        this.entities = entities;
-    }
-
     public void addEntity(Entity entity) {
         this.entities.add(entity);
     }
 
+    /**
+     * Get a Level object from a JSONObject
+     *
+     * @param level JSONObject
+     * @return Level
+     */
     public static Level fromJSON(JSONObject level) {
         if (level == null) return null;
 
@@ -76,22 +97,12 @@ public class Level {
         return l;
     }
 
-    public int getCollectibleCoins() {
-        int collectibleCoins = 0;
-        for (Entity entity: entities) {
-            if (entity instanceof Coin)
-                collectibleCoins++;
-        }
-        return collectibleCoins;
-    }
-
     private void setDeathCounter(int deathCounter) {
         this.deathCounter = deathCounter;
     }
 
     public void collectCoin() {
         ++collectedCoins;
-        Log.i("OwO", "collectCoin: " + collectedCoins);
     }
 
     public boolean getObjectiveClaimed() {
@@ -118,23 +129,6 @@ public class Level {
         this.scale = scale;
     }
 
-    public JSONObject toJSON() throws JSONException {
-        JSONObject level = new JSONObject();
-        level.put("number", number);
-        level.put("scale", scale);
-        level.put("deaths", deathCounter);
-        level.put("objectiveClaimed", objectiveClaimed);
-        level.put("custom", custom);
-
-        JSONArray entities = new JSONArray();
-        for (Entity entity : this.entities) {
-            entities.put(entity.toJSON());
-        }
-        level.put("entities", entities);
-        return level;
-    }
-
-
     public boolean isCustom() {
         return custom;
     }
@@ -149,5 +143,35 @@ public class Level {
 
     public void setCollectedCoins(int collectedCoins) {
         this.collectedCoins = collectedCoins;
+    }
+
+    public int getCollectibleCoins() {
+        int collectibleCoins = 0;
+        for (Entity entity : entities) {
+            if (entity instanceof Coin)
+                collectibleCoins++;
+        }
+        return collectibleCoins;
+    }
+
+    /**
+     * Save a level object to a JSONObject
+     *
+     * @return JSONObject with level data
+     */
+    public JSONObject toJSON() throws JSONException {
+        JSONObject level = new JSONObject();
+        level.put("number", number);
+        level.put("scale", scale);
+        level.put("deaths", deathCounter);
+        level.put("objectiveClaimed", objectiveClaimed);
+        level.put("custom", custom);
+
+        JSONArray entities = new JSONArray();
+        for (Entity entity : this.entities) {
+            entities.put(entity.toJSON());
+        }
+        level.put("entities", entities);
+        return level;
     }
 }

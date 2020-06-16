@@ -12,6 +12,9 @@ import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.game.Level;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
+/**
+ * Finish screen activity
+ */
 public class FinishScreenActivity extends AppCompatActivity {
 
     private Level level;
@@ -21,6 +24,11 @@ public class FinishScreenActivity extends AppCompatActivity {
     private int deathCounter;
     private boolean objectiveClaimed;
 
+    /**
+     * Get all values
+     *
+     * @param savedInstanceState unused
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +49,9 @@ public class FinishScreenActivity extends AppCompatActivity {
         GameProvider.saveData(this);
     }
 
+    /**
+     * Initialize
+     */
     private void init() {
         // TODO: 6/15/2020 Current level is het volgende level
         int max = Math.max(GameProvider.getCurrentLevel().getNumber(), GameProvider.getMaxLevel());
@@ -80,6 +91,9 @@ public class FinishScreenActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Check if you've cleared the objective (collected all coins)
+     */
     private void checkObjective() {
         if (collectedCoins == collectibleCoins) {
             if (!objectiveClaimed) {
@@ -90,10 +104,11 @@ public class FinishScreenActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * If cleared, show a green check instead of a red cross next to the objective
+     */
     private void objectiveCleared() {
         ImageView imageView = findViewById(R.id.completed);
         imageView.setImageResource(R.drawable.green_tick);
     }
-
-
 }

@@ -3,6 +3,9 @@ package nl.saxion.playground.orbisrunner.sprite;
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.game.OrbisRunnerModel;
 
+/**
+ * Koopa sprite
+ */
 public class JumpingEnemy extends Sprite {
     private static final float MAX_HEIGHT = 200f;
     private static final float JUMP_ACC = 2f;
@@ -21,7 +24,7 @@ public class JumpingEnemy extends Sprite {
 
     @Override
     public String getName() {
-        return "Jumping Enemy";
+        return "Koopa Troopa";
     }
 
     /**

@@ -10,6 +10,9 @@ import android.widget.Switch;
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
+/**
+ * Settings screen in which you can turn sound or music off and on
+ */
 public class SettingScreenActivity extends AppCompatActivity {
 
     @Override
@@ -20,6 +23,10 @@ public class SettingScreenActivity extends AppCompatActivity {
         init();
     }
 
+    /**
+     * Set buttons
+     * Save when toggled
+     */
     public void init() {
         Switch sound = findViewById(R.id.soundSwitch);
         sound.setChecked(GameProvider.isSoundOn());
@@ -50,7 +57,6 @@ public class SettingScreenActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Go to the starting screen
                 finish();
-
             }
         });
     }
