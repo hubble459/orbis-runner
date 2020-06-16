@@ -14,10 +14,9 @@ import nl.saxion.playground.orbisrunner.game.Level;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**
- * Starting activity
+ * Death screen activity
  */
 public class DeathScreenActivity extends AppCompatActivity {
-    public static final String LEVEL = "level_key";
     private int number;
 
     @Override
@@ -32,6 +31,9 @@ public class DeathScreenActivity extends AppCompatActivity {
         init();
     }
 
+    /**
+     * Init buttons and show the title with the level you died on
+     */
     private void init() {
         // Display level player died on
         TextView lvl = findViewById(R.id.diedOn);
@@ -55,7 +57,6 @@ public class DeathScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Go to the starting screen
-                // openMainMenu();
                 finish();
             }
         });
@@ -65,12 +66,6 @@ public class DeathScreenActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // openMainMenu();
-        finish();
-    }
-
-    private void openMainMenu() {
-        Intent intent = new Intent(DeathScreenActivity.this, StartScreenActivity.class);
-        startActivity(intent);
         finish();
     }
 }

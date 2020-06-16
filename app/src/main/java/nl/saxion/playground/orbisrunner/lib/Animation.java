@@ -1,11 +1,8 @@
 package nl.saxion.playground.orbisrunner.lib;
 
 import android.animation.ValueAnimator;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-import android.widget.ImageView;
 
 /**
  * Animation utility
@@ -40,23 +37,9 @@ public class Animation {
     }
 
     /**
-     * Stop all animations in a view
-     * @param view view with animations
+     * Same as the other one but reverse is in reverse
      */
-    public static void stop(View view) {
-        if (view instanceof ImageView) {
-            Drawable drawable = ((ImageView) view).getDrawable();
-            if (drawable instanceof AnimationDrawable) {
-                ((AnimationDrawable) drawable).stop();
-            }
-        }
-        if (view.getTag() instanceof ValueAnimator) {
-            ((ValueAnimator) view.getTag()).cancel();
-        }
-    }
-
     public static void walkInCircleSplash(final View view, int duration, boolean inReverse) {
-
         if (!inReverse)
             view.setScaleX(-1);
 

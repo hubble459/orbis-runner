@@ -58,57 +58,52 @@ public class GameProvider {
         return getLevels().get(instance.currentLevel);
     }
 
-    /**
-     * Get all saved variables from a json file named "savedData.json" in the files dir for this app
-     *
-     * @param context needed to get the files directory
-     */
-    public static void getSave(final Context context) {
-        try {
-            File file = new File(context.getFilesDir() + "/savedData.json");
-            if (!file.exists()) return;
+    public static int getCoins() {
+        return instance.coins;
+    }
 
-            Scanner sc = new Scanner(file);
-            String jsonString = sc.nextLine();
+    public static void setCoins(int coins) {
+        instance.coins = coins;
+    }
 
-            JSONObject data = new JSONObject(jsonString);
+    public static int getMaxLevel() {
+        return instance.maxLevel;
+    }
 
-            instance.coins = data.optInt("coins");
-            instance.currentLevel = data.optInt("level");
-            instance.maxLevel = data.optInt("maxLevel");
-            instance.player.setColor(data.optInt("color"));
-            instance.shop.select(data.optInt("active"));
-            instance.musicOn = data.optBoolean("music", true);
-            instance.soundOn = data.optBoolean("sound", true);
+    public static void setMaxLevel(int maxLevel) {
+        instance.maxLevel = maxLevel;
+    }
 
-            JSONArray unlocked = data.optJSONArray("unlocked");
-            if (unlocked != null) {
-                for (int i = 0; i < unlocked.length(); i++) {
-                    instance.shop.unlock(unlocked.getInt(i));
-                }
-            }
+    public static void setCurrentLevel(int currentLevel) {
+        instance.currentLevel = currentLevel;
+    }
 
-            JSONArray levels = data.optJSONArray("levels");
-            if (levels != null) {
-                for (int i = 0; i < levels.length(); i++) {
-                    JSONObject object = levels.optJSONObject(i);
-                    if (object != null) {
-                        Level level = Level.fromJSON(object);
-                        if (level != null && !hasLevel(level)) {
-                            instance.levels.add(level);
-                        }
-                    }
-                }
-                Collections.sort(instance.levels, new Comparator<Level>() {
-                    @Override
-                    public int compare(Level o1, Level o2) {
-                        return String.valueOf(o1.getNumber()).compareTo(String.valueOf(o2.getNumber()));
-                    }
-                });
-            }
-        } catch (FileNotFoundException | JSONException e) {
-            Log.e("uwu", "getSave: ", e);
-        }
+    public static ArrayList<Level> getLevels() {
+        return instance.levels;
+    }
+
+    public static Player getPlayer() {
+        return instance.player;
+    }
+
+    public static Shop getShop() {
+        return instance.shop;
+    }
+
+    public static boolean isMusicOn() {
+        return instance.musicOn;
+    }
+
+    public static void setMusicOn(boolean on) {
+        instance.musicOn = on;
+    }
+
+    public static boolean isSoundOn() {
+        return instance.soundOn;
+    }
+
+    public static void setSoundOn(boolean soundOn) {
+        instance.soundOn = soundOn;
     }
 
     public static boolean hasLevel(Level level) {
@@ -168,52 +163,57 @@ public class GameProvider {
         }
     }
 
-    public static int getCoins() {
-        return instance.coins;
-    }
+    /**
+     * Get all saved variables from a json file named "savedData.json" in the files dir for this app
+     *
+     * @param context needed to get the files directory
+     */
+    public static void getSave(final Context context) {
+        try {
+            File file = new File(context.getFilesDir() + "/savedData.json");
+            if (!file.exists()) return;
 
-    public static void setCoins(int coins) {
-        instance.coins = coins;
-    }
+            Scanner sc = new Scanner(file);
+            String jsonString = sc.nextLine();
 
-    public static int getMaxLevel() {
-        return instance.maxLevel;
-    }
+            JSONObject data = new JSONObject(jsonString);
 
-    public static void setMaxLevel(int maxLevel) {
-        instance.maxLevel = maxLevel;
-    }
+            instance.coins = data.optInt("coins");
+            instance.currentLevel = data.optInt("level");
+            instance.maxLevel = data.optInt("maxLevel");
+            instance.player.setColor(data.optInt("color"));
+            instance.shop.select(data.optInt("active"));
+            instance.musicOn = data.optBoolean("music", true);
+            instance.soundOn = data.optBoolean("sound", true);
 
-    public static void setCurrentLevel(int currentLevel) {
-        instance.currentLevel = currentLevel;
-    }
+            JSONArray unlocked = data.optJSONArray("unlocked");
+            if (unlocked != null) {
+                for (int i = 0; i < unlocked.length(); i++) {
+                    instance.shop.unlock(unlocked.getInt(i));
+                }
+            }
 
-    public static ArrayList<Level> getLevels() {
-        return instance.levels;
-    }
-
-    public static Player getPlayer() {
-        return instance.player;
-    }
-
-    public static Shop getShop() {
-        return instance.shop;
-    }
-
-    public static boolean isMusicOn() {
-        return instance.musicOn;
-    }
-
-    public static void setMusicOn(boolean on) {
-        instance.musicOn = on;
-    }
-
-    public static boolean isSoundOn() {
-        return instance.soundOn;
-    }
-
-    public static void setSoundOn(boolean soundOn) {
-        instance.soundOn = soundOn;
+            JSONArray levels = data.optJSONArray("levels");
+            if (levels != null) {
+                for (int i = 0; i < levels.length(); i++) {
+                    JSONObject object = levels.optJSONObject(i);
+                    if (object != null) {
+                        Level level = Level.fromJSON(object);
+                        if (level != null && !hasLevel(level)) {
+                            instance.levels.add(level);
+                        }
+                    }
+                }
+                Collections.sort(instance.levels, new Comparator<Level>() {
+                    @Override
+                    public int compare(Level o1, Level o2) {
+                        return String.valueOf(o1.getNumber()).compareTo(String.valueOf(o2.getNumber()));
+                    }
+                });
+            }
+        } catch (FileNotFoundException | JSONException e) {
+            Log.e("uwu", "getSave: ", e);
+        }
     }
 }
 

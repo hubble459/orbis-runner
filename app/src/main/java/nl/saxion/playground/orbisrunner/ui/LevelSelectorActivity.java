@@ -23,8 +23,6 @@ import nl.saxion.playground.orbisrunner.singleton.GameProvider;
  * Activity to select a level to play
  */
 public class LevelSelectorActivity extends AppCompatActivity {
-
-
     private LevelGridAdapter levelGridAdapter;
 
     @Override
@@ -35,6 +33,10 @@ public class LevelSelectorActivity extends AppCompatActivity {
         init();
     }
 
+    /**
+     * Fill GridView with levels using a custom adapter
+     * And init buttons
+     */
     private void init() {
         GridView levels = findViewById(R.id.levelGrid);
 
@@ -93,6 +95,14 @@ public class LevelSelectorActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Delete a level and shift levels to fill up empty space
+     * 1 2 3 : remove 2
+     * 1   3 : shift
+     * 1 2 : done
+     *
+     * @param level Level to delete
+     */
     private void deleteLevel(Level level) {
         ArrayList<Level> levels = GameProvider.getLevels();
         int number = level.getNumber();
@@ -108,6 +118,9 @@ public class LevelSelectorActivity extends AppCompatActivity {
         GameProvider.saveData(this);
     }
 
+    /**
+     * Refresh list on resume, so when a level gets added the list will update
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -116,6 +129,11 @@ public class LevelSelectorActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Start a level
+     *
+     * @param position position of level to start
+     */
     private void gotoLevel(int position) {
         GameProvider.setCurrentLevel(position);
         Intent game = new Intent(LevelSelectorActivity.this, GameActivity.class);
