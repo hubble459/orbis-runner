@@ -80,4 +80,8 @@ public class LevelExporterActivity extends AppCompatActivity {
         clipboard.setPrimaryClip(clip);
         Toast.makeText(LevelExporterActivity.this, "Copied!", Toast.LENGTH_SHORT).show();
     }
+
+    public void mainMenu(View view) {
+        finish();
+    }
 }
