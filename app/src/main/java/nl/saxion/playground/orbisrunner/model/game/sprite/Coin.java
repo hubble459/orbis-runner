@@ -1,9 +1,9 @@
-package nl.saxion.playground.orbisrunner.sprite;
+package nl.saxion.playground.orbisrunner.model.game.sprite;
 
 import nl.saxion.playground.orbisrunner.R;
-import nl.saxion.playground.orbisrunner.game.Level;
-import nl.saxion.playground.orbisrunner.game.OrbisRunnerModel;
 import nl.saxion.playground.orbisrunner.lib.Entity;
+import nl.saxion.playground.orbisrunner.model.Level;
+import nl.saxion.playground.orbisrunner.model.game.OrbisRunnerModel;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**

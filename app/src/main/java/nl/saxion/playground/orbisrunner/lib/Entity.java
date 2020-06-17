@@ -8,11 +8,11 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-import nl.saxion.playground.orbisrunner.sprite.Coin;
-import nl.saxion.playground.orbisrunner.sprite.FlyingEnemy;
-import nl.saxion.playground.orbisrunner.sprite.JumpingEnemy;
-import nl.saxion.playground.orbisrunner.sprite.Portal;
-import nl.saxion.playground.orbisrunner.sprite.StaticEnemy;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Coin;
+import nl.saxion.playground.orbisrunner.model.game.sprite.FlyingEnemy;
+import nl.saxion.playground.orbisrunner.model.game.sprite.JumpingEnemy;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Portal;
+import nl.saxion.playground.orbisrunner.model.game.sprite.StaticEnemy;
 import nl.saxion.playground.orbisrunner.ui.LevelMaker;
 
 

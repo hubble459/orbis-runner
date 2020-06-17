@@ -1,4 +1,4 @@
-package nl.saxion.playground.orbisrunner.sprite;
+package nl.saxion.playground.orbisrunner.model.game.sprite;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -12,10 +12,10 @@ import java.util.Queue;
 import java.util.Random;
 
 import nl.saxion.playground.orbisrunner.R;
-import nl.saxion.playground.orbisrunner.game.OrbisRunnerModel;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameModel;
 import nl.saxion.playground.orbisrunner.lib.GameView;
+import nl.saxion.playground.orbisrunner.model.game.OrbisRunnerModel;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**
@@ -82,7 +82,10 @@ public class Player extends Entity {
     @Override
     public void draw(GameView gv) {
         if (hat == null) {
-            hat = gv.getBitmapFromResource(GameProvider.getShop().getSelectedRes());
+            int res = GameProvider.getShop().getSelectedRes();
+            if (res != -1) {
+                hat = gv.getBitmapFromResource(res);
+            }
         }
 
         if (animationDrawable == null) {

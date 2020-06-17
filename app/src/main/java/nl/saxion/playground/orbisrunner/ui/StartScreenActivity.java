@@ -76,7 +76,8 @@ public class StartScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Start the customization intent
-                toast("Shop Clicked");
+                Intent shop = new Intent(StartScreenActivity.this, ShopActivity.class);
+                startActivity(shop);
             }
         });
 

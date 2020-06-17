@@ -1,4 +1,4 @@
-package nl.saxion.playground.orbisrunner.game;
+package nl.saxion.playground.orbisrunner.model;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -7,8 +7,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import nl.saxion.playground.orbisrunner.lib.Entity;
-import nl.saxion.playground.orbisrunner.sprite.Coin;
-import nl.saxion.playground.orbisrunner.sprite.StaticEnemy;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Coin;
+import nl.saxion.playground.orbisrunner.model.game.sprite.StaticEnemy;
 
 /**
  * Level class used by the game model and level maker

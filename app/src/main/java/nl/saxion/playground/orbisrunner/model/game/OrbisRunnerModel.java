@@ -1,4 +1,4 @@
-package nl.saxion.playground.orbisrunner.game;
+package nl.saxion.playground.orbisrunner.model.game;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,10 +8,11 @@ import android.media.MediaPlayer;
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameModel;
+import nl.saxion.playground.orbisrunner.model.Level;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Circle;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Player;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Sprite;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
-import nl.saxion.playground.orbisrunner.sprite.Circle;
-import nl.saxion.playground.orbisrunner.sprite.Player;
-import nl.saxion.playground.orbisrunner.sprite.Sprite;
 import nl.saxion.playground.orbisrunner.ui.DeathScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.FinishScreenActivity;
 

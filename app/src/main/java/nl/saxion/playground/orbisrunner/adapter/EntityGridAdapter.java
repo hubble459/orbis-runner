@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import nl.saxion.playground.orbisrunner.R;
-import nl.saxion.playground.orbisrunner.sprite.Sprite;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Sprite;
 
 /**
  * Adapter class for showing Sprites in a grid

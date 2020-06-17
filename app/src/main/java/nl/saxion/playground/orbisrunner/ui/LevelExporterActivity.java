@@ -21,7 +21,7 @@ import org.json.JSONException;
 import java.util.Locale;
 
 import nl.saxion.playground.orbisrunner.R;
-import nl.saxion.playground.orbisrunner.game.Level;
+import nl.saxion.playground.orbisrunner.model.Level;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 public class LevelExporterActivity extends AppCompatActivity {

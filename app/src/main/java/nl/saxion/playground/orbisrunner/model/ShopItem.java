@@ -1,4 +1,4 @@
-package nl.saxion.playground.orbisrunner.game;
+package nl.saxion.playground.orbisrunner.model;
 
 import android.support.annotation.DrawableRes;
 /**
@@ -10,6 +10,7 @@ public class ShopItem {
     private String name;
     private int id;
     private int resId;
+    private int price;
     private boolean unlocked;
     private boolean active;
 
@@ -54,5 +55,13 @@ public class ShopItem {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }
