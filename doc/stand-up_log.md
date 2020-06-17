@@ -78,3 +78,9 @@
 - Quentin fixed the level maker
 - Serwet finished his finish screen issue
 - Joost has finished his level selector issue and worked on the music and sound
+
+## Stand-up 17-06-2020 11:00
+- Talked about progress
+- Serwet worked on updating the diagrams
+- Quentin added some new functions to the level maker
+- Joost has a retake test for algorithms and thus decided to study for that
