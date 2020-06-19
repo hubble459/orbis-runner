@@ -84,3 +84,8 @@
 - Serwet worked on updating the diagrams
 - Quentin added some new functions to the level maker
 - Joost has a retake test for algorithms and thus decided to study for that
+
+## Stand-up 19-06-2020 13:15
+- Talked about progress
+- Quentin finished the shop issue
+- Joost and Serwet did not work on this project because of other projects.
