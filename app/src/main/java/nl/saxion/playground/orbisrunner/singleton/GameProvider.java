@@ -17,10 +17,10 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 import nl.saxion.playground.orbisrunner.R;
-import nl.saxion.playground.orbisrunner.game.Level;
-import nl.saxion.playground.orbisrunner.game.Shop;
-import nl.saxion.playground.orbisrunner.game.ShopItem;
-import nl.saxion.playground.orbisrunner.sprite.Player;
+import nl.saxion.playground.orbisrunner.model.Level;
+import nl.saxion.playground.orbisrunner.model.Shop;
+import nl.saxion.playground.orbisrunner.model.ShopItem;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Player;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -32,7 +32,7 @@ import static android.content.Context.MODE_PRIVATE;
  * The getSave should be called as soon as possible (Splash Screen)
  */
 public class GameProvider {
-    private static final GameProvider instance = new GameProvider();
+    private static GameProvider instance = new GameProvider();
     private Shop shop;
     private Player player;
     private int coins;
@@ -60,12 +60,24 @@ public class GameProvider {
         return getLevels().get(instance.currentLevel);
     }
 
+    public static void nextLevel() {
+        if (instance.currentLevel < getLevels().size()) {
+            instance.currentLevel += 1;
+        } else {
+            //TODO Show level selector screen
+        }
+    }
+
     public static int getCoins() {
         return instance.coins;
     }
 
     public static void setCoins(int coins) {
         instance.coins = coins;
+    }
+
+    public static void subtractCoins(int amount) {
+        instance.coins -= amount;
     }
 
     public static int getMaxLevel() {
@@ -78,14 +90,6 @@ public class GameProvider {
 
     public static void setCurrentLevel(int currentLevel) {
         instance.currentLevel = currentLevel;
-    }
-
-    public static void nextLevel() {
-        if (instance.currentLevel < getLevels().size()) {
-            instance.currentLevel += 1;
-        } else {
-            //TODO Show level selector screen
-        }
     }
 
     public static ArrayList<Level> getLevels() {
@@ -263,6 +267,10 @@ public class GameProvider {
         } catch (FileNotFoundException | JSONException e) {
             Log.e("uwu", "getSave: ", e);
         }
+    }
+
+    public static void newInstance() {
+        instance = new GameProvider();
     }
 }
 

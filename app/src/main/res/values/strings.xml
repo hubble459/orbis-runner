@@ -18,6 +18,7 @@
     <!-- Used in settings screen -->
     <string name="music">Music</string>
     <string name="sound">Sound</string>
+    <string name="reset">Reset</string>
 
     <!-- Used in customize screen -->
     <string name="selected">Selected</string>
@@ -25,6 +26,12 @@
 
     <!-- Used in shop screen -->
     <string name="shop">Shop</string>
+    <string name="already_bought">You already bought this item!</string>
+    <string name="insufficient_coins">You don\'t have enough coins!</string>
+    <string name="buy">Buy</string>
+    <string name="buy_item_for_price">Buy [%s] for %d coins?</string>
+    <string name="price_">Price: %d</string>
+    <string name="bought">Bought</string>
 
     <!-- Used in finish screen -->
     <string name="next_level">Next Level</string>
@@ -53,5 +60,4 @@
     <!-- Used in level exporter -->
     <string name="copy_all">Copy All</string>
     <string name="copy_specific">Copy specific</string>
-
 </resources>

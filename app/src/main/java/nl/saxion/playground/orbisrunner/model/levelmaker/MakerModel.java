@@ -1,13 +1,13 @@
-package nl.saxion.playground.orbisrunner.levelmaker;
+package nl.saxion.playground.orbisrunner.model.levelmaker;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 
-import nl.saxion.playground.orbisrunner.game.Level;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameModel;
-import nl.saxion.playground.orbisrunner.sprite.Circle;
-import nl.saxion.playground.orbisrunner.sprite.Player;
+import nl.saxion.playground.orbisrunner.model.Level;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Circle;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Player;
 import nl.saxion.playground.orbisrunner.ui.LevelMaker;
 
 /**

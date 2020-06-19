@@ -3,9 +3,11 @@ package nl.saxion.playground.orbisrunner.ui;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
+
+import java.io.File;
 
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
@@ -50,14 +52,36 @@ public class SettingScreenActivity extends AppCompatActivity {
                 GameProvider.saveData(SettingScreenActivity.this);
             }
         });
+    }
 
-        Button mainMenuButton = findViewById(R.id.mainMenuButton);
-        mainMenuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Go to the starting screen
-                finish();
-            }
-        });
+    /**
+     * Delete save and restart
+     *
+     * @param view ButtonView
+     */
+    public void reset(View view) {
+        String fileName = "savedData.json";
+        File path = new File(getFilesDir(), fileName);
+        boolean deleted;
+        if (path.exists()) {
+            deleted = deleteFile(fileName);
+        } else {
+            deleted = false;
+            Toast.makeText(this, "Nothing to reset...", Toast.LENGTH_SHORT).show();
+        }
+        if (deleted) {
+            Toast.makeText(this, "Save deleted!", Toast.LENGTH_SHORT).show();
+            GameProvider.newInstance();
+            finish();
+        }
+    }
+
+    /**
+     * Go to the starting screen
+     *
+     * @param view ButtonView
+     */
+    public void mainMenu(View view) {
+        finish();
     }
 }

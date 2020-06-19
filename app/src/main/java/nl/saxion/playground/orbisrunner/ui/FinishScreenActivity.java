@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import nl.saxion.playground.orbisrunner.R;
-import nl.saxion.playground.orbisrunner.game.Level;
+import nl.saxion.playground.orbisrunner.model.Level;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**

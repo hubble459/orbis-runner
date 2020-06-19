@@ -1,4 +1,4 @@
-package nl.saxion.playground.orbisrunner.sprite;
+package nl.saxion.playground.orbisrunner.model.game.sprite;
 
 import nl.saxion.playground.orbisrunner.R;
 

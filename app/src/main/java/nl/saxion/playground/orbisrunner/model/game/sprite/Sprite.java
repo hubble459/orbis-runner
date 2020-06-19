@@ -1,4 +1,4 @@
-package nl.saxion.playground.orbisrunner.sprite;
+package nl.saxion.playground.orbisrunner.model.game.sprite;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

@@ -23,19 +23,19 @@ import java.util.Objects;
 
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.adapter.EntityGridAdapter;
-import nl.saxion.playground.orbisrunner.game.Level;
-import nl.saxion.playground.orbisrunner.levelmaker.MakerModel;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameView;
+import nl.saxion.playground.orbisrunner.model.Level;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Circle;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Coin;
+import nl.saxion.playground.orbisrunner.model.game.sprite.FlyingEnemy;
+import nl.saxion.playground.orbisrunner.model.game.sprite.JumpingEnemy;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Player;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Portal;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Sprite;
+import nl.saxion.playground.orbisrunner.model.game.sprite.StaticEnemy;
+import nl.saxion.playground.orbisrunner.model.levelmaker.MakerModel;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
-import nl.saxion.playground.orbisrunner.sprite.Circle;
-import nl.saxion.playground.orbisrunner.sprite.Coin;
-import nl.saxion.playground.orbisrunner.sprite.FlyingEnemy;
-import nl.saxion.playground.orbisrunner.sprite.JumpingEnemy;
-import nl.saxion.playground.orbisrunner.sprite.Player;
-import nl.saxion.playground.orbisrunner.sprite.Portal;
-import nl.saxion.playground.orbisrunner.sprite.Sprite;
-import nl.saxion.playground.orbisrunner.sprite.StaticEnemy;
 
 /**
  * Activity for making and editing levels

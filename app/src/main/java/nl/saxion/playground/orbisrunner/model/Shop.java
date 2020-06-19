@@ -1,4 +1,4 @@
-package nl.saxion.playground.orbisrunner.game;
+package nl.saxion.playground.orbisrunner.model;
 
 import android.support.annotation.DrawableRes;
 
@@ -30,18 +30,14 @@ public class Shop {
         this.shopItems = new ArrayList<>();
 
         shopItems();
-        for (ShopItem shopItem : shopItems) {
-            shopItem.setUnlocked(true);
-        }
-
     }
 
     /**
      * Add the items that should be in the store, to this method
      */
     private void shopItems() {
-        addItem("Crown", R.drawable.hat_crown);
-        addItem("Chicken", R.drawable.hat_chicken);
+        addItem("Crown", R.drawable.hat_crown, 20);
+        addItem("Chicken", R.drawable.hat_chicken, 10);
     }
 
     /**
@@ -49,11 +45,13 @@ public class Shop {
      *
      * @param itemName the name of the item
      * @param resId    the id pointing towards the drawable
+     * @param price    the price for this shop item
      */
-    private void addItem(String itemName, @DrawableRes int resId) {
+    private void addItem(String itemName, @DrawableRes int resId, int price) {
         ShopItem item = new ShopItem();
         item.setName(itemName);
         item.setResId(resId);
+        item.setPrice(price);
         shopItems.add(item);
     }
 
@@ -110,6 +108,6 @@ public class Shop {
                 return shopItem.getResId();
             }
         }
-        return R.drawable.sprite_koopa;
+        return -1;
     }
 }

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.adapter.LevelGridAdapter;
-import nl.saxion.playground.orbisrunner.game.Level;
+import nl.saxion.playground.orbisrunner.model.Level;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**
