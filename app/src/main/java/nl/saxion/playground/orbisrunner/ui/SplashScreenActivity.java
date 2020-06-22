@@ -1,7 +1,9 @@
 package nl.saxion.playground.orbisrunner.ui;
 
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
@@ -9,18 +11,36 @@ import java.util.Random;
 
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.lib.Animation;
+import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**
  * Splash screen shown at startup for extra cool points
  */
 public class SplashScreenActivity extends AppCompatActivity {
 
+    private final static int SPLASH_TIME_OUT = 1500;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+//        ProgressBar loading = findViewById(R.id.loading);
+//        loading.setIndeterminate(true);
+
+        GameProvider.getSave(this);
+
         init();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(SplashScreenActivity.this, StartScreenActivity.class);
+                startActivity(intent);
+
+                finish();
+            }
+        }, SPLASH_TIME_OUT);
     }
 
     /**
