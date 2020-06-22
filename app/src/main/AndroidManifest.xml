@@ -16,18 +16,17 @@
         <activity android:name=".ui.CustomizationActivity" />
         <activity android:name=".ui.LevelMaker" />
         <activity android:name=".ui.GameActivity" />
-        <activity android:name=".ui.SplashScreenActivity" />
         <activity android:name=".ui.SettingScreenActivity" />
         <activity android:name=".ui.ControlTestingActivity" />
         <activity android:name=".ui.StartScreenActivity" />
-        <activity android:name="nl.saxion.playground.TestingMainActivity">
+        <activity android:name=".ui.DeathScreenActivity" />
+        <activity android:name=".ui.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.DeathScreenActivity" />
     </application>
 
 </manifest>

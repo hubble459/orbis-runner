@@ -81,7 +81,7 @@ public class LevelExporterActivity extends AppCompatActivity {
         Toast.makeText(LevelExporterActivity.this, "Copied!", Toast.LENGTH_SHORT).show();
     }
 
-    public void mainMenu(View view) {
+    public void back(View view) {
         finish();
     }
 }
