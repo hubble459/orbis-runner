@@ -89,3 +89,8 @@
 - Talked about progress
 - Quentin finished the shop issue
 - Joost and Serwet did not work on this project because of other projects.
+
+## Stand-up 22-06-2020 13:00
+- Talked about progress
+- Quentin made a coin counter and made a dino animation
+- Joost and Serwet did not work on this project because of other projects.
