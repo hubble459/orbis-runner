@@ -140,4 +140,10 @@ public class LevelSelectorActivity extends AppCompatActivity {
         startActivity(game);
         finish();
     }
+
+    // TODO: 22/06/2020 REMOVE
+    public void export(View view) {
+        Intent intent = new Intent(this, LevelExporterActivity.class);
+        startActivity(intent);
+    }
 }

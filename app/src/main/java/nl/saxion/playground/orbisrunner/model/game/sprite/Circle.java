@@ -12,7 +12,7 @@ import nl.saxion.playground.orbisrunner.lib.GameView;
 public class Circle extends Entity {
     public static final float SIZE_DOUBLE = -1;
 
-    private static final float STROKE_WIDTH = 100f;
+    public static final float STROKE_WIDTH = 100f;
 
     private float superSize;
     private float size, strokeWidth;

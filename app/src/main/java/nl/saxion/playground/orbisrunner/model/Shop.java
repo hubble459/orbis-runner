@@ -36,8 +36,11 @@ public class Shop {
      * Add the items that should be in the store, to this method
      */
     private void shopItems() {
-        addItem("Crown", R.drawable.hat_crown, 20);
-        addItem("Chicken", R.drawable.hat_chicken, 10);
+        addItem("Crown", R.drawable.hat_crown, R.drawable.hat_preview_crown, 20);
+        addItem("Chicken", R.drawable.hat_chicken, R.drawable.hat_preview_chicken, 10);
+        addItem("Marge", R.drawable.hat_marge, R.drawable.hat_preview_marge, 5);
+        addItem("Santa", R.drawable.hat_santa, R.drawable.hat_preview_santa, 50);
+        addItem("Top Hat", R.drawable.hat_top, R.drawable.hat_preview_top, 69);
     }
 
     /**
@@ -47,10 +50,11 @@ public class Shop {
      * @param resId    the id pointing towards the drawable
      * @param price    the price for this shop item
      */
-    private void addItem(String itemName, @DrawableRes int resId, int price) {
+    private void addItem(String itemName, @DrawableRes int resId, @DrawableRes int previewId, int price) {
         ShopItem item = new ShopItem();
         item.setName(itemName);
         item.setResId(resId);
+        item.setPreviewId(previewId);
         item.setPrice(price);
         shopItems.add(item);
     }

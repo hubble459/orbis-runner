@@ -44,6 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <Button
+        android:onClick="mainMenu"
         android:id="@+id/mainMenuButton"
         style="@style/Button"
         android:layout_width="wrap_content"
