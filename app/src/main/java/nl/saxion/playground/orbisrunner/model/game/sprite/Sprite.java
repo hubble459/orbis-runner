@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 
 import nl.saxion.playground.orbisrunner.lib.Entity;
@@ -17,6 +19,10 @@ public abstract class Sprite extends Entity {
     private Bitmap bitmap;
     private Paint paint;
     private float speedScale;
+    private AnimationDrawable animation;
+    private int frames;
+    private int frame;
+    private long last;
 
     /**
      * Draw a bitmap to the x and y
@@ -25,14 +31,23 @@ public abstract class Sprite extends Entity {
      */
     @Override
     public void draw(GameView gv) {
-        if (bitmap == null) {
-            bitmap = BitmapFactory.decodeResource(gv.getContext().getResources(), getBitmapRes());
-            width = bitmap.getWidth() * scale;
-            height = bitmap.getHeight() * scale;
-            if (levelMaker != null) {
-                setXYValues(levelMaker.getXYFromDegrees(startAngle, jump, this));
-            } else if (game != null) {
-                setXYValues(game.getXYFromDegrees(startAngle, jump, this));
+        if (bitmap == null && animation == null) {
+            Drawable d = gv.getContext().getResources().getDrawable(getBitmapRes());
+            if (d instanceof AnimationDrawable) {
+                animation = (AnimationDrawable) d;
+                width = animation.getIntrinsicWidth() * scale;
+                height = animation.getIntrinsicHeight() * scale;
+                frames = animation.getNumberOfFrames();
+                last = System.currentTimeMillis();
+            } else {
+                bitmap = BitmapFactory.decodeResource(gv.getContext().getResources(), getBitmapRes());
+                width = bitmap.getWidth() * scale;
+                height = bitmap.getHeight() * scale;
+                if (levelMaker != null) {
+                    setXYValues(levelMaker.getXYFromDegrees(startAngle, jump, this));
+                } else if (game != null) {
+                    setXYValues(game.getXYFromDegrees(startAngle, jump, this));
+                }
             }
         }
 
@@ -43,6 +58,32 @@ public abstract class Sprite extends Entity {
                 height = bitmap.getHeight() * scale;
             }
             gv.drawBitmap(bitmap, xVal, yVal, width, height, angle - 90);
+        }
+
+        if (animation != null) {
+            // Reset scale if needed
+            if (width != animation.getIntrinsicWidth() * scale) {
+                width = animation.getIntrinsicWidth() * scale;
+                height = animation.getIntrinsicHeight() * scale;
+            }
+
+            long now = System.currentTimeMillis();
+            if (last < now - animation.getDuration(frame)) {
+                ++frame;
+                if (frame >= frames) frame = 0;
+                last = now;
+            }
+
+            Canvas c = gv.getCanvas();
+            c.save();
+            c.rotate(angle - 90, xVal + width / 2, yVal + height / 2);
+            animation.getFrame(frame).setBounds(
+                    (int) (xVal),
+                    (int) (yVal),
+                    (int) (xVal + width),
+                    (int) (yVal + height));
+            animation.getFrame(frame).draw(c);
+            c.restore();
         }
 
         drawOutline(gv.getCanvas());

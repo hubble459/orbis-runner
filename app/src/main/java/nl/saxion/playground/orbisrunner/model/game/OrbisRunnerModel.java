@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.media.MediaPlayer;
+import android.view.View;
+import android.widget.TextView;
 
 import nl.saxion.playground.orbisrunner.R;
+import nl.saxion.playground.orbisrunner.lib.Animation;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameModel;
 import nl.saxion.playground.orbisrunner.model.Level;
@@ -25,6 +28,8 @@ public class OrbisRunnerModel extends GameModel {
     private final Player player;
     private final Level level;
     private final MediaPlayer mediaPlayer;
+    private TextView coinCounter;
+    private TextView fadeCoin;
 
     /**
      * When a new game gets created game will reset all values
@@ -60,6 +65,11 @@ public class OrbisRunnerModel extends GameModel {
     @Override
     public void start(Canvas canvas) {
         addEntities();
+    }
+
+    @Override
+    public void started(Canvas canvas) {
+        player.setXY();
     }
 
     /**
@@ -140,5 +150,31 @@ public class OrbisRunnerModel extends GameModel {
     @Override
     public float[] getXYFromDegrees(float degrees, float margin, Entity e) {
         return circle.getXYFromDegrees(degrees, margin, e);
+    }
+
+    /**
+     * TextView to visualize coins
+     *
+     * @param coins TextView Counter
+     */
+    public void setCoinCounter(TextView coins) {
+        this.coinCounter = coins;
+    }
+
+    public void setCoinCount(int amount) {
+        if (coinCounter != null) {
+            this.coinCounter.setText(String.valueOf(amount));
+        }
+    }
+
+    public void setFadeCoin(TextView fadeCoin) {
+        this.fadeCoin = fadeCoin;
+    }
+
+    public void collectedCoin() {
+        if (fadeCoin != null) {
+            this.fadeCoin.setVisibility(View.VISIBLE);
+            Animation.fadeOut(fadeCoin);
+        }
     }
 }

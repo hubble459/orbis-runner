@@ -55,16 +55,20 @@ public class GameProvider {
     }
 
     public static Level getCurrentLevel() {
-        // TODO make some demo levels
-        if (getLevels() == null || getLevels().isEmpty()) return Level.dummy();
         return getLevels().get(instance.currentLevel);
     }
 
-    public static void nextLevel() {
-        if (instance.currentLevel < getLevels().size()) {
+    /**
+     * Returns false if there is no next level
+     *
+     * @return boolean
+     */
+    public static boolean nextLevel() {
+        if (instance.currentLevel < getLevels().size() - 1) {
             instance.currentLevel += 1;
+            return true;
         } else {
-            //TODO Show level selector screen
+            return false;
         }
     }
 

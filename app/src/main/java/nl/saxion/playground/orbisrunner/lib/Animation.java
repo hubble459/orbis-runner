@@ -3,6 +3,7 @@ package nl.saxion.playground.orbisrunner.lib;
 import android.animation.ValueAnimator;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.TextView;
 
 /**
  * Animation utility
@@ -33,7 +34,6 @@ public class Animation {
             }
         });
         valueAnimator.start();
-        view.setTag(valueAnimator);
     }
 
     /**
@@ -56,6 +56,19 @@ public class Animation {
             }
         });
         valueAnimator.start();
-        view.setTag(valueAnimator);
+    }
+
+    public static void fadeOut(final TextView fadeCoin) {
+        ValueAnimator valueAnimator = new ValueAnimator();
+        valueAnimator.setDuration(1000);
+        valueAnimator.setFloatValues(1, 0);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                float value = (float) valueAnimator.getAnimatedValue();
+                fadeCoin.setAlpha(value);
+            }
+        });
+        valueAnimator.start();
     }
 }

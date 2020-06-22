@@ -283,10 +283,6 @@ public class LevelMaker extends AppCompatActivity {
      */
     public void save(View view) {
         level.setScale(Entity.getScale());
-        for (Entity entity : level.getEntities()) {
-            entity.setStartAngle(entity.getAngle());
-        }
-
         if (GameProvider.hasLevel(level)) {
             saveFinish();
         } else {
@@ -319,6 +315,10 @@ public class LevelMaker extends AppCompatActivity {
      * Save and finish
      */
     private void saveFinish() {
+        for (Entity entity : model.getEntities()) {
+            entity.setStartAngle(entity.getAngle());
+        }
+
         for (Entity entity : model.getEntities()) {
             if (entity instanceof Sprite && !level.getEntities().contains(entity)) {
                 level.addEntity(entity);
