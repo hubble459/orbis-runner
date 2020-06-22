@@ -62,5 +62,49 @@
         "type": "Coin"
       }
     ]
+  },
+  {
+    "number": 2,
+    "scale": 0.3333333432674408,
+    "deaths": 0,
+    "objectiveClaimed": false,
+    "custom": false,
+    "entities": [
+      {
+        "angle": 0,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 191,
+        "jump": 60,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 59,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 269,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 133,
+        "jump": 0,
+        "type": "Portal"
+      },
+      {
+        "angle": 328,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 233,
+        "jump": 0,
+        "type": "Coin"
+      }
+    ]
   }
 ]
