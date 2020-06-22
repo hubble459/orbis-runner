@@ -47,7 +47,7 @@ public class ItemGridAdapter extends ArrayAdapter<ShopItem> {
         ImageView image = convertView.findViewById(R.id.image);
 
         name.setText(e.getName());
-        image.setImageResource(e.getResId());
+        image.setImageResource(e.getPreviewId());
 
         return convertView;
     }

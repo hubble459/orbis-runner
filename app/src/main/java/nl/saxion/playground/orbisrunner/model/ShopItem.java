@@ -1,6 +1,7 @@
 package nl.saxion.playground.orbisrunner.model;
 
 import android.support.annotation.DrawableRes;
+
 /**
  * Shop item for buying, unlocking and using (selecting)
  */
@@ -10,6 +11,7 @@ public class ShopItem {
     private String name;
     private int id;
     private int resId;
+    private int previewId;
     private int price;
     private boolean unlocked;
     private boolean active;
@@ -63,5 +65,13 @@ public class ShopItem {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getPreviewId() {
+        return previewId;
+    }
+
+    public void setPreviewId(@DrawableRes int previewId) {
+        this.previewId = previewId;
     }
 }

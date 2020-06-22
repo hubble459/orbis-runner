@@ -86,6 +86,12 @@ public class ShopActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             item.setUnlocked(true);
+                            for (ShopItem shopItem : GameProvider.getShop().getShopItems()) {
+                                if (shopItem.isUnlocked()) {
+                                    shopItem.setSelected(false);
+                                }
+                            }
+                            item.setSelected(true);
                             GameProvider.subtractCoins(item.getPrice());
                             updateCoins();
                             adapter.notifyDataSetChanged();
@@ -94,5 +100,9 @@ public class ShopActivity extends AppCompatActivity {
                     .setNegativeButton(R.string.cancel, null)
                     .show();
         }
+    }
+
+    public void mainMenu(View view) {
+        finish();
     }
 }
