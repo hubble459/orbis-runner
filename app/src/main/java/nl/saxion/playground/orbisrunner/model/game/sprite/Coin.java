@@ -24,6 +24,15 @@ public class Coin extends Sprite {
         return "Coin";
     }
 
+    public void collectCoin() {
+        Level level = GameProvider.getCurrentLevel();
+        level.collectCoin();
+        GameProvider.setCoins(GameProvider.getCoins() + 1);
+        game.removeEntity(this);
+        ((OrbisRunnerModel) game).collectedCoin();
+        ((OrbisRunnerModel) game).setCoinCount(GameProvider.getCoins());
+    }
+
     /**
      * When you touch a coin the coin will disappear and you will be granted one coin
      *
@@ -33,12 +42,7 @@ public class Coin extends Sprite {
     @Override
     public boolean inHitBox(Entity e) {
         if (super.inHitBox(e) && game instanceof OrbisRunnerModel) {
-            Level level = GameProvider.getCurrentLevel();
-            level.collectCoin();
-            GameProvider.setCoins(GameProvider.getCoins() + 1);
-            game.removeEntity(this);
-            ((OrbisRunnerModel) game).collectedCoin();
-            ((OrbisRunnerModel) game).setCoinCount(GameProvider.getCoins());
+            collectCoin();
         }
         return false;
     }

@@ -26,11 +26,14 @@ public class Player extends Entity {
     private static final float JUMP_ACC = 3f;
     private static final float JUMP_MAX_HEIGHT = 300f;
     private static final float POS = 110f;
+    private static final long COOL_DOWN = 2000;
 
     private float maxJump;
     private float fallingSpeed;
+    private float duckInvert;
 
     private long lastTime;
+    private long duckTime;
 
     private int color;
     private int frame;
@@ -38,6 +41,7 @@ public class Player extends Entity {
 
     private boolean falling;
     private boolean jumping;
+    private boolean ducking;
     private boolean dead;
 
     private AnimationDrawable animationDrawable;
@@ -101,7 +105,7 @@ public class Player extends Entity {
             setXY();
         }
 
-        if (falling || frame >= maxFrames) {
+        if ((falling && !ducking) || frame >= maxFrames) {
             frame = 0;
         }
 
@@ -123,7 +127,7 @@ public class Player extends Entity {
             gv.getCanvas().rotate(angle, xVal, yVal);
             drawable.setBounds(
                     (int) xVal,
-                    (int) yVal,
+                    (int) (yVal - duckInvert),
                     (int) (xVal + width),
                     (int) (yVal + height));
             drawable.draw(gv.getCanvas());
@@ -136,13 +140,20 @@ public class Player extends Entity {
 
     private void drawHat(GameView gv) {
         if (hat != null && !dead) {
+            gv.getCanvas().save();
+            if (duckInvert != 0) {
+                gv.getCanvas().scale(1, -1, xVal, yVal);
+            }
+
             gv.drawBitmap(
                     hat,
                     xVal,
-                    yVal - hat.getHeight() + 10,
+                    yVal - hat.getHeight() + 10 + duckInvert,
                     hat.getWidth(),
                     hat.getHeight());
+            gv.getCanvas().restore();
         }
+
     }
 
     /**
@@ -198,7 +209,7 @@ public class Player extends Entity {
             if (!(entity instanceof Player)
                     && !(entity instanceof Circle)
                     && entity.onScreen()
-                    && entity.inHitBox(this)) {
+                    && inHitBox(entity)) {
                 dead = true;
                 if (game instanceof OrbisRunnerModel) {
                     ((OrbisRunnerModel) game).dead();
@@ -209,21 +220,27 @@ public class Player extends Entity {
 
         for (GameModel.Touch touch : game.touches) {
             // Right side condition
-            // if (Math.abs(touch.x) > game.getWidth() / 2) {
-            if (falling) {
-                float slowdown = .99f * Math.abs(Math.min(touch.getDuration() / 200, 1));
-                fallingSpeed = JUMP_ACC / 2 * slowdown;
-            } else {
-                maxJump = Math.min(JUMP_MAX_HEIGHT / 2 * Math.max(touch.getDuration() / 100, 1), JUMP_MAX_HEIGHT);
-                jumping = true;
+            if (Math.abs(touch.x) > game.getWidth() / 2 && !ducking) {
+                if (falling) {
+                    float slowdown = .99f * Math.abs(Math.min(touch.getDuration() / 200, 1));
+                    fallingSpeed = JUMP_ACC / 2 * slowdown;
+                } else {
+                    maxJump = Math.min(JUMP_MAX_HEIGHT / 2 * Math.max(touch.getDuration() / 100, 1), JUMP_MAX_HEIGHT);
+                    jumping = true;
+                }
+            } else if (!ducking && !jumping) {
+                if (duckTime == 0 || duckTime < System.currentTimeMillis() - COOL_DOWN) {
+                    duckTime = System.currentTimeMillis();
+                    ducking = true;
+                }
             }
-            // } else {
-            //      left side
-            // }
         }
 
         if (jumping) {
             jump();
+        }
+        if (ducking) {
+            duck();
         }
     }
 
@@ -250,6 +267,38 @@ public class Player extends Entity {
         setXY();
     }
 
+    /**
+     * Walk on the other side of the circle for one second
+     */
+    private void duck() {
+        if (falling && duckTime < System.currentTimeMillis() - 1000) {
+            duckInvert += 1;
+            if (duckInvert > height * 2) {
+                duckInvert = height;
+            }
+            jump += 3;
+        } else if (!falling) {
+            duckInvert -= height / 4;
+            if (duckInvert < -height * 2) {
+                duckInvert = -height * 2;
+                falling = true;
+            }
+            jump -= 10;
+            if (jump < -(Circle.STROKE_WIDTH + height)) {
+                falling = true;
+            }
+        }
+        if (jump > 0) {
+            falling = false;
+            duckInvert = 0;
+            jumping = false;
+            ducking = false;
+            jump = 0;
+        }
+
+        setXY();
+    }
+
     public int getColor() {
         return color;
     }
@@ -264,7 +313,7 @@ public class Player extends Entity {
             setXYValues(xy);
             angle -= 90;
 
-            if (!onScreen()) {
+            if (!onScreen() && !dead && !pause) {
                 getBestPosition();
             }
         }
@@ -284,6 +333,40 @@ public class Player extends Entity {
         this.dead = !enabled;
     }
 
+    @Override
+    public boolean inHitBox(Entity e) {
+        float x = e.getX();
+        float y = e.getY();
+        float w = e.getWidth();
+        float h = e.getHeight();
+
+        float start = x - w / 2;
+        float end = x + w / 2;
+        float top = y - h / 2 - duckInvert;
+        float bot = y + h / 2;
+
+        float start2 = xVal - width / 2;
+        float end2 = xVal + width / 2;
+        float top2 = yVal - height / 2;
+        float bot2 = yVal + height / 2;
+
+        boolean result = (start < end2 && end > start2 &&
+                top < bot2 && bot > top2);
+
+        if (result && game instanceof OrbisRunnerModel) {
+            if (e instanceof Portal) {
+                ((OrbisRunnerModel) game).finish();
+                return false;
+            }
+            if (e instanceof Coin) {
+                ((Coin) e).collectCoin();
+                return false;
+            }
+        }
+
+
+        return result;
+    }
 
     /**
      * Reset player values
@@ -291,9 +374,11 @@ public class Player extends Entity {
     @Override
     public void reset() {
         jumping = false;
+        ducking = false;
         falling = false;
         dead = false;
         hat = null;
+        duckInvert = 0f;
         super.reset();
         setXY();
     }
