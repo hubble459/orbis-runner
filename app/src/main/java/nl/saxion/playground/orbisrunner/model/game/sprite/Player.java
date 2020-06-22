@@ -73,7 +73,6 @@ public class Player extends Entity {
         this.random = new Random();
     }
 
-
     /**
      * Draw the walking frames and dust clouds at the players feet
      *
@@ -99,7 +98,6 @@ public class Player extends Entity {
             drawable = animationDrawable.getFrame(0);
 
             drawable.setTint(color);
-
             setXY();
         }
 
@@ -140,10 +138,10 @@ public class Player extends Entity {
         if (hat != null && !dead) {
             gv.drawBitmap(
                     hat,
-                    xVal - 20,
-                    yVal - height + hat.getHeight() * .25f,
-                    hat.getWidth() + 5,
-                    hat.getHeight() * .75f);
+                    xVal,
+                    yVal - hat.getHeight() + 10,
+                    hat.getWidth(),
+                    hat.getHeight());
         }
     }
 
@@ -151,10 +149,8 @@ public class Player extends Entity {
      * If player gets spawned off-screen (110°) it will try to find a new spot
      */
     private void getBestPosition() {
-        while (!onScreen()) {
-            setStartAngle(--startAngle);
-            setXY();
-        }
+        setStartAngle(--startAngle);
+        setXY();
     }
 
     /**
@@ -267,10 +263,10 @@ public class Player extends Entity {
             float[] xy = game.getXYFromDegrees(startAngle, jump, this);
             setXYValues(xy);
             angle -= 90;
-        }
 
-        if (!onScreen()) {
-            getBestPosition();
+            if (!onScreen()) {
+                getBestPosition();
+            }
         }
     }
 

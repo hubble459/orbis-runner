@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 import java.util.Random;
 
@@ -30,6 +31,13 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         OrbisRunnerModel or = new OrbisRunnerModel(this);
+
+        TextView coins = findViewById(R.id.coinCount);
+        coins.setText(String.valueOf(GameProvider.getCoins()));
+        TextView fade = findViewById(R.id.coinFade);
+        or.setCoinCounter(coins);
+        or.setFadeCoin(fade);
+
         GameView gv = findViewById(R.id.game);
         gv.setGame(or);
         gv.setBackgroundColor(Color.WHITE);

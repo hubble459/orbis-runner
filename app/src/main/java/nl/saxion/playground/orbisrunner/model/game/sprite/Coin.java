@@ -37,6 +37,8 @@ public class Coin extends Sprite {
             level.collectCoin();
             GameProvider.setCoins(GameProvider.getCoins() + 1);
             game.removeEntity(this);
+            ((OrbisRunnerModel) game).collectedCoin();
+            ((OrbisRunnerModel) game).setCoinCount(GameProvider.getCoins());
         }
         return false;
     }
