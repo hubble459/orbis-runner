@@ -94,3 +94,10 @@
 - Talked about progress
 - Quentin made a coin counter and made a dino animation
 - Joost and Serwet did not work on this project because of other projects.
+
+## Stand-up 23-06-2020 10:00
+- Talked about progress
+- Quentin fixed some bugs
+- Serwet finished updating the class diagram and made an activity diagram
+- Joost made a ducking action
+- All group members worked together to make a presentation for the final sprint review
