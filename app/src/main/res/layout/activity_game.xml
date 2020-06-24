@@ -44,4 +44,17 @@
         app:layout_constraintTop_toBottomOf="@+id/coinCount"
         tools:ignore="HardcodedText"
         tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/coolDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="21sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/game"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="842"
+        tools:visibility="visible" />
 </android.support.constraint.ConstraintLayout>

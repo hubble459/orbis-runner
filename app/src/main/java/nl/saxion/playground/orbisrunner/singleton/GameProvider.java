@@ -55,7 +55,7 @@ public class GameProvider {
     }
 
     public static Level getCurrentLevel() {
-        if (instance.currentLevel > getLevels().size() - 1) {
+        if (instance.currentLevel > getLevels().size()) {
             instance.currentLevel = getLevels().size() - 1;
         }
         return getLevels().get(instance.currentLevel);

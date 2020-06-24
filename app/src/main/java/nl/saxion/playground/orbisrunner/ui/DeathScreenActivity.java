@@ -24,8 +24,13 @@ public class DeathScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_death_screen);
 
-
         Level level = GameProvider.getCurrentLevel();
+
+        // After death, remove coins you collected in the level
+        int collected = GameProvider.getCoins() - level.getCollectedCoins();
+        GameProvider.setCoins(collected);
+        level.setCollectedCoins(0);
+
         number = level.getNumber();
 
         init();
@@ -37,7 +42,7 @@ public class DeathScreenActivity extends AppCompatActivity {
     private void init() {
         // Display level player died on
         TextView lvl = findViewById(R.id.diedOn);
-        lvl.setText(String.format(Locale.ENGLISH, "You Died On Level %d", number));
+        lvl.setText(String.format(Locale.ENGLISH, getString(R.string.you_died_on_level_), number));
 
         // Assign Retry Button
         Button retryButton = findViewById(R.id.retryButton);

@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Locale;
 import java.util.Random;
@@ -21,6 +20,7 @@ import nl.saxion.playground.orbisrunner.singleton.GameProvider;
  * Starting activity
  */
 public class StartScreenActivity extends AppCompatActivity {
+    private TextView lvl;
 
     /**
      * Call the init on create
@@ -45,8 +45,8 @@ public class StartScreenActivity extends AppCompatActivity {
         Animation.walkInCircle(findViewById(R.id.rotateView), 7000, new Random().nextBoolean());
 
         // Set level title
-        TextView lvl = findViewById(R.id.level);
-        lvl.setText(String.format(Locale.ENGLISH, "LVL %d", GameProvider.getCurrentLevel().getNumber()) /* get level from save instance */);
+        lvl = findViewById(R.id.level);
+        updateLevelNumber();
 
         // Assign Play Button
         Button playButton = findViewById(R.id.playButton);
@@ -104,12 +104,15 @@ public class StartScreenActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * A toast is used for testing purposes
-     *
-     * @param msg the String to show
-     */
-    private void toast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    private void updateLevelNumber() {
+        lvl.setText(String.format(Locale.ENGLISH, "LVL %d", GameProvider.getCurrentLevel().getNumber()) /* get level from save instance */);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (lvl != null) {
+            updateLevelNumber();
+        }
     }
 }

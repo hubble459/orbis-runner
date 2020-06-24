@@ -71,4 +71,22 @@ public class Animation {
         });
         valueAnimator.start();
     }
+
+    public static void countDown(final TextView coolDown, long time) {
+        ValueAnimator valueAnimator = new ValueAnimator();
+        valueAnimator.setDuration(time);
+        valueAnimator.setFloatValues(time, 0);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                int value = (int) (float) valueAnimator.getAnimatedValue();
+                value = (int) (Math.round(value / 100.) * 100);
+                coolDown.setText(String.valueOf(value));
+                if (value == 0) {
+                    coolDown.setVisibility(View.GONE);
+                }
+            }
+        });
+        valueAnimator.start();
+    }
 }
