@@ -9,8 +9,8 @@
 
     <!-- Used in death screen -->
     <string name="main_menu">Main Menu</string>
+    <string name="you_died_on_level_">You Died On Level %d</string>
     <string name="retry">Retry</string>
-    <string name="save">Save</string>
 
     <!-- Used in splash screen -->
     <string name="created">Created By Group 1</string>
@@ -35,6 +35,12 @@
 
     <!-- Used in finish screen -->
     <string name="next_level">Next Level</string>
+    <string name="objective">Objective:</string>
+    <string name="finished">Finished</string>
+    <string name="collect_all_coins">Collect all coins:</string>
+    <string name="stats">Stats:</string>
+    <string name="total_deaths">Total deaths:</string>
+    <string name="total_coins_collected">Total coins collected:</string>
 
     <!-- Used in level maker -->
     <string name="level_maker">Level Maker</string>
@@ -48,6 +54,7 @@
     <string name="level_and_number">Level %d</string>
     <string name="edit_level">Edit Level</string>
     <string name="level">Level</string>
+    <string name="save">Save</string>
     <string name="saved">Saved!</string>
     <string name="remove">Remove</string>
 
@@ -60,4 +67,5 @@
     <!-- Used in level exporter -->
     <string name="copy_all">Copy All</string>
     <string name="copy_specific">Copy specific</string>
+    <string name="bonus_coins">+5 coins</string>
 </resources>

@@ -230,6 +230,7 @@ public class Player extends Entity {
                 }
             } else if (!ducking && !jumping) {
                 if (duckTime == 0 || duckTime < System.currentTimeMillis() - COOL_DOWN) {
+                    ((OrbisRunnerModel) (game)).coolDown(COOL_DOWN);
                     duckTime = System.currentTimeMillis();
                     ducking = true;
                 }

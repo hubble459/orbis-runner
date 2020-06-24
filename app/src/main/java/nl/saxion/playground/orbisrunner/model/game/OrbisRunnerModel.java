@@ -30,6 +30,7 @@ public class OrbisRunnerModel extends GameModel {
     private final MediaPlayer mediaPlayer;
     private TextView coinCounter;
     private TextView fadeCoin;
+    private TextView coolDown;
 
     /**
      * When a new game gets created game will reset all values
@@ -108,7 +109,6 @@ public class OrbisRunnerModel extends GameModel {
         activity.startActivity(intent);
         activity.finish();
 
-        level.setCollectedCoins(0);
         level.death();
         GameProvider.saveData(activity);
     }
@@ -176,5 +176,14 @@ public class OrbisRunnerModel extends GameModel {
             this.fadeCoin.setVisibility(View.VISIBLE);
             Animation.fadeOut(fadeCoin);
         }
+    }
+
+    public void setCoolDown(TextView cool) {
+        this.coolDown = cool;
+    }
+
+    public void coolDown(long time) {
+        coolDown.setVisibility(View.VISIBLE);
+        Animation.countDown(coolDown, time);
     }
 }

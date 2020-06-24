@@ -156,7 +156,7 @@ public class LevelMaker extends AppCompatActivity {
         });
 
         // Change the height of the currently selected entity
-        heightBar.setMax(200);
+        heightBar.setMax((int) (GameProvider.getPlayer().getHeight() * 3));
         heightBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

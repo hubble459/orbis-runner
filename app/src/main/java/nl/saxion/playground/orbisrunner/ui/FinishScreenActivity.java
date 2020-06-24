@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.model.Level;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
@@ -36,9 +38,9 @@ public class FinishScreenActivity extends AppCompatActivity {
 
         level = GameProvider.getCurrentLevel();
         collectibleCoins = level.getCollectibleCoins();
+        collectedCoins = level.getCollectedCoins();
         deathCounter = level.getDeathCounter();
         objectiveClaimed = level.getObjectiveClaimed();
-        collectedCoins = level.getCollectedCoins();
         totalCoins = GameProvider.getCoins();
 
         init();
@@ -60,17 +62,17 @@ public class FinishScreenActivity extends AppCompatActivity {
         nextLevelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent;
                 if (GameProvider.nextLevel()) {
-                    // Start game on new level
-                    Intent intent = new Intent(FinishScreenActivity.this, GameActivity.class);
-                    startActivity(intent);
-                    finish();
+                    // Start game on new level and save
+                    GameProvider.saveData(FinishScreenActivity.this);
+                    intent = new Intent(FinishScreenActivity.this, GameActivity.class);
                 } else {
                     // Open level selector
-                    Intent intent = new Intent(FinishScreenActivity.this, LevelSelectorActivity.class);
-                    startActivity(intent);
-                    finish();
+                    intent = new Intent(FinishScreenActivity.this, LevelSelectorActivity.class);
                 }
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -92,12 +94,11 @@ public class FinishScreenActivity extends AppCompatActivity {
             }
         });
 
-        TextView totalCoinsText = findViewById(R.id.totalCoins);
-        totalCoinsText.setText(String.valueOf(collectedCoins));
-
         TextView totalDeathsText = findViewById(R.id.totalDeaths);
         totalDeathsText.setText(String.valueOf(deathCounter));
 
+        TextView totalCoinsText = findViewById(R.id.totalCoins);
+        totalCoinsText.setText(String.format(Locale.ENGLISH, "%d / %d", collectedCoins, collectibleCoins));
     }
 
     /**
@@ -107,6 +108,7 @@ public class FinishScreenActivity extends AppCompatActivity {
         if (collectedCoins == collectibleCoins) {
             if (!objectiveClaimed) {
                 GameProvider.setCoins(totalCoins + 5);
+                findViewById(R.id.bonusCoins).setVisibility(View.VISIBLE);
                 level.setObjectiveClaimed(true);
             }
             objectiveCleared();

@@ -33,10 +33,13 @@ public class GameActivity extends AppCompatActivity {
         OrbisRunnerModel or = new OrbisRunnerModel(this);
 
         TextView coins = findViewById(R.id.coinCount);
-        coins.setText(String.valueOf(GameProvider.getCoins()));
         TextView fade = findViewById(R.id.coinFade);
+        TextView cool = findViewById(R.id.coolDown);
+        coins.setText(String.valueOf(GameProvider.getCoins()));
+
         or.setCoinCounter(coins);
         or.setFadeCoin(fade);
+        or.setCoolDown(cool);
 
         GameView gv = findViewById(R.id.game);
         gv.setGame(or);
