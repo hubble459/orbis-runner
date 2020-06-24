@@ -13,7 +13,7 @@
     <string name="save">Save</string>
 
     <!-- Used in splash screen -->
-    <string name="created">Created By Group 1</string>
+    <string name="created">Created By Joost Winkelman</string>
 
     <!-- Used in settings screen -->
     <string name="music">Music</string>
