@@ -71,7 +71,9 @@ public class SettingScreenActivity extends AppCompatActivity {
         }
         if (deleted) {
             Toast.makeText(this, "Save deleted!", Toast.LENGTH_SHORT).show();
-            System.exit(0);
+            GameProvider.newInstance();
+            GameProvider.getSave(this);
+            finish();
         }
     }
 
