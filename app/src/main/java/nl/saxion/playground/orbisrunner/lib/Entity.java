@@ -124,16 +124,6 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         }
     }
 
-    /**
-     * Used by the control testing activity
-     * Use GameModel#touches instead
-     *
-     * @param direction the swiping direction
-     */
-    @Deprecated
-    public void onSwipe(int direction) {
-    }
-
     public void setXYValues(float[] xy) {
         xVal = xy[0];
         yVal = xy[1];
