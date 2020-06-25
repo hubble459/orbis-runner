@@ -47,7 +47,6 @@ public class OrbisRunnerModel extends GameModel {
 
         this.circle = new Circle(true, true);
         this.circle.setSize(Circle.SIZE_DOUBLE, level.getScale());
-        this.circle.setMargin(circle.getStrokeWidth() / 2);
 
         this.player = GameProvider.getPlayer();
         this.player.reset();

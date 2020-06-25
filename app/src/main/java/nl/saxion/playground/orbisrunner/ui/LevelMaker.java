@@ -26,11 +26,9 @@ import nl.saxion.playground.orbisrunner.adapter.EntityGridAdapter;
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.lib.GameView;
 import nl.saxion.playground.orbisrunner.model.Level;
-import nl.saxion.playground.orbisrunner.model.game.sprite.Circle;
 import nl.saxion.playground.orbisrunner.model.game.sprite.Coin;
 import nl.saxion.playground.orbisrunner.model.game.sprite.FlyingEnemy;
 import nl.saxion.playground.orbisrunner.model.game.sprite.JumpingEnemy;
-import nl.saxion.playground.orbisrunner.model.game.sprite.Player;
 import nl.saxion.playground.orbisrunner.model.game.sprite.Portal;
 import nl.saxion.playground.orbisrunner.model.game.sprite.Sprite;
 import nl.saxion.playground.orbisrunner.model.game.sprite.StaticEnemy;
@@ -116,18 +114,9 @@ public class LevelMaker extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 float scale = 1 / (progress + 2f);
                 Entity.setScale(scale);
-                Circle c = model.getCircle();
-                c.setMargin(c.getMargin() / scale);
 
                 for (Entity entity : model.getEntities()) {
                     entity.resize();
-                    if (entity instanceof Player) {
-                        float[] xy = getXYFromDegrees(entity.getStartAngle(), entity.getMargin(), entity);
-                        xy[2] -= 90;
-                        entity.setXYValues(xy);
-                    } else {
-                        entity.setXYValues(getXYFromDegrees(entity.getAngle(), entity.getJump(), entity));
-                    }
                 }
             }
 

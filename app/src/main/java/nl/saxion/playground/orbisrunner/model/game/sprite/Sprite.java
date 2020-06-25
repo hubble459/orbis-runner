@@ -18,11 +18,14 @@ import nl.saxion.playground.orbisrunner.lib.GameView;
 public abstract class Sprite extends Entity {
     private Bitmap bitmap;
     private Paint paint;
-    private float speedScale;
     private AnimationDrawable animation;
+
+    private float speedScale;
+
+    private long last;
+
     private int frames;
     private int frame;
-    private long last;
 
     /**
      * Draw a bitmap to the x and y
@@ -76,7 +79,7 @@ public abstract class Sprite extends Entity {
 
             Canvas c = gv.getCanvas();
             c.save();
-            c.rotate(angle - 90, xVal + width / 2, yVal + height / 2);
+            c.rotate(angle - 90, xVal, yVal);
             animation.getFrame(frame).setBounds(
                     (int) (xVal),
                     (int) (yVal),
@@ -87,14 +90,6 @@ public abstract class Sprite extends Entity {
         }
 
         drawOutline(gv.getCanvas());
-    }
-
-    public void draw(GameView gv, boolean drawBitmap) {
-        if (drawBitmap) {
-            draw(gv);
-        } else {
-            drawOutline(gv.getCanvas());
-        }
     }
 
     /**
