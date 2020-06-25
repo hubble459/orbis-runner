@@ -3,6 +3,8 @@ package nl.saxion.playground.orbisrunner.model;
 import android.support.annotation.DrawableRes;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import nl.saxion.playground.orbisrunner.R;
 
@@ -43,6 +45,14 @@ public class Shop {
         addItem("Louise's Hat", R.drawable.hat_bunny_ears, R.drawable.hat_preview_bunny_ears, 30);
         addItem("Cat Ears", R.drawable.hat_cat_ears, R.drawable.hat_preview_cat_ears, 50);
         addItem("Paddington", R.drawable.hat_paddy, R.drawable.hat_preview_paddy, 50);
+
+        // Sort by name
+        Collections.sort(shopItems, new Comparator<ShopItem>() {
+            @Override
+            public int compare(ShopItem o1, ShopItem o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
     }
 
     /**
