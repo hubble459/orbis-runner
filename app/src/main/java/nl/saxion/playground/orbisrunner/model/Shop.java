@@ -24,7 +24,6 @@ public class Shop {
      * Add all shop items to the list
      * <p>
      * Set all items to 'unlocked' for testing purposes
-     * TODO: 10/06/2020 remove auto unlock
      */
     public Shop() {
         this.shopItems = new ArrayList<>();
@@ -41,6 +40,9 @@ public class Shop {
         addItem("Marge", R.drawable.hat_marge, R.drawable.hat_preview_marge, 5);
         addItem("Santa", R.drawable.hat_santa, R.drawable.hat_preview_santa, 50);
         addItem("Top Hat", R.drawable.hat_top, R.drawable.hat_preview_top, 69);
+        addItem("Louise's Hat", R.drawable.hat_bunny_ears, R.drawable.hat_preview_bunny_ears, 30);
+        addItem("Cat Ears", R.drawable.hat_cat_ears, R.drawable.hat_preview_cat_ears, 50);
+        addItem("Paddington", R.drawable.hat_paddy, R.drawable.hat_preview_paddy, 50);
     }
 
     /**
