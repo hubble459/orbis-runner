@@ -1,6 +1,8 @@
 package nl.saxion.playground.orbisrunner.ui;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -60,6 +62,19 @@ public class SettingScreenActivity extends AppCompatActivity {
      * @param view ButtonView
      */
     public void reset(View view) {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirm Reset")
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteSave();
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void deleteSave() {
         String fileName = "savedData.json";
         File path = new File(getFilesDir(), fileName);
         boolean deleted;
