@@ -19,6 +19,7 @@
     <string name="music">Music</string>
     <string name="sound">Sound</string>
     <string name="reset">Reset</string>
+    <string name="confirm_reset">Confirm Reset</string>
 
     <!-- Used in customize screen -->
     <string name="selected">Selected</string>
@@ -68,4 +69,14 @@
     <string name="copy_all">Copy All</string>
     <string name="copy_specific">Copy specific</string>
     <string name="bonus_coins">+5 coins</string>
+
+    <!-- Used in about screen -->
+    <string name="about">About</string>
+    <string name="lore">Lore</string>
+    <string name="makers">Makers</string>
+    <string name="j_winkelman">J. Winkelman</string>
+    <string name="o_sonnemans">O. Sonnemans</string>
+    <string name="q_correia">Q. Correia</string>
+    <string name="s_uz">S. Uz</string>
+    <string name="back">Back</string>
 </resources>

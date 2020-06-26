@@ -1,6 +1,7 @@
 package nl.saxion.playground.orbisrunner.ui;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -63,14 +64,14 @@ public class SettingScreenActivity extends AppCompatActivity {
      */
     public void reset(View view) {
         new AlertDialog.Builder(this)
-                .setTitle("Confirm Reset")
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.confirm_reset)
+                .setPositiveButton(R.string.reset, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteSave();
                     }
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.cancel, null)
                 .show();
     }
 
@@ -99,5 +100,10 @@ public class SettingScreenActivity extends AppCompatActivity {
      */
     public void mainMenu(View view) {
         finish();
+    }
+
+    public void about(View view) {
+        Intent intent = new Intent(this, AboutScreenActivity.class);
+        startActivity(intent);
     }
 }
