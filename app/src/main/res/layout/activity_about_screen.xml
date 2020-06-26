@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="Your name is Peter and you're on a journey to collect as many coins as you can. You need these coins to buy medicine for your dying mother. She's at home waiting for your return.\n You slowly forget your purpose as you venture the orbis realms and get engrossed with coins and the hats you can buy with them.\n\nYou can stop whenever you want, you say.\nYou're collecting coins for your mom, you say." />
+                android:text="@string/lore_text" />
 
             <TextView
                 style="@style/Subtitle"
@@ -115,12 +115,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Project Info" />
+                android:text="@string/project_info" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="OwO?! What's this?"
+                android:text="@string/filler_text"
                 android:layout_margin="8dp"/>
 
         </LinearLayout>
