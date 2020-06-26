@@ -101,3 +101,10 @@
 - Serwet finished updating the class diagram and made an activity diagram
 - Joost made a ducking action
 - All group members worked together to make a presentation for the final sprint review
+
+## Stand-up 26-06-2020 13:15
+- Talked about progress
+- Quentin made some new hats and fixed some bugs
+- Serwet tried to make some levels and found a bug where selecting a height would not work sometimes
+- Joost worked on other projects
+- Olaf worked on an about screen
