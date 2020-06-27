@@ -3,6 +3,8 @@ package nl.saxion.playground.orbisrunner.model;
 import android.support.annotation.DrawableRes;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import nl.saxion.playground.orbisrunner.R;
 
@@ -24,7 +26,6 @@ public class Shop {
      * Add all shop items to the list
      * <p>
      * Set all items to 'unlocked' for testing purposes
-     * TODO: 10/06/2020 remove auto unlock
      */
     public Shop() {
         this.shopItems = new ArrayList<>();
@@ -41,6 +42,17 @@ public class Shop {
         addItem("Marge", R.drawable.hat_marge, R.drawable.hat_preview_marge, 5);
         addItem("Santa", R.drawable.hat_santa, R.drawable.hat_preview_santa, 50);
         addItem("Top Hat", R.drawable.hat_top, R.drawable.hat_preview_top, 69);
+        addItem("Louise's Hat", R.drawable.hat_bunny_ears, R.drawable.hat_preview_bunny_ears, 30);
+        addItem("Cat Ears", R.drawable.hat_cat_ears, R.drawable.hat_preview_cat_ears, 50);
+        addItem("Cat in the Hat", R.drawable.hat_in_cat, R.drawable.hat_preview_in_cat, 80);
+
+        // Sort by name
+        Collections.sort(shopItems, new Comparator<ShopItem>() {
+            @Override
+            public int compare(ShopItem o1, ShopItem o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
     }
 
     /**
