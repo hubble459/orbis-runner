@@ -52,6 +52,22 @@ public class Level {
         return l;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public ArrayList<Entity> getEntities() {
+        return entities;
+    }
+
+    public void addEntity(Entity entity) {
+        this.entities.add(entity);
+    }
+
     /**
      * Get a Level object from a JSONObject
      *
@@ -81,20 +97,8 @@ public class Level {
         return l;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public ArrayList<Entity> getEntities() {
-        return entities;
-    }
-
-    public void addEntity(Entity entity) {
-        this.entities.add(entity);
+    public void setDeathCounter(int deathCounter) {
+        this.deathCounter = deathCounter;
     }
 
     public void collectCoin() {
@@ -105,20 +109,16 @@ public class Level {
         return objectiveClaimed;
     }
 
-    public void setObjectiveClaimed(boolean objectiveClaimed) {
-        this.objectiveClaimed = objectiveClaimed;
-    }
-
     public int getDeathCounter() {
         return deathCounter;
     }
 
-    public void setDeathCounter(int deathCounter) {
-        this.deathCounter = deathCounter;
-    }
-
     public void death() {
         deathCounter++;
+    }
+
+    public void setObjectiveClaimed(boolean objectiveClaimed) {
+        this.objectiveClaimed = objectiveClaimed;
     }
 
     public float getScale() {

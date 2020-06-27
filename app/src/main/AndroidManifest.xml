@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/tmp_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.AboutScreenActivity" />
         <activity android:name=".ui.ShopActivity" />
         <activity android:name=".ui.LevelExporterActivity" />
         <activity android:name=".ui.LevelSelectorActivity" />

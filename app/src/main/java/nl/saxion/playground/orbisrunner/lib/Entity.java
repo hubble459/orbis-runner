@@ -17,18 +17,23 @@ import nl.saxion.playground.orbisrunner.ui.LevelMaker;
 
 
 abstract public class Entity implements Comparable<Entity>, Serializable {
-    // Entity scale used in LevelMaker
-    protected static float scale = 1;
     // Static variable that provides the next `id`.
     private static int count = 0;
+    // Used to sort objects on the same layer in the entities tree.
+    private int id;
+
     // All entities have an x, y and an angle.
     protected float xVal, yVal, angle;
     // Start angle used for saving levels
     protected float startAngle;
+    // Entity scale used in LevelMaker
+    protected static float scale = 1;
     // All entities have dimensions.
     protected float width, height, margin;
     // Jump height for player and jumping enemies
     protected float startJump, jump;
+    // Used by LevelMaker to change this specific position.
+    private boolean selected;
     // Is resetting
     protected boolean reset;
     // Stop moving, and refresh when reset
@@ -37,22 +42,39 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
     protected LevelMaker levelMaker;
     // Level Model for getting the x and y positions with degrees from circle;
     protected GameModel game;
-    // Used to sort objects on the same layer in the entities tree.
-    private int id;
-    // Used by LevelMaker to change this specific position.
-    private boolean selected;
 
     // The constructor assigns an id that is used for ordering draws.
     public Entity() {
         id = ++count;
     }
 
-    public static float getScale() {
-        return scale;
+    /**
+     * Override this method to determine the rendering order for this
+     * object. Higher numbers get drawn later, overdrawing.
+     * The number you return *should be constant* for a specific object.
+     * The default layer is 0. Negative layer numbers are allowed.
+     * Objects in the same layer are drawn in the order they were created.
+     *
+     * @return Layer id.
+     */
+    public int getLayer() {
+        return 0;
     }
 
     public static void setScale(float scale) {
         Entity.scale = scale;
+    }
+
+    public static float getScale() {
+        return scale;
+    }
+
+    // Used by the TreeSet to order GameObjects.
+    // We order by layer first, and then by id.
+    @Override
+    public int compareTo(@NonNull Entity o) {
+        int prio = getLayer() - o.getLayer();
+        return prio == 0 ? id - o.id : prio;
     }
 
     /**
@@ -69,6 +91,14 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
             e.setStartJump((float) entity.optDouble("jump"));
         }
         return e;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     /**
@@ -100,35 +130,19 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         angle = xy[2];
     }
 
-    /**
-     * Give this entity the levelMaker
-     *
-     * @param levelMaker GameModel
-     */
     public void setLevelMaker(LevelMaker levelMaker) {
         this.levelMaker = levelMaker;
         this.game = null;
     }
 
-    /**
-     * Set the game
-     *
-     * @param game GameModel
-     */
-    public void setGame(GameModel game) {
-        this.game = game;
-        this.levelMaker = null;
-    }
-
-    /**
-     * Get the angle
-     *
-     * @return angle
-     */
     public float getAngle() {
         return angle;
     }
 
+    public void setGame(GameModel game) {
+        this.game = game;
+        this.levelMaker = null;
+    }
 
     public float getHeight() {
         return height;
@@ -229,29 +243,14 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         }
     }
 
-    /**
-     * Get the margin
-     *
-     * @return margin
-     */
     public float getMargin() {
         return margin;
     }
 
-    /**
-     * Set the margin used in Circle entity
-     *
-     * @param margin margin
-     */
     public void setMargin(float margin) {
         this.margin = margin;
     }
 
-    /**
-     * Check if entity is still on screen
-     *
-     * @return true if on screen
-     */
     public boolean onScreen() {
         if (game != null) {
             return xVal >= width && yVal >= height
