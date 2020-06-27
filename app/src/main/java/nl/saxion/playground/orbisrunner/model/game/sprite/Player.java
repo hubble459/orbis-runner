@@ -138,6 +138,11 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Draw a hat on-top of the player
+     *
+     * @param gv GameView
+     */
     private void drawHat(GameView gv) {
         if (hat != null && !dead) {
             gv.getCanvas().save();
@@ -308,6 +313,10 @@ public class Player extends Entity {
         this.color = color;
     }
 
+    /**
+     * Set the XY
+     * When of screen, it will try to find the best place on screen
+     */
     public void setXY() {
         if (game != null) {
             float[] xy = game.getXYFromDegrees(startAngle, jump, this);
@@ -321,11 +330,6 @@ public class Player extends Entity {
     }
 
     @Override
-    public void setXYValues(float[] xy) {
-        super.setXYValues(xy);
-    }
-
-    @Override
     public int getLayer() {
         return 5;
     }
@@ -334,6 +338,12 @@ public class Player extends Entity {
         this.dead = !enabled;
     }
 
+    /**
+     * Override the hit box to make it work when you wal on the other side of the circle
+     *
+     * @param e entity needed for dimensions
+     * @return entity is in hit box
+     */
     @Override
     public boolean inHitBox(Entity e) {
         float x = e.getX();

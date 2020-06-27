@@ -19,6 +19,9 @@ import nl.saxion.playground.orbisrunner.adapter.ItemGridAdapter;
 import nl.saxion.playground.orbisrunner.model.ShopItem;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
+/**
+ * @author Quentin Correia
+ */
 public class ShopActivity extends AppCompatActivity {
     private TextView coins;
     private ItemGridAdapter adapter;

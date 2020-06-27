@@ -16,6 +16,8 @@ import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**
  * Finish screen activity
+ *
+ * @author Serwet Uz
  */
 public class FinishScreenActivity extends AppCompatActivity {
 

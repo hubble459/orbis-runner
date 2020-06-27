@@ -50,6 +50,11 @@ public class JumpingEnemy extends Sprite {
         }
     }
 
+    /**
+     * Get a random height
+     *
+     * @return random height
+     */
     private float getRandomHeight() {
         return MAX_HEIGHT + (int) (Math.random() * 100) - 50;
     }

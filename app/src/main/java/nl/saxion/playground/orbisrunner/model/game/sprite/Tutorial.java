@@ -12,16 +12,33 @@ import nl.saxion.playground.orbisrunner.lib.GameView;
 import nl.saxion.playground.orbisrunner.model.game.OrbisRunnerModel;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
+/**
+ * Tutorial entity
+ * <p>
+ * Shows when you first play the game to explain that the left side is for ducking, and the right side is for jumping
+ */
 public class Tutorial extends Entity {
     private Paint paint;
     private TextView duck, jump;
 
+    /**
+     * Init Paint object
+     *
+     * @param game GameModel
+     */
     public Tutorial(OrbisRunnerModel game) {
         this.game = game;
         this.paint = new Paint();
         this.paint.setColor(Color.argb(30, 69, 69, 69));
     }
 
+    /**
+     * Draw rounded squares on the left and right side
+     * Left side says 'Press here to DUCK'
+     * Right side says 'Press here to JUMP'
+     *
+     * @param gv The `GameView` to draw to.
+     */
     @Override
     public void draw(GameView gv) {
         if (duck == null && jump == null) {
@@ -66,12 +83,24 @@ public class Tutorial extends Entity {
         jump.draw(c);
     }
 
+    /**
+     * When screen is touched, remove this entity and set first play to false, to not show this a second time
+     *
+     * @param touch Information about the touch this event is about.
+     * @param event ACTION_DOWN, ACTION_UP or ACTION_MOVE.
+     */
     @Override
     public void handleTouch(GameModel.Touch touch, MotionEvent event) {
         game.removeEntity(this);
         GameProvider.setFirstPlay(false);
     }
 
+    /**
+     * If player is in this hitBox, do nothing
+     *
+     * @param e entity needed for dimensions
+     * @return false
+     */
     @Override
     public boolean inHitBox(Entity e) {
         return false;

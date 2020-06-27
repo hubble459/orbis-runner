@@ -17,7 +17,7 @@ import nl.saxion.playground.orbisrunner.model.game.sprite.Player;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**
- * @author : Joost Winkelman & Quentin Correia
+ * @author Joost Winkelman & Quentin Correia
  * @since 09/06/2020
  */
 public class CustomizationActivity extends AppCompatActivity {
