@@ -2,108 +2,602 @@
   {
     "number": 1,
     "scale": 0.5,
-    "deaths": 0,
+    "deaths": 2,
     "objectiveClaimed": false,
     "custom": false,
     "entities": [
       {
-        "angle": 0,
-        "jump": 0,
-        "type": "FlyingEnemy"
-      },
-      {
-        "angle": 291,
-        "jump": 92,
-        "type": "FlyingEnemy"
-      },
-      {
-        "angle": 134,
+        "angle": 228,
         "jump": 0,
         "type": "Portal"
       },
       {
-        "angle": 209,
-        "jump": 0,
-        "type": "FlyingEnemy"
-      },
-      {
-        "angle": 54,
+        "angle": 79,
         "jump": 0,
         "type": "Coin"
       },
       {
-        "angle": 307,
+        "angle": 360,
         "jump": 0,
-        "type": "Coin"
+        "type": "StaticEnemy"
       },
       {
-        "angle": 152,
-        "jump": 0,
-        "type": "Coin"
-      },
-      {
-        "angle": 191,
-        "jump": 0,
-        "type": "Coin"
-      },
-      {
-        "angle": 187,
-        "jump": 45,
-        "type": "Coin"
-      },
-      {
-        "angle": 176,
-        "jump": 75,
-        "type": "Coin"
-      },
-      {
-        "angle": 164,
-        "jump": 55,
+        "angle": 299,
+        "jump": 30,
         "type": "Coin"
       }
     ]
   },
   {
     "number": 2,
+    "scale": 0.5,
+    "deaths": 2,
+    "objectiveClaimed": false,
+    "custom": false,
+    "entities": [
+      {
+        "angle": 11,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 249,
+        "jump": 86,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 75,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 146,
+        "jump": 0,
+        "type": "Portal"
+      },
+      {
+        "angle": 188,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 324,
+        "jump": 0,
+        "type": "Coin"
+      }
+    ]
+  },
+  {
+    "number": 3,
     "scale": 0.3333333432674408,
+    "deaths": 4,
+    "objectiveClaimed": false,
+    "custom": false,
+    "entities": [
+      {
+        "angle": 64,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 141,
+        "jump": 0,
+        "type": "Portal"
+      },
+      {
+        "angle": 216,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 164,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 89,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 195,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 0,
+        "jump": 102,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 281,
+        "jump": 139,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 312,
+        "jump": 41,
+        "type": "Coin"
+      }
+    ]
+  },
+  {
+    "number": 4,
+    "scale": 0.25,
+    "deaths": 5,
+    "objectiveClaimed": false,
+    "custom": false,
+    "entities": [
+      {
+        "angle": 206,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 200,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 139,
+        "jump": 0,
+        "type": "Portal"
+      },
+      {
+        "angle": 166,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 75,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 360,
+        "jump": 143,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 303,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 296,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 280,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 0,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 157,
+        "jump": 0,
+        "type": "Coin"
+      }
+    ]
+  },
+  {
+    "number": 5,
+    "scale": 0.25,
     "deaths": 0,
     "objectiveClaimed": false,
     "custom": false,
     "entities": [
+      {
+        "angle": 134,
+        "jump": 0,
+        "type": "Portal"
+      },
+      {
+        "angle": 66,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 223,
+        "jump": 0,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 223,
+        "jump": 53,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 222,
+        "jump": 98,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 225,
+        "jump": 178,
+        "type": "Coin"
+      },
+      {
+        "angle": 357,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
       {
         "angle": 0,
         "jump": 0,
         "type": "StaticEnemy"
       },
       {
-        "angle": 191,
-        "jump": 60,
-        "type": "FlyingEnemy"
-      },
-      {
-        "angle": 59,
+        "angle": 169,
         "jump": 0,
         "type": "Coin"
       },
       {
-        "angle": 269,
+        "angle": 309,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 286,
         "jump": 0,
         "type": "JumpingEnemy"
       },
       {
-        "angle": 133,
+        "angle": 195,
+        "jump": 0,
+        "type": "StaticEnemy"
+      }
+    ]
+  },
+  {
+    "number": 6,
+    "scale": 0.20000000298023224,
+    "deaths": 4,
+    "objectiveClaimed": false,
+    "custom": false,
+    "entities": [
+      {
+        "angle": 134,
         "jump": 0,
         "type": "Portal"
       },
       {
-        "angle": 328,
+        "angle": 128,
         "jump": 0,
         "type": "Coin"
       },
       {
-        "angle": 233,
+        "angle": 173,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 69,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 265,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 259,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 0,
+        "jump": 0,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 223,
+        "jump": 81,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 334,
         "jump": 0,
         "type": "Coin"
+      },
+      {
+        "angle": 330,
+        "jump": 121,
+        "type": "Coin"
+      },
+      {
+        "angle": 37,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 308,
+        "jump": 0,
+        "type": "StaticEnemy"
+      }
+    ]
+  },
+  {
+    "number": 9,
+    "scale": 0.1666666716337204,
+    "deaths": 0,
+    "objectiveClaimed": false,
+    "custom": false,
+    "entities": [
+      {
+        "angle": 254,
+        "jump": 0,
+        "type": "Portal"
+      },
+      {
+        "angle": 67,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 60,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 62,
+        "jump": 74,
+        "type": "Coin"
+      },
+      {
+        "angle": 46,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 43,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 26,
+        "jump": 13,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 17,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 5,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 356,
+        "jump": 37,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 345,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 331,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 319,
+        "jump": 9,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 314,
+        "jump": 10,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 295,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 311,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 281,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 269,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 20,
+        "jump": 0,
+        "type": "Player"
+      },
+      {
+        "angle": 20,
+        "jump": 0,
+        "type": "Player"
+      }
+    ]
+  },
+  {
+    "number": 10,
+    "scale": 0.1428571492433548,
+    "deaths": 0,
+    "objectiveClaimed": false,
+    "custom": false,
+    "entities": [
+      {
+        "angle": 143,
+        "jump": 0,
+        "type": "Portal"
+      },
+      {
+        "angle": 81,
+        "jump": 9,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 74,
+        "jump": 11,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 41,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 55,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 48,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 29,
+        "jump": 0,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 15,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 9,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 359,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 354,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 338,
+        "jump": 21,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 331,
+        "jump": 18,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 314,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 301,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 295,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 287,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 278,
+        "jump": 18,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 266,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 257,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 247,
+        "jump": 0,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 240,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 228,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 224,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 214,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 204,
+        "jump": 0,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 197,
+        "jump": 0,
+        "type": "FlyingEnemy"
+      },
+      {
+        "angle": 187,
+        "jump": 0,
+        "type": "Coin"
+      },
+      {
+        "angle": 178,
+        "jump": 0,
+        "type": "JumpingEnemy"
+      },
+      {
+        "angle": 167,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 155,
+        "jump": 0,
+        "type": "StaticEnemy"
+      },
+      {
+        "angle": 20,
+        "jump": 0,
+        "type": "Player"
       }
     ]
   }
