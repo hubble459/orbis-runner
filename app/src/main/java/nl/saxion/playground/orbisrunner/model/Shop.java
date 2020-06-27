@@ -106,11 +106,6 @@ public class Shop {
         return -1;
     }
 
-    /**
-     * Get the drawable resource of the selected item
-     *
-     * @return resourceID
-     */
     public int getSelectedRes() {
         for (ShopItem shopItem : shopItems) {
             if (shopItem.isSelected()) {

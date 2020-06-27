@@ -45,17 +45,6 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/about"
-        style="@style/Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="about"
-        android:text="About this app"
-        app:layout_constraintBottom_toTopOf="@id/reset"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/reset"
         style="@style/Button"
         android:layout_width="wrap_content"
