@@ -18,9 +18,10 @@ import nl.saxion.playground.orbisrunner.model.Level;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**
- * @author Joost & Quentin
- * @since 6/15/2020
  * Activity to select a level to play
+ *
+ * @author Joost Winkelman
+ * @since 6/15/2020
  */
 public class LevelSelectorActivity extends AppCompatActivity {
     private LevelGridAdapter levelGridAdapter;

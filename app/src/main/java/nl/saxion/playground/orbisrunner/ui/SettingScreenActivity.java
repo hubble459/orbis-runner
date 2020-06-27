@@ -17,6 +17,8 @@ import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**
  * Settings screen in which you can turn sound or music off and on
+ *
+ * @author Joost Winkelman
  */
 public class SettingScreenActivity extends AppCompatActivity {
 

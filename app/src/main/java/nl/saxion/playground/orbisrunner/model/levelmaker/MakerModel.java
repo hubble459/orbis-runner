@@ -41,6 +41,10 @@ public class MakerModel extends GameModel {
         Entity.setScale(.5f);
     }
 
+    /**
+     * Add entities on start
+     * @param canvas canvas
+     */
     @Override
     public void start(Canvas canvas) {
         addEntities();
@@ -51,6 +55,10 @@ public class MakerModel extends GameModel {
         addEntity(player);
     }
 
+    /**
+     * When started, fill in all entities from the selected level
+     * @param canvas canvas
+     */
     @Override
     public void started(Canvas canvas) {
         for (Entity entity : level.getEntities()) {

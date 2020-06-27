@@ -15,6 +15,7 @@ import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**
  * Death screen activity
+ * @author Joost Winkelman
  */
 public class DeathScreenActivity extends AppCompatActivity {
     private int number;
