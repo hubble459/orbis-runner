@@ -15,6 +15,7 @@ import nl.saxion.playground.orbisrunner.model.Level;
 import nl.saxion.playground.orbisrunner.model.game.sprite.Circle;
 import nl.saxion.playground.orbisrunner.model.game.sprite.Player;
 import nl.saxion.playground.orbisrunner.model.game.sprite.Sprite;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Tutorial;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 import nl.saxion.playground.orbisrunner.ui.DeathScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.FinishScreenActivity;
@@ -79,6 +80,9 @@ public class OrbisRunnerModel extends GameModel {
     private void addEntities() {
         addEntity(player);
         addEntity(circle);
+        if (GameProvider.isFirstPlay()) {
+            addEntity(new Tutorial(this));
+        }
 
         for (Entity entity : level.getEntities()) {
             if (!getEntities().contains(entity)) {
