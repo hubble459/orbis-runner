@@ -79,7 +79,7 @@ public abstract class Sprite extends Entity {
 
             Canvas c = gv.getCanvas();
             c.save();
-            c.rotate(angle - 90, xVal, yVal);
+            c.rotate(angle - 90, xVal + width / 2, yVal + height / 2);
             animation.getFrame(frame).setBounds(
                     (int) (xVal),
                     (int) (yVal),
