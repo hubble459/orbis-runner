@@ -128,7 +128,6 @@
 
     <Button
         style="@style/Button"
-        android:onClick="back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/back" />
