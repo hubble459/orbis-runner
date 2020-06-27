@@ -94,6 +94,47 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         }
     }
 
+    /**
+     * Override this method to determine the rendering order for this
+     * object. Higher numbers get drawn later, overdrawing.
+     * The number you return *should be constant* for a specific object.
+     * The default layer is 0. Negative layer numbers are allowed.
+     * Objects in the same layer are drawn in the order they were created.
+     *
+     * @return Layer id.
+     */
+    public int getLayer() {
+        return 0;
+    }
+
+    // Used by the TreeSet to order GameObjects.
+    // We order by layer first, and then by id.
+    @Override
+    public int compareTo(@NonNull Entity o) {
+        int prio = getLayer() - o.getLayer();
+        return prio == 0 ? id - o.id : prio;
+    }
+
+    /**
+     * Is this entity selected in the LevelMaker
+     *
+     * @return true or false
+     */
+    public boolean isSelected() {
+        return selected;
+    }
+
+    /**
+     * Select this entity in LevelMaker
+     *
+     * @param selected true or false
+     */
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+
+
     public void setXYValues(float[] xy) {
         xVal = xy[0];
         yVal = xy[1];
