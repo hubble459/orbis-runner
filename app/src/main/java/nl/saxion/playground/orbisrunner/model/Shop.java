@@ -45,6 +45,7 @@ public class Shop {
         addItem("Louise's Hat", R.drawable.hat_bunny_ears, R.drawable.hat_preview_bunny_ears, 30);
         addItem("Cat Ears", R.drawable.hat_cat_ears, R.drawable.hat_preview_cat_ears, 50);
         addItem("Paddington", R.drawable.hat_paddy, R.drawable.hat_preview_paddy, 50);
+        addItem("Cat in the Hat", R.drawable.hat_in_cat, R.drawable.hat_preview_in_cat, 80);
 
         // Sort by name
         Collections.sort(shopItems, new Comparator<ShopItem>() {
