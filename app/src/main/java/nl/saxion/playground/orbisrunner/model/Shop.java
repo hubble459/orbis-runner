@@ -108,6 +108,7 @@ public class Shop {
 
     /**
      * Get the drawable resource of the selected item
+     *
      * @return resourceID
      */
     public int getSelectedRes() {

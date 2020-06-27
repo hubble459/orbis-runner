@@ -43,6 +43,7 @@ public class MakerModel extends GameModel {
 
     /**
      * Add entities on start
+     *
      * @param canvas canvas
      */
     @Override
@@ -57,6 +58,7 @@ public class MakerModel extends GameModel {
 
     /**
      * When started, fill in all entities from the selected level
+     *
      * @param canvas canvas
      */
     @Override

@@ -58,6 +58,7 @@ public class GameProvider {
 
     /**
      * Get the level that you're currently playing
+     *
      * @return Level
      */
     public static Level getCurrentLevel() {
@@ -69,6 +70,7 @@ public class GameProvider {
 
     /**
      * Set the level that you're currently playing
+     *
      * @param currentLevel level position in LevelList
      */
     public static void setCurrentLevel(int currentLevel) {

@@ -167,6 +167,7 @@ public class OrbisRunnerModel extends GameModel {
 
     /**
      * Set the coin counter thats at the top of the screen
+     *
      * @param amount coin amount
      */
     public void setCoinCount(int amount) {
@@ -177,6 +178,7 @@ public class OrbisRunnerModel extends GameModel {
 
     /**
      * Set what text view should fade a '+1' when a coin gets collected
+     *
      * @param fadeCoin TextView
      */
     public void setFadeCoin(TextView fadeCoin) {
@@ -197,6 +199,7 @@ public class OrbisRunnerModel extends GameModel {
     /**
      * Set the coolDown TextView
      * Shows how much you have to wait to duck again in the bottom-left corner
+     *
      * @param cool TextView
      */
     public void setCoolDown(TextView cool) {
@@ -205,6 +208,7 @@ public class OrbisRunnerModel extends GameModel {
 
     /**
      * Make the textView countDown a given amount of time and disappear when done
+     *
      * @param time in MS
      */
     public void coolDown(long time) {
