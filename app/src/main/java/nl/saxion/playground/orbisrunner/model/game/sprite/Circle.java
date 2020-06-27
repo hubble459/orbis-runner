@@ -124,10 +124,20 @@ public class Circle extends Entity {
         return xy;
     }
 
+    /**
+     * Get width of circle line
+     *
+     * @return strokeWidth
+     */
     public float getStrokeWidth() {
         return strokeWidth;
     }
 
+    /**
+     * Set width of circle line
+     *
+     * @param width width
+     */
     public void setStrokeWidth(float width) {
         strokeWidth = width;
         paint.setStrokeWidth(strokeWidth);

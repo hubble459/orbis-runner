@@ -58,6 +58,11 @@ public class Animation {
         valueAnimator.start();
     }
 
+    /**
+     * Make a TextView fade out in 1000 ms
+     *
+     * @param fadeCoin textView to fade out
+     */
     public static void fadeOut(final TextView fadeCoin) {
         ValueAnimator valueAnimator = new ValueAnimator();
         valueAnimator.setDuration(1000);
@@ -72,6 +77,14 @@ public class Animation {
         valueAnimator.start();
     }
 
+    /**
+     * Make a TextView count down and then make it
+     * disappear when time is up
+     * Shows only hundreds (eq. 1900, 1800, -)
+     *
+     * @param coolDown TextView
+     * @param time     time in milliseconds
+     */
     public static void countDown(final TextView coolDown, long time) {
         ValueAnimator valueAnimator = new ValueAnimator();
         valueAnimator.setDuration(time);

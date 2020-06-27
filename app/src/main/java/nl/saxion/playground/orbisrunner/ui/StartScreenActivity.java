@@ -18,6 +18,8 @@ import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**
  * Starting activity
+ *
+ * @author Quentin Correia
  */
 public class StartScreenActivity extends AppCompatActivity {
     private TextView lvl;

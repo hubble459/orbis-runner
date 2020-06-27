@@ -10,6 +10,9 @@ import nl.saxion.playground.orbisrunner.singleton.GameProvider;
  * Coin sprite
  */
 public class Coin extends Sprite {
+    /**
+     * Set margin on create
+     */
     public Coin() {
         setMargin(-20f);
     }
@@ -24,6 +27,12 @@ public class Coin extends Sprite {
         return "Coin";
     }
 
+    /**
+     * Collect a coin
+     * Will add a current coin to your total coin count
+     * Removes this coin entity so it can only be collected once
+     * And refresh the coin count text views
+     */
     public void collectCoin() {
         Level level = GameProvider.getCurrentLevel();
         level.collectCoin();
@@ -34,7 +43,7 @@ public class Coin extends Sprite {
     }
 
     /**
-     * When you touch a coin the coin will disappear and you will be granted one coin
+     * When you touch a coin, collectCoin will be called
      *
      * @param e entity needed for dimensions
      * @return true if dead

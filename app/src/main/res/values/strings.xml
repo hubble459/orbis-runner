@@ -19,6 +19,7 @@
     <string name="music">Music</string>
     <string name="sound">Sound</string>
     <string name="reset">Reset</string>
+    <string name="confirm_reset">Confirm Reset</string>
 
     <!-- Used in customize screen -->
     <string name="selected">Selected</string>
@@ -68,4 +69,17 @@
     <string name="copy_all">Copy All</string>
     <string name="copy_specific">Copy specific</string>
     <string name="bonus_coins">+5 coins</string>
+
+    <!-- Used in about screen -->
+    <string name="about">About</string>
+    <string name="lore">Lore</string>
+    <string name="makers">Makers</string>
+    <string name="j_winkelman">J. Winkelman</string>
+    <string name="o_sonnemans">O. Sonnemans</string>
+    <string name="q_correia">Q. Correia</string>
+    <string name="s_uz">S. Uz</string>
+    <string name="back">Back</string>
+    <string name="project_info">Project Info</string>
+    <string name="filler_text">OwO?! What\'s this?</string>
+    <string name="lore_text">Your name is Peter and you\'re on a journey to collect as many coins as you can. You need these coins to buy medicine for your dying mother. She\'s at home waiting for your return.\n You slowly forget your purpose as you venture the orbis realms and get engrossed with coins and the hats you can buy with them.\n\nYou can stop whenever you want, you say.\nYou\'re collecting coins for your mom, you say.</string>
 </resources>

@@ -135,14 +135,31 @@ public abstract class Sprite extends Entity {
 
     public abstract String getName();
 
+    /**
+     * Make a new instance of this model
+     *
+     * @return new Object
+     * @throws IllegalAccessException e
+     * @throws InstantiationException e
+     */
     public Sprite newInstance() throws IllegalAccessException, InstantiationException {
         return getClass().newInstance();
     }
 
+    /**
+     * Speed scale to make sprites speed up when the level gets bigger
+     *
+     * @return speedScale
+     */
     public float getSpeedScale() {
         return Float.isNaN(speedScale) ? 1 : (speedScale * 2);
     }
 
+    /**
+     * Setter for the speedScale
+     *
+     * @param speedScale speedScale
+     */
     public void setSpeedScale(float speedScale) {
         this.speedScale = speedScale;
     }

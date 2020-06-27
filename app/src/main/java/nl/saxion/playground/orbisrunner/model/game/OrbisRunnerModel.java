@@ -15,6 +15,7 @@ import nl.saxion.playground.orbisrunner.model.Level;
 import nl.saxion.playground.orbisrunner.model.game.sprite.Circle;
 import nl.saxion.playground.orbisrunner.model.game.sprite.Player;
 import nl.saxion.playground.orbisrunner.model.game.sprite.Sprite;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Tutorial;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 import nl.saxion.playground.orbisrunner.ui.DeathScreenActivity;
 import nl.saxion.playground.orbisrunner.ui.FinishScreenActivity;
@@ -79,6 +80,9 @@ public class OrbisRunnerModel extends GameModel {
     private void addEntities() {
         addEntity(player);
         addEntity(circle);
+        if (GameProvider.isFirstPlay()) {
+            addEntity(new Tutorial(this));
+        }
 
         for (Entity entity : level.getEntities()) {
             if (!getEntities().contains(entity)) {
@@ -160,16 +164,30 @@ public class OrbisRunnerModel extends GameModel {
         this.coinCounter = coins;
     }
 
+    /**
+     * Set the coin counter thats at the top of the screen
+     *
+     * @param amount coin amount
+     */
     public void setCoinCount(int amount) {
         if (coinCounter != null) {
             this.coinCounter.setText(String.valueOf(amount));
         }
     }
 
+    /**
+     * Set what text view should fade a '+1' when a coin gets collected
+     *
+     * @param fadeCoin TextView
+     */
     public void setFadeCoin(TextView fadeCoin) {
         this.fadeCoin = fadeCoin;
     }
 
+    /**
+     * Called when a coin gets collected
+     * Make the '+1' visible in fade it out in the span of 1000 MS
+     */
     public void collectedCoin() {
         if (fadeCoin != null) {
             this.fadeCoin.setVisibility(View.VISIBLE);
@@ -177,10 +195,21 @@ public class OrbisRunnerModel extends GameModel {
         }
     }
 
+    /**
+     * Set the coolDown TextView
+     * Shows how much you have to wait to duck again in the bottom-left corner
+     *
+     * @param cool TextView
+     */
     public void setCoolDown(TextView cool) {
         this.coolDown = cool;
     }
 
+    /**
+     * Make the textView countDown a given amount of time and disappear when done
+     *
+     * @param time in MS
+     */
     public void coolDown(long time) {
         coolDown.setVisibility(View.VISIBLE);
         Animation.countDown(coolDown, time);

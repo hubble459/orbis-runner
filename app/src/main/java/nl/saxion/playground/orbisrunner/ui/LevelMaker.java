@@ -39,6 +39,8 @@ import nl.saxion.playground.orbisrunner.singleton.GameProvider;
  * Activity for making and editing levels
  * Intended to be used by the developers only
  * but will be integrated into the app as a bonus
+ *
+ * @author Quentin Correia
  */
 public class LevelMaker extends AppCompatActivity {
     private ArrayList<Sprite> sprites;
