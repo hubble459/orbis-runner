@@ -2,18 +2,18 @@
 
 ### Proposed Design and diagrams
 
-We have made an class diagram as well as an activity diagram. These can be found under the doc files.
+We have made a class diagram as well as an activity diagram. These can be found under the doc files.
 
 #### Description of the problem
 
-This is a project for the subject Project Speelveld. Our goal is to make a game compatible on android. We all came up with an game idea and ended up picking the one we liked most, being Orbis Runner.
+This is a project for the subject Project Playground. Our goal is to make a game compatible on android. We all came up with an game idea and ended up picking the one we liked most, being Orbis Runner.
 More information about how this game works is in the functional design.
 
 Solution requirements
 
 #### Background
 
-This is a project for the subject Project Speelveld. We are supposed to make a game on android studio. We went over some of the game ideas and decided that we wanted to make this game, Orbis runner.
+This is a project for the subject Project Playground. We are supposed to make a game on android studio. We went over some of the game ideas and decided that we wanted to make this game, Orbis runner.
 
 #### Rationale
 
@@ -28,8 +28,8 @@ Orbis runner: The name of our game.
 #### Out of scope, non-goals
 
 Here we have some related problems that we have decided not to address, but which someone might conceivably expect to make.
--There is a leader board for offline scores, but one for online scores is not needed.
--Controls are set, an option to change the controls is not needed.
+- There is a leader board for offline scores, but one for online scores is not needed.
+- Controls are set, an option to change the controls is not needed.
 
 #### Security
 
