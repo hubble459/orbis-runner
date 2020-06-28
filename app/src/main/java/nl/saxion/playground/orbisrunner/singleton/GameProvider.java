@@ -267,7 +267,12 @@ public class GameProvider {
                 Collections.sort(instance.levels, new Comparator<Level>() {
                     @Override
                     public int compare(Level o1, Level o2) {
-                        return String.valueOf(o1.getNumber()).compareTo(String.valueOf(o2.getNumber()));
+                        if (o1.getNumber() == o2.getNumber()) {
+                            return 0;
+                        } else if (o1.getNumber() < o2.getNumber()) {
+                            return -1;
+                        }
+                        return 1;
                     }
                 });
             }

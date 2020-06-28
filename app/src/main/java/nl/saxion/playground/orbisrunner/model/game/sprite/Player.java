@@ -340,10 +340,10 @@ public class Player extends Entity {
         float w = e.getWidth();
         float h = e.getHeight();
 
-        float start = x - w / 2;
-        float end = x + w / 2;
-        float top = y - h / 2 - duckInvert;
-        float bot = y + h / 2;
+        float start = x;
+        float end = x + w;
+        float top = y - duckInvert;
+        float bot = y + h;
 
         float start2 = xVal - width / 2;
         float end2 = xVal + width / 2;
