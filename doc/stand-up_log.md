@@ -56,6 +56,55 @@
 - Talked about progress
 - Talked with Olaf about his medical conditions and what he can and can not do in the project
 - Discussed new issues and what everyone will be working on
+- Joost is scrum master
 
+## Stand-up 10-06-2020 11:00
+- Talked about progress
+- Olaf absent, will be punished
+- Considered solutions for stopping music when app is closed
 
+## Stand-up 12-06-2020 13:15
+- Talked about progress
+- Talked about deadlines
+- Decided appointees for new issues
 
+## Stand-up 15-06-2020 12:55
+- Talked about progress
+- Planned some paired programming sessions. A session where multiple people work together on some issues.
+
+## Stand-up 16-06-2020 10:00
+- Talked about progress
+- Distributed some issues to those who already finished theirs
+- Quentin fixed the level maker
+- Serwet finished his finish screen issue
+- Joost has finished his level selector issue and worked on the music and sound
+
+## Stand-up 17-06-2020 11:00
+- Talked about progress
+- Serwet worked on updating the diagrams
+- Quentin added some new functions to the level maker
+- Joost has a retake test for algorithms and thus decided to study for that
+
+## Stand-up 19-06-2020 13:15
+- Talked about progress
+- Quentin finished the shop issue
+- Joost and Serwet did not work on this project because of other projects.
+
+## Stand-up 22-06-2020 13:00
+- Talked about progress
+- Quentin made a coin counter and made a dino animation
+- Joost and Serwet did not work on this project because of other projects.
+
+## Stand-up 23-06-2020 10:00
+- Talked about progress
+- Quentin fixed some bugs
+- Serwet finished updating the class diagram and made an activity diagram
+- Joost made a ducking action
+- All group members worked together to make a presentation for the final sprint review
+
+## Stand-up 26-06-2020 13:15
+- Talked about progress
+- Quentin made some new hats and fixed some bugs
+- Serwet tried to make some levels and found a bug where selecting a height would not work sometimes
+- Joost worked on other projects
+- Olaf worked on an about screen

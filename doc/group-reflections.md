@@ -16,6 +16,8 @@ The teamwork was excellent. Attendance was perfect, everyone was always present 
 |Entity sprites|Olaf| |
 |W A L K I N animation|Olaf| |
 
+#### What went wrong
+
 - Issues were too big
 - Presentation was too simple
 - Excellent teamwork
@@ -32,7 +34,6 @@ Our app is coming out nicely. Communication was great like the previous sprint.
 
 ![burndownchart-sprint2](burndownchart-sprint2.png)
 
-
 ## Points
 ##### Unfinished issues
 |Issue|Assignee|Reason|
@@ -44,6 +45,7 @@ Our app is coming out nicely. Communication was great like the previous sprint.
 |Entity sprites|Olaf|- |
 |Finish screen|Serwet| Dependent on GameActivity (was changed) |
 
+#### What went wrong
 - Issue weight too low
 - Distracted by retakes
 - Cleared sprint 1 backlog
@@ -52,5 +54,25 @@ Our app is coming out nicely. Communication was great like the previous sprint.
 - More accurate issue weight
 - Better planning (more deadlines than just the sprint due date)
 
-
 # Sprint 3
+The first week of the sprint we tried to finish as much as possible to make time for the other projects.
+Progress in the second week was slow because of said projects.
+For the final week we finished most of the app for the demonstration in the sprint review.
+The presentation during the sprint review went very well. We prepared a PowerPoint presentation the day before.  
+The team member with COVID-19 made a successful recovery so the team was reunited at last :).  
+So teamwork went very well for the final sprint.
+
+![burndownchart-sprint3](burndownchart-sprint3.png)
+
+## Points
+##### Unfinished issues
+Nothing was unfinished
+
+#### What went wrong
+- Distracted by other projects
+- Code became a bit unclear
+
+#### Improvements next project
+- Better planning
+- More group meetings for programming not just stand-ups
+- Make code more readable
