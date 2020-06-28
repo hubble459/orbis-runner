@@ -121,7 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="@string/filler_text" />
+                android:text="@string/project_info_text" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
