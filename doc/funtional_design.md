@@ -51,3 +51,23 @@ In the game you can jump and 'duck', and win and die. To win you will have to ei
 Press the left side of the screen to walk on the other side of the circle for some time, and press the right side to jump.
 Ducking (walking on the other side) has a cooldown, so you can't spam this. You can see the cooldown time in the bottom left corner.
 To jump higher you can hold the screen, and you can also hold the screen to fall slower.
+
+![start_screen_new](start_screen_new.png)
+
+![shop_screen](shop_screen.png)
+
+![customize_screen](customize_screen.png)
+
+![level_select_screen](level_select_screen.png)
+
+![level_maker_screen](level_maker_screen.png)
+
+![settings_screen](settings_screen.png)
+
+![about_screen](about_screen.png)
+
+![game_screen](game_screen.png)
+
+![death_screen](death_screen.png)
+
+![finish_screen](finish_screen.png)
