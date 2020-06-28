@@ -21,23 +21,26 @@ import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 /**
  * MC of Orbis Runner
  * Has a tragic life story but continues to tread on
+ *
+ * @author Whole group
  */
-public class Player extends Entity {
+public class Player extends Sprite {
     private static final float JUMP_ACC = 3f;
     private static final float JUMP_MAX_HEIGHT = 300f;
     private static final float POS = 110f;
+
     private static final long COOL_DOWN = 2000;
 
     private float maxJump;
     private float fallingSpeed;
     private float duckInvert;
 
-    private long lastTime;
     private long duckTime;
+    private long lastTime;
 
     private int color;
-    private int frame;
     private int maxFrames;
+    private int frame;
 
     private boolean falling;
     private boolean jumping;
@@ -47,9 +50,9 @@ public class Player extends Entity {
     private AnimationDrawable animationDrawable;
     private Drawable drawable;
     private Bitmap hat;
-    private Queue<float[]> dust;
     private Paint paint;
     private Random random;
+    private Queue<float[]> dust;
 
     /**
      * Start angle gets set to 110
@@ -134,17 +137,22 @@ public class Player extends Entity {
 
             drawHat(gv);
 
-            drawRunDust(gv.getCanvas());
+            drawRunDust(gv);
         }
     }
 
+    /**
+     * Draw a hat on the players head
+     *
+     * @param gv GameView
+     */
     private void drawHat(GameView gv) {
-        if (hat != null && !dead) {
+        if (game instanceof OrbisRunnerModel && hat != null) {
             gv.getCanvas().save();
+
             if (duckInvert != 0) {
                 gv.getCanvas().scale(1, -1, xVal, yVal);
             }
-
             gv.drawBitmap(
                     hat,
                     xVal,
@@ -153,7 +161,6 @@ public class Player extends Entity {
                     hat.getHeight());
             gv.getCanvas().restore();
         }
-
     }
 
     /**
@@ -181,9 +188,10 @@ public class Player extends Entity {
     /**
      * Draw the random dust particles
      *
-     * @param canvas canvas to draw to
+     * @param gv GameView with canvas to draw on
      */
-    private void drawRunDust(Canvas canvas) {
+    private void drawRunDust(GameView gv) {
+        Canvas canvas = gv.getCanvas();
         randomDust();
 
         for (float[] point : dust) {
@@ -230,6 +238,7 @@ public class Player extends Entity {
                 }
             } else if (!ducking && !jumping) {
                 if (duckTime == 0 || duckTime < System.currentTimeMillis() - COOL_DOWN) {
+                    ((OrbisRunnerModel) (game)).coolDown(COOL_DOWN);
                     duckTime = System.currentTimeMillis();
                     ducking = true;
                 }
@@ -242,6 +251,16 @@ public class Player extends Entity {
         if (ducking) {
             duck();
         }
+    }
+
+    @Override
+    public int getBitmapRes() {
+        return R.drawable.walking;
+    }
+
+    @Override
+    public String getName() {
+        return "Player";
     }
 
     /**

@@ -40,6 +40,7 @@ public class GameProvider {
     private int maxLevel;
     private boolean musicOn;
     private boolean soundOn;
+    private boolean firstPlay;
 
     private ArrayList<Level> levels;
 
@@ -52,13 +53,23 @@ public class GameProvider {
         levels = new ArrayList<>();
         musicOn = true;
         soundOn = true;
+        firstPlay = true;
     }
 
+    /**
+     * Get the level that you're currently on
+     *
+     * @return Level
+     */
     public static Level getCurrentLevel() {
-        if (instance.currentLevel > getLevels().size() - 1) {
+        if (instance.currentLevel > getLevels().size()) {
             instance.currentLevel = getLevels().size() - 1;
         }
         return getLevels().get(instance.currentLevel);
+    }
+
+    public static void setCurrentLevel(int currentLevel) {
+        instance.currentLevel = currentLevel;
     }
 
     /**
@@ -95,10 +106,6 @@ public class GameProvider {
         instance.maxLevel = maxLevel;
     }
 
-    public static void setCurrentLevel(int currentLevel) {
-        instance.currentLevel = currentLevel;
-    }
-
     public static ArrayList<Level> getLevels() {
         return instance.levels;
     }
@@ -125,6 +132,14 @@ public class GameProvider {
 
     public static void setSoundOn(boolean soundOn) {
         instance.soundOn = soundOn;
+    }
+
+    public static boolean isFirstPlay() {
+        return instance.firstPlay;
+    }
+
+    public static void setFirstPlay(boolean firstPlay) {
+        instance.firstPlay = firstPlay;
     }
 
     public static boolean hasLevel(Level level) {
@@ -162,6 +177,7 @@ public class GameProvider {
             savedDataJSON.put("active", instance.shop.getSelected());
             savedDataJSON.put("music", instance.musicOn);
             savedDataJSON.put("sound", instance.soundOn);
+            savedDataJSON.put("firstPlay", instance.firstPlay);
 
             JSONArray unlockedItems = new JSONArray();
             for (ShopItem shopItem : instance.shop.getShopItems()) {
@@ -237,6 +253,7 @@ public class GameProvider {
             instance.shop.select(data.optInt("active"));
             instance.musicOn = data.optBoolean("music", true);
             instance.soundOn = data.optBoolean("sound", true);
+            instance.firstPlay = data.optBoolean("firstPlay", true);
 
             JSONArray unlocked = data.optJSONArray("unlocked");
             if (unlocked != null) {
@@ -281,6 +298,9 @@ public class GameProvider {
         }
     }
 
+    /**
+     * Reset this Singleton
+     */
     public static void newInstance() {
         instance = new GameProvider();
     }

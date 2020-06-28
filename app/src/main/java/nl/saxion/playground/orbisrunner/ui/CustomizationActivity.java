@@ -96,6 +96,10 @@ public class CustomizationActivity extends AppCompatActivity {
      */
     private ArrayList<ShopItem> unlockedItems() {
         ArrayList<ShopItem> items = new ArrayList<>();
+        ShopItem noHat = new ShopItem();
+        noHat.setName("No Hat");
+        noHat.setPreviewId(R.drawable.red_cross);
+        items.add(noHat);
         for (ShopItem item : GameProvider.getShop().getShopItems()) {
             if (item.isUnlocked()) {
                 items.add(item);

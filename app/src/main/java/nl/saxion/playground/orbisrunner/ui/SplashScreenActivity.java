@@ -15,6 +15,8 @@ import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**
  * Splash screen shown at startup for extra cool points
+ *
+ * @author Joost Winkelman
  */
 public class SplashScreenActivity extends AppCompatActivity {
 

@@ -74,8 +74,4 @@ public class MakerModel extends GameModel {
             entity.setSelected(false);
         }
     }
-
-    public Circle getCircle() {
-        return circle;
-    }
 }

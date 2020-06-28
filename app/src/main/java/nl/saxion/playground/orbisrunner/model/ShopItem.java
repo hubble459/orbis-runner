@@ -19,7 +19,7 @@ public class ShopItem {
     /**
      * Set a unique id to the shop item on create
      */
-    ShopItem() {
+    public ShopItem() {
         id = idCount++;
     }
 

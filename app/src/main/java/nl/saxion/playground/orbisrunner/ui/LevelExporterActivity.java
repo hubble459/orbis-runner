@@ -24,6 +24,12 @@ import nl.saxion.playground.orbisrunner.R;
 import nl.saxion.playground.orbisrunner.model.Level;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
+/**
+ * Used for developing purposes only
+ * Handy for sharing levels between group partners
+ *
+ * @author Quentin Correia
+ */
 public class LevelExporterActivity extends AppCompatActivity {
     private ClipboardManager clipboard;
 

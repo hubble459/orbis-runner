@@ -18,11 +18,14 @@ import nl.saxion.playground.orbisrunner.lib.GameView;
 public abstract class Sprite extends Entity {
     private Bitmap bitmap;
     private Paint paint;
-    private float speedScale;
     private AnimationDrawable animation;
+
+    private float speedScale;
+
+    private long last;
+
     private int frames;
     private int frame;
-    private long last;
 
     /**
      * Draw a bitmap to the x and y
@@ -89,14 +92,6 @@ public abstract class Sprite extends Entity {
         drawOutline(gv.getCanvas());
     }
 
-    public void draw(GameView gv, boolean drawBitmap) {
-        if (drawBitmap) {
-            draw(gv);
-        } else {
-            drawOutline(gv.getCanvas());
-        }
-    }
-
     /**
      * Draw outline when selected
      *
@@ -140,6 +135,13 @@ public abstract class Sprite extends Entity {
 
     public abstract String getName();
 
+    /**
+     * Make a new instance of this class
+     *
+     * @return new object
+     * @throws IllegalAccessException e
+     * @throws InstantiationException e
+     */
     public Sprite newInstance() throws IllegalAccessException, InstantiationException {
         return getClass().newInstance();
     }

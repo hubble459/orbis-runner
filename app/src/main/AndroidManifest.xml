@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/tmp_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.AboutScreenActivity" />
         <activity android:name=".ui.ShopActivity" />
         <activity android:name=".ui.LevelExporterActivity" />
         <activity android:name=".ui.LevelSelectorActivity" />
@@ -17,7 +18,6 @@
         <activity android:name=".ui.LevelMaker" />
         <activity android:name=".ui.GameActivity" />
         <activity android:name=".ui.SettingScreenActivity" />
-        <activity android:name=".ui.ControlTestingActivity" />
         <activity android:name=".ui.StartScreenActivity" />
         <activity android:name=".ui.DeathScreenActivity" />
         <activity android:name=".ui.SplashScreenActivity">
@@ -28,5 +28,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
