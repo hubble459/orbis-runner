@@ -8,6 +8,8 @@ The teamwork was excellent. Attendance was perfect, everyone was always present 
 ![burndownchart-sprint1](burndownchart-sprint1.png)
 
 ## Points
+##### Issue list
+[Issue list Sprint 1](https://gitlab.com/saxion.nl/playground/Orbis-Runner/-/milestones/1)
 ##### Unfinished issues
 |Issue|Assignee|Reason|
 |---|---|---|
@@ -35,6 +37,8 @@ Our app is coming out nicely. Communication was great like the previous sprint.
 ![burndownchart-sprint2](burndownchart-sprint2.png)
 
 ## Points
+##### Issue list
+[Issue list Sprint 2](https://gitlab.com/saxion.nl/playground/Orbis-Runner/-/milestones/2)
 ##### Unfinished issues
 |Issue|Assignee|Reason|
 |---|---|---|
@@ -65,6 +69,8 @@ So teamwork went very well for the final sprint.
 ![burndownchart-sprint3](burndownchart-sprint3.png)
 
 ## Points
+##### Issue list
+[Issue list Sprint 3](https://gitlab.com/saxion.nl/playground/Orbis-Runner/-/milestones/3)
 ##### Unfinished issues
 Nothing was unfinished
 
