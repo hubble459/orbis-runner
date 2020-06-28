@@ -132,7 +132,7 @@ public class OrbisRunnerModel extends GameModel {
 
         Intent intent = new Intent(activity, FinishScreenActivity.class);
         activity.startActivity(intent);
-        activity.finish();
+        activity.finishAndRemoveTask();
     }
 
     /**
