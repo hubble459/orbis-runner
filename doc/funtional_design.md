@@ -38,7 +38,7 @@ Instead of saving up coins for your dying mother, you instead buy colourful hats
 
 This is a romantic drama
 
-## How to Play
+## Manual/How to Play
 When you start the game, it will begin by loading in the saved data (like custom levels, coin counter, changed to the settings, etc.). After the loading/splash screen you will be greeted by a simplistic starting screen with 5 buttons.
 One button (the big one) takes you to the game screen. This button can be easily recongnized by the big 'P L A Y' text that's inside of it. Then you also have the customize and shop button. The shop button will take you to the shop (obviously...). In the shop you can buy hats with the coins that you've collected. The hat you buy will automatically be selected, but if you wish to select a hat that you've purchases earlier, you can select it in the customize screen (which you can access by pressing the customize button).
 In the customize screen you can also change the color of Peter. This is a form of cultural appreciation.
