@@ -46,7 +46,7 @@ Then there's also the level select and the settings screen. In the level select 
 In the settings you can turn off sound and/or music. The only music that plays is the background music when playing a level, and the only sound is the sound of when you die.
 You can also reset the game in the settings, and open the about page for some information about the game.
 
-In the game you can jump and 'duck', and win and die. To win you will have to either duck or jump with the precise timing. If you are unable to win and would like to complain to the developers, you can mail us at [Orbis Runner Mail](mailto:481909@student.saxion.nl?subject=[Orbis Runner]%20I%20Suck)
+In the game you can jump and 'duck', and win and die. To win you will have to either duck or jump with the precise timing. If you are unable to win and would like to complain to the developers, you can mail us at [Orbis Runner Mail](mailto:481909@student.saxion.nl?subject=[Orbis%20Runner]%20I%20Suck).
 
 Press the left side of the screen to walk on the other side of the circle for some time, and press the right side to jump.
 Ducking (walking on the other side) has a cooldown, so you can't spam this. You can see the cooldown time in the bottom left corner.
