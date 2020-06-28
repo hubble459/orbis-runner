@@ -28,10 +28,12 @@ public class DeathScreenActivity extends AppCompatActivity {
 
         Level level = GameProvider.getCurrentLevel();
 
-        // After death, remove coins you collected in the level
-        int collected = GameProvider.getCoins() - level.getCollectedCoins();
-        GameProvider.setCoins(collected);
-        level.setCollectedCoins(0);
+        if (!GameProvider.isCheatOn()) {
+            // After death, remove coins you collected in the level
+            int collected = GameProvider.getCoins() - level.getCollectedCoins();
+            GameProvider.setCoins(collected);
+            level.setCollectedCoins(0);
+        }
 
         number = level.getNumber();
 

@@ -57,6 +57,17 @@ public class SettingScreenActivity extends AppCompatActivity {
                 GameProvider.saveData(SettingScreenActivity.this);
             }
         });
+
+        Switch cheat = findViewById(R.id.cheatSwitch);
+        cheat.setChecked(GameProvider.isCheatOn());
+        cheat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                //toggle cheat off or on
+                GameProvider.setCheatOn(checked);
+                GameProvider.saveData(SettingScreenActivity.this);
+            }
+        });
     }
 
     /**

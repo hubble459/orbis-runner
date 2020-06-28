@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/about"
         app:layout_constraintEnd_toEndOf="@id/settings"
         app:layout_constraintHorizontal_weight="4"
         app:layout_constraintStart_toStartOf="@id/settings"
@@ -44,13 +44,24 @@
 
     </LinearLayout>
 
+    <Switch
+        android:id="@+id/cheatSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/keep_coins_after_death"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
     <Button
         android:id="@+id/about"
         style="@style/Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="about"
-        android:text="About this app"
+        android:text="@string/about_this_app"
         app:layout_constraintBottom_toTopOf="@id/reset"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

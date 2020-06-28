@@ -40,6 +40,7 @@ public class GameProvider {
     private int maxLevel;
     private boolean musicOn;
     private boolean soundOn;
+    private boolean cheatOn;
     private boolean firstPlay;
 
     private ArrayList<Level> levels;
@@ -53,6 +54,7 @@ public class GameProvider {
         levels = new ArrayList<>();
         musicOn = true;
         soundOn = true;
+        cheatOn = false;
         firstPlay = true;
     }
 
@@ -134,6 +136,14 @@ public class GameProvider {
         instance.soundOn = soundOn;
     }
 
+    public static boolean isCheatOn() {
+        return instance.cheatOn;
+    }
+
+    public static void setCheatOn(boolean cheatOn) {
+        instance.cheatOn = cheatOn;
+    }
+
     public static boolean isFirstPlay() {
         return instance.firstPlay;
     }
@@ -177,6 +187,7 @@ public class GameProvider {
             savedDataJSON.put("active", instance.shop.getSelected());
             savedDataJSON.put("music", instance.musicOn);
             savedDataJSON.put("sound", instance.soundOn);
+            savedDataJSON.put("cheat", instance.cheatOn);
             savedDataJSON.put("firstPlay", instance.firstPlay);
 
             JSONArray unlockedItems = new JSONArray();
@@ -253,6 +264,7 @@ public class GameProvider {
             instance.shop.select(data.optInt("active"));
             instance.musicOn = data.optBoolean("music", true);
             instance.soundOn = data.optBoolean("sound", true);
+            instance.cheatOn = data.optBoolean("cheat", false);
             instance.firstPlay = data.optBoolean("firstPlay", true);
 
             JSONArray unlocked = data.optJSONArray("unlocked");

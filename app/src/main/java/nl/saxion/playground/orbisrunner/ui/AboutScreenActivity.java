@@ -24,7 +24,6 @@ public class AboutScreenActivity extends AppCompatActivity {
         finish();
     }
 
-
     public void sendMail(View view) {
         Intent email = new Intent(Intent.ACTION_SEND);
         email.putExtra(Intent.EXTRA_EMAIL, new String[]{"481909@student.saxion.nl"});
