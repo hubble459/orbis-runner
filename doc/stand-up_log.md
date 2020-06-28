@@ -60,7 +60,7 @@
 
 ## Stand-up 10-06-2020 11:00
 - Talked about progress
-- Olaf absent, will be punished
+- Olaf absent, will send him a message on WhatsApp and discord
 - Considered solutions for stopping music when app is closed
 
 ## Stand-up 12-06-2020 13:15
