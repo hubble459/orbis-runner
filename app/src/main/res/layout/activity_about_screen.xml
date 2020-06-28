@@ -123,6 +123,11 @@
                 android:layout_margin="8dp"
                 android:text="@string/project_info_text" />
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="sendMail"
+                android:text="@string/send_mail" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

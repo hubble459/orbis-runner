@@ -83,4 +83,5 @@
     <string name="filler_text">OwO?! What\'s this?</string>
     <string name="project_info_text">We are students from Het Saxion College te Enschede. Orbis Runner was made for a school project called Playground. Thanks for playing our app! uwu</string>
     <string name="lore_text">Your name is Peter and you\'re on a journey to collect as many coins as you can. You need these coins to buy medicine for your dying mother. She\'s at home waiting for your return.\n You slowly forget your purpose as you venture the orbis realms and get engrossed with coins and the hats you can buy with them.\n\nYou can stop whenever you want, you say.\nYou\'re collecting coins for your mom, you say.</string>
+    <string name="send_mail">Send Mail</string>
 </resources>

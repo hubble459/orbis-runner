@@ -1,5 +1,6 @@
 package nl.saxion.playground.orbisrunner.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,5 +22,14 @@ public class AboutScreenActivity extends AppCompatActivity {
 
     public void back(View view) {
         finish();
+    }
+
+
+    public void sendMail(View view) {
+        Intent email = new Intent(Intent.ACTION_SEND);
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{"481909@student.saxion.nl"});
+        email.putExtra(Intent.EXTRA_SUBJECT, "Orbis Runner");
+        email.setType("message/rfc822");
+        startActivity(Intent.createChooser(email, "Choose an Email client :"));
     }
 }
