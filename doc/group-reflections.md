@@ -66,7 +66,12 @@ The presentation during the sprint review went very well. We prepared a PowerPoi
 The team member with COVID-19 made a successful recovery so the team was reunited at last :).  
 So teamwork went very well for the final sprint.
 
+*Demo*
 ![burndownchart-sprint3](burndownchart-sprint3.png)
+
+*End*
+![burndownchart-sprint3](burndownchart-sprint3_end.png)
+
 
 ## Points
 ##### Issue list
