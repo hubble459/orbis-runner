@@ -56,6 +56,7 @@
         android:layout_margin="12dp"
         android:onClick="export"
         android:text="Export"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/levelGrid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/title"

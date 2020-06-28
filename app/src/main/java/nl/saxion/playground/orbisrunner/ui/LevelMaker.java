@@ -239,7 +239,13 @@ public class LevelMaker extends AppCompatActivity {
      */
     private void showEditPopup() {
         // 'Custom' adapter
-        ArrayAdapter<Level> adapter = new ArrayAdapter<Level>(this, android.R.layout.simple_list_item_1, GameProvider.getLevels()) {
+        ArrayList<Level> customLevels = new ArrayList<>();
+        for (Level l : GameProvider.getLevels()) {
+            if (l.isCustom()) {
+                customLevels.add(l);
+            }
+        }
+        ArrayAdapter<Level> adapter = new ArrayAdapter<Level>(this, android.R.layout.simple_list_item_1, customLevels) {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -260,10 +266,10 @@ public class LevelMaker extends AppCompatActivity {
                         init();
                     }
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
+                        startingPopup();
                     }
                 })
                 .show();
@@ -279,14 +285,15 @@ public class LevelMaker extends AppCompatActivity {
      */
     public void save(View view) {
         level.setScale(Entity.getScale());
+        level.setCustom(true);
         if (GameProvider.hasLevel(level)) {
             saveFinish();
         } else {
             int max = GameProvider.getLevels().size() + 1;
 
             final NumberPicker np = new NumberPicker(this);
-            np.setMinValue(1);
-            np.setMaxValue(max);
+            np.setMinValue(11);
+            np.setMaxValue(Math.max(max, 11));
             np.setValue(level.getNumber());
             np.setPaddingRelative(8, 8, 8, 8);
 

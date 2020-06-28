@@ -49,8 +49,7 @@ public class LevelSelectorActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
                 final Level level = GameProvider.getLevels().get(position);
-                // TODO: 6/15/2020 invert level is custom!!!!
-                if (!level.isCustom()) {
+                if (level.isCustom()) {
                     new AlertDialog.Builder(LevelSelectorActivity.this)
                             .setTitle(R.string.delete)
                             .setNegativeButton(R.string.no, null)
@@ -142,7 +141,11 @@ public class LevelSelectorActivity extends AppCompatActivity {
         finish();
     }
 
-    // TODO: 22/06/2020 REMOVE
+    /**
+     * Button to go to the export level activity
+     *
+     * @param view button
+     */
     public void export(View view) {
         Intent intent = new Intent(this, LevelExporterActivity.class);
         startActivity(intent);
