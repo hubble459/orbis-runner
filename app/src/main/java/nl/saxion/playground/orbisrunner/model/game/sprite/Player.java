@@ -345,10 +345,10 @@ public class Player extends Entity {
         float top = y - duckInvert;
         float bot = y + h;
 
-        float start2 = xVal - width / 2;
-        float end2 = xVal + width / 2;
-        float top2 = yVal - height / 2;
-        float bot2 = yVal + height / 2;
+        float start2 = xVal;
+        float end2 = xVal + width;
+        float top2 = yVal;
+        float bot2 = yVal + height;
 
         boolean result = (start < end2 && end > start2 &&
                 top < bot2 && bot > top2);
