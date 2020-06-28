@@ -68,6 +68,11 @@ public class OrbisRunnerModel extends GameModel {
         addEntities();
     }
 
+    /**
+     * Called after first draw
+     *
+     * @param canvas canvas
+     */
     @Override
     public void started(Canvas canvas) {
         player.setXY();
@@ -164,16 +169,27 @@ public class OrbisRunnerModel extends GameModel {
         this.coinCounter = coins;
     }
 
+    /**
+     * @param amount total coin count
+     */
     public void setCoinCount(int amount) {
         if (coinCounter != null) {
             this.coinCounter.setText(String.valueOf(amount));
         }
     }
 
+    /**
+     * '+1' thing to fade when coin gets collected
+     *
+     * @param fadeCoin text view
+     */
     public void setFadeCoin(TextView fadeCoin) {
         this.fadeCoin = fadeCoin;
     }
 
+    /**
+     * Called when a coin gets collected
+     */
     public void collectedCoin() {
         if (fadeCoin != null) {
             this.fadeCoin.setVisibility(View.VISIBLE);
@@ -181,10 +197,20 @@ public class OrbisRunnerModel extends GameModel {
         }
     }
 
+    /**
+     * Set the coolDown textView
+     *
+     * @param cool textView
+     */
     public void setCoolDown(TextView cool) {
         this.coolDown = cool;
     }
 
+    /**
+     * Make the coolDown count down
+     *
+     * @param time in ms
+     */
     public void coolDown(long time) {
         coolDown.setVisibility(View.VISIBLE);
         Animation.countDown(coolDown, time);

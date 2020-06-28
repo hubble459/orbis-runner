@@ -16,6 +16,8 @@ import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
 /**
  * Game activity
+ *
+ * @author Quentin Correia
  */
 public class GameActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;

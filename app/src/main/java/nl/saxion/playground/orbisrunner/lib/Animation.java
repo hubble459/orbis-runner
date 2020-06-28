@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 /**
  * Animation utility
+ *
+ * @author Mostly Quentin & Joost
  */
 public class Animation {
     /**
@@ -58,6 +60,11 @@ public class Animation {
         valueAnimator.start();
     }
 
+    /**
+     * Make a textView fade out in the span of 1000 ms
+     *
+     * @param fadeCoin TextView
+     */
     public static void fadeOut(final TextView fadeCoin) {
         ValueAnimator valueAnimator = new ValueAnimator();
         valueAnimator.setDuration(1000);
@@ -72,6 +79,12 @@ public class Animation {
         valueAnimator.start();
     }
 
+    /**
+     * Make a textView count down and disappear when its zero
+     *
+     * @param coolDown TextView
+     * @param time     time in MS
+     */
     public static void countDown(final TextView coolDown, long time) {
         ValueAnimator valueAnimator = new ValueAnimator();
         valueAnimator.setDuration(time);

@@ -21,6 +21,8 @@ import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 /**
  * MC of Orbis Runner
  * Has a tragic life story but continues to tread on
+ *
+ * @author Whole group
  */
 public class Player extends Sprite {
     private static final float JUMP_ACC = 3f;

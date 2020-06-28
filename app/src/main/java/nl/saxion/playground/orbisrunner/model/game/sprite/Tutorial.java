@@ -12,6 +12,9 @@ import nl.saxion.playground.orbisrunner.lib.GameView;
 import nl.saxion.playground.orbisrunner.model.game.OrbisRunnerModel;
 import nl.saxion.playground.orbisrunner.singleton.GameProvider;
 
+/**
+ * Tutorial sprite
+ */
 public class Tutorial extends Entity {
     private Paint paint;
     private TextView duck, jump;
@@ -22,6 +25,13 @@ public class Tutorial extends Entity {
         this.paint.setColor(Color.argb(30, 69, 69, 69));
     }
 
+    /**
+     * Draw two grey boxes
+     * Gre box on the left side says 'Press here to DUCK'
+     * And on the right it says 'Press here to JUMP'
+     *
+     * @param gv The `GameView` to draw to.
+     */
     @Override
     public void draw(GameView gv) {
         if (duck == null && jump == null) {
@@ -66,12 +76,24 @@ public class Tutorial extends Entity {
         jump.draw(c);
     }
 
+    /**
+     * When clicked, it disappears
+     *
+     * @param touch Information about the touch this event is about.
+     * @param event ACTION_DOWN, ACTION_UP or ACTION_MOVE.
+     */
     @Override
     public void handleTouch(GameModel.Touch touch, MotionEvent event) {
         game.removeEntity(this);
         GameProvider.setFirstPlay(false);
     }
 
+    /**
+     * No hit box
+     *
+     * @param e entity needed for dimensions
+     * @return false
+     */
     @Override
     public boolean inHitBox(Entity e) {
         return false;

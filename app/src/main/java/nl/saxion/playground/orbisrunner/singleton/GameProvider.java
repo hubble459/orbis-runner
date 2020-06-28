@@ -56,11 +56,20 @@ public class GameProvider {
         firstPlay = true;
     }
 
+    /**
+     * Get the level that you're currently on
+     *
+     * @return Level
+     */
     public static Level getCurrentLevel() {
         if (instance.currentLevel > getLevels().size()) {
             instance.currentLevel = getLevels().size() - 1;
         }
         return getLevels().get(instance.currentLevel);
+    }
+
+    public static void setCurrentLevel(int currentLevel) {
+        instance.currentLevel = currentLevel;
     }
 
     /**
@@ -95,10 +104,6 @@ public class GameProvider {
 
     public static void setMaxLevel(int maxLevel) {
         instance.maxLevel = maxLevel;
-    }
-
-    public static void setCurrentLevel(int currentLevel) {
-        instance.currentLevel = currentLevel;
     }
 
     public static ArrayList<Level> getLevels() {
@@ -288,6 +293,9 @@ public class GameProvider {
         }
     }
 
+    /**
+     * Reset this Singleton
+     */
     public static void newInstance() {
         instance = new GameProvider();
     }

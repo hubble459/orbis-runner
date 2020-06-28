@@ -118,6 +118,11 @@ public class Shop {
         return -1;
     }
 
+    /**
+     * Get the resource of the currently selected hat
+     *
+     * @return resID
+     */
     public int getSelectedRes() {
         for (ShopItem shopItem : shopItems) {
             if (shopItem.isSelected()) {

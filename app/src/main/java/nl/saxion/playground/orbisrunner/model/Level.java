@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import nl.saxion.playground.orbisrunner.lib.Entity;
 import nl.saxion.playground.orbisrunner.model.game.sprite.Coin;
-import nl.saxion.playground.orbisrunner.model.game.sprite.StaticEnemy;
 
 /**
  * Level class used by the game model and level maker
@@ -42,33 +41,6 @@ public class Level {
     }
 
     /**
-     * If GameProvider#currentLevel() gets called but there are no levels, you will get this dummy
-     *
-     * @return a dummy level with one static enemy
-     */
-    public static Level dummy() {
-        Level l = new Level(-1);
-        l.addEntity(new StaticEnemy());
-        return l;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public ArrayList<Entity> getEntities() {
-        return entities;
-    }
-
-    public void addEntity(Entity entity) {
-        this.entities.add(entity);
-    }
-
-    /**
      * Get a Level object from a JSONObject
      *
      * @param level JSONObject
@@ -97,8 +69,20 @@ public class Level {
         return l;
     }
 
-    public void setDeathCounter(int deathCounter) {
-        this.deathCounter = deathCounter;
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public ArrayList<Entity> getEntities() {
+        return entities;
+    }
+
+    public void addEntity(Entity entity) {
+        this.entities.add(entity);
     }
 
     public void collectCoin() {
@@ -109,16 +93,20 @@ public class Level {
         return objectiveClaimed;
     }
 
+    public void setObjectiveClaimed(boolean objectiveClaimed) {
+        this.objectiveClaimed = objectiveClaimed;
+    }
+
     public int getDeathCounter() {
         return deathCounter;
     }
 
-    public void death() {
-        deathCounter++;
+    public void setDeathCounter(int deathCounter) {
+        this.deathCounter = deathCounter;
     }
 
-    public void setObjectiveClaimed(boolean objectiveClaimed) {
-        this.objectiveClaimed = objectiveClaimed;
+    public void death() {
+        deathCounter++;
     }
 
     public float getScale() {

@@ -120,17 +120,17 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/filler_text"
-                android:layout_margin="8dp"/>
+                android:layout_margin="8dp"
+                android:text="@string/filler_text" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
     <Button
         style="@style/Button"
-        android:onClick="back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="back"
         android:text="@string/back" />
 
 </LinearLayout>

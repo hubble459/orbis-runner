@@ -1,11 +1,16 @@
 package nl.saxion.playground.orbisrunner.ui;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import nl.saxion.playground.orbisrunner.R;
 
+/**
+ * Screen with info about the game
+ *
+ * @author Olaf Sonnemans
+ */
 public class AboutScreenActivity extends AppCompatActivity {
 
     @Override

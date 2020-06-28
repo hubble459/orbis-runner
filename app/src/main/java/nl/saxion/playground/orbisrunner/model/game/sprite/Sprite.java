@@ -135,6 +135,13 @@ public abstract class Sprite extends Entity {
 
     public abstract String getName();
 
+    /**
+     * Make a new instance of this class
+     *
+     * @return new object
+     * @throws IllegalAccessException e
+     * @throws InstantiationException e
+     */
     public Sprite newInstance() throws IllegalAccessException, InstantiationException {
         return getClass().newInstance();
     }
