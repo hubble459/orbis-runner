@@ -113,12 +113,12 @@ public class OrbisRunnerModel extends GameModel {
 
         deadSound();
 
-        Intent intent = new Intent(activity, DeathScreenActivity.class);
-        activity.startActivity(intent);
-        activity.finish();
-
         level.death();
         GameProvider.saveData(activity);
+
+        Intent intent = new Intent(activity, DeathScreenActivity.class);
+        activity.startActivity(intent);
+        activity.finishAndRemoveTask();
     }
 
     /**

@@ -218,15 +218,15 @@ abstract public class Entity implements Comparable<Entity>, Serializable {
         float w = e.getWidth();
         float h = e.getHeight();
 
-        float start = x - w / 2;
-        float end = x + w / 2;
-        float top = y - h / 2;
-        float bot = y + h / 2;
+        float start = x;
+        float end = x + w;
+        float top = y;
+        float bot = y + h;
 
-        float start2 = xVal - width / 2;
-        float end2 = xVal + width / 2;
-        float top2 = yVal - height / 2;
-        float bot2 = yVal + height / 2;
+        float start2 = xVal;
+        float end2 = xVal + width;
+        float top2 = yVal;
+        float bot2 = yVal + height;
 
         return (start < end2 && end > start2 &&
                 top < bot2 && bot > top2);
