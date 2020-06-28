@@ -416,7 +416,7 @@
       },
       {
         "angle": 55,
-        "jump": 70,
+        "jump": 100,
         "type": "FlyingEnemy"
       },
       {
@@ -426,7 +426,7 @@
       },
       {
         "angle": 30,
-        "jump": 70,
+        "jump": 100,
         "type": "FlyingEnemy"
       },
       {
@@ -436,7 +436,7 @@
       },
       {
         "angle": 350,
-        "jump": 70,
+        "jump": 100,
         "type": "FlyingEnemy"
       },
       {
