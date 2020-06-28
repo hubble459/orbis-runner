@@ -168,6 +168,7 @@ public class Player extends Sprite {
      */
     private void getBestPosition() {
         setStartAngle(--startAngle);
+        if (startAngle < -720) return;
         setXY();
     }
 
