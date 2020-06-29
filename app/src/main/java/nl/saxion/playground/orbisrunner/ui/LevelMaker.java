@@ -29,6 +29,7 @@ import nl.saxion.playground.orbisrunner.model.Level;
 import nl.saxion.playground.orbisrunner.model.game.sprite.Coin;
 import nl.saxion.playground.orbisrunner.model.game.sprite.FlyingEnemy;
 import nl.saxion.playground.orbisrunner.model.game.sprite.JumpingEnemy;
+import nl.saxion.playground.orbisrunner.model.game.sprite.Player;
 import nl.saxion.playground.orbisrunner.model.game.sprite.Portal;
 import nl.saxion.playground.orbisrunner.model.game.sprite.Sprite;
 import nl.saxion.playground.orbisrunner.model.game.sprite.StaticEnemy;
@@ -323,13 +324,16 @@ public class LevelMaker extends AppCompatActivity {
         }
 
         for (Entity entity : model.getEntities()) {
-            if (entity instanceof Sprite && !level.getEntities().contains(entity)) {
+            if (entity instanceof Sprite
+                    && !(entity instanceof Player)
+                    && !level.getEntities().contains(entity)) {
                 level.addEntity(entity);
             }
         }
         ArrayList<Entity> toRemove = new ArrayList<>();
         for (Entity entity : level.getEntities()) {
-            if (entity instanceof Sprite && !model.getEntities().contains(entity)) {
+            if (entity instanceof Sprite
+                    && !model.getEntities().contains(entity)) {
                 toRemove.add(entity);
             }
         }
