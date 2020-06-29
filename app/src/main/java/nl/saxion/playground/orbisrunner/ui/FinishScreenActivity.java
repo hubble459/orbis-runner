@@ -107,7 +107,7 @@ public class FinishScreenActivity extends AppCompatActivity {
      * Check if you've cleared the objective (collected all coins)
      */
     private void checkObjective() {
-        if (collectedCoins == collectibleCoins) {
+        if (collectedCoins >= collectibleCoins) {
             if (!objectiveClaimed) {
                 GameProvider.setCoins(totalCoins + 5);
                 findViewById(R.id.bonusCoins).setVisibility(View.VISIBLE);

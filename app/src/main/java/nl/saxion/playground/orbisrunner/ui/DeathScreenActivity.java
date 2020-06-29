@@ -32,8 +32,8 @@ public class DeathScreenActivity extends AppCompatActivity {
             // After death, remove coins you collected in the level
             int collected = GameProvider.getCoins() - level.getCollectedCoins();
             GameProvider.setCoins(collected);
-            level.setCollectedCoins(0);
         }
+        level.setCollectedCoins(0);
 
         number = level.getNumber();
 
