@@ -166,11 +166,6 @@ public class LevelMaker extends AppCompatActivity {
         });
     }
 
-    private int getLastNumber() {
-        ArrayList<Level> levels = GameProvider.getLevels();
-        return levels.get(levels.size() - 1).getNumber() + 1;
-    }
-
     /**
      * On startup ask user if they want to make or edit a level
      * <p>
@@ -182,7 +177,7 @@ public class LevelMaker extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
-                        level = new Level(getLastNumber());
+                        level = new Level(GameProvider.getLastNumber());
                         init();
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:

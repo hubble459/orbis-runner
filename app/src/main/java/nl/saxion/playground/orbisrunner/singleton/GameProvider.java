@@ -310,6 +310,10 @@ public class GameProvider {
         }
     }
 
+    public static int getLastNumber() {
+        return instance.levels.get(instance.levels.size() - 1).getNumber() + 1;
+    }
+
     /**
      * Reset this Singleton
      */

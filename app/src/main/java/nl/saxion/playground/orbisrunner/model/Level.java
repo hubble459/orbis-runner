@@ -162,4 +162,13 @@ public class Level {
         level.put("entities", entities);
         return level;
     }
+
+    public JSONObject toSimpleJSON() throws JSONException {
+        JSONObject json = toJSON();
+        json.remove("deaths");
+        json.remove("custom");
+        json.remove("number");
+        json.remove("objectiveClaimed");
+        return json;
+    }
 }
